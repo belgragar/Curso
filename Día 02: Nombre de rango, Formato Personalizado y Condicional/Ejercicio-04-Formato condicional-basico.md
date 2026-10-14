@@ -1,4 +1,4 @@
-# Ejercicio 04: Repaso formato condicional (Versión Ampliada y Completa)
+# Ejercicio 04: Repaso formato condicional
 
 El **Formato condicional** en Excel es una herramienta que analiza de forma automática los datos de tus celdas y les aplica un estilo visual (como colores, barras o iconos) únicamente cuando cumplen con las reglas o criterios que tú hayas definido previamente.
 
