@@ -63,7 +63,7 @@ Elena_Blanco;2100;1900;2200
 * Mediante la tecla `Ctrl`, selecciona el rango no contiguo formado por los nombres de los parámetros (`A2:A5`) y las ventas de Marzo (`D9:D11`).
 
 
-* Prueba a escribir en el *Cuadro de nombres* la sintaxis para rangos separados `A2:A5,D9:D11` y pulsa *Enter* para comprobar cómo Excel selecciona ambas zonas simultáneamente.
+* Prueba a escribir en el *Cuadro de nombres* la sintaxis para rangos separados `A2:A5;D9:D11` y pulsa *Enter* para comprobar cómo Excel selecciona ambas zonas simultáneamente.
 
 
 
