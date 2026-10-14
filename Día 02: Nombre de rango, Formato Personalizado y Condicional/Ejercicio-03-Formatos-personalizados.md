@@ -92,7 +92,7 @@ El perro de San Roque no tiene rabo porque Ramón Rodríguez se lo ha robado. Es
     - Celda E9: orientación a -90º, alineación horizontal centrada y vertical inferior.
 
 
-![Resultado final del ejercicio 1](\..\imagenes\01-ejercicio1_resultado.png)
+![Resultado final del ejercicio 1](../imagenes/01-ejercicio1_resultado.png)
 
 ---
 
@@ -151,7 +151,7 @@ Valor	Formato 1	Formato 2	Formato 3	Formato 4
    - Formato 4: dígitos con punto de miles, separados por espacios.
 
 
-![Resultado final del ejercicio 2](\..\imagenes\01-ejercicio2_resultado.png)
+![Resultado final del ejercicio 2](../imagenes/01-ejercicio2_resultado.png)
 
 ---
 
@@ -236,7 +236,7 @@ error	error	error	error	error
      - Si es otra cosa: «Error de caja» en negro.
 
 
-![Resultado final del ejercicio 3](\..\imagenes\01-ejercicio3_resultado.png)
+![Resultado final del ejercicio 3](../imagenes/01-ejercicio3_resultado.png)
 
 ---
 
@@ -280,7 +280,7 @@ Resultado
 7. Usando el operador resta (-), realizar la resta de la última fila de la segunda tabla. Aplicar el mismo operador al resto de la fila usando el **controlador de relleno**.
 
 
-![Resultado final del ejercicio 4](\..\imagenes\01-ejercicio4_resultado.png)
+![Resultado final del ejercicio 4](../imagenes/01-ejercicio4_resultado.png)
 
 ---
 
@@ -320,7 +320,7 @@ Resultado
 8. Usando el operador división (`/`), realizar la división de la segunda columna de la primera tabla. Aplicar el mismo operador al resto de la fila usando el **controlador de relleno**.
 
 
-![Resultado final del ejercicio 5](\..\imagenes\01-ejercicio5_resultado.png)
+![Resultado final del ejercicio 5](../imagenes/01-ejercicio5_resultado.png)
 
 ---
 
@@ -370,5 +370,5 @@ Total de horas
 9. Para la primera tabla dar formato de dos decimales con símbolo de € a aquellas celdas que muestren precios.
 
 
-![Resultado final del ejercicio 6](\..\imagenes\01-ejercicio6_resultado.png)
+![Resultado final del ejercicio 6](../imagenes/01-ejercicio6_resultado.png)
 
