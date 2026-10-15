@@ -63,7 +63,7 @@ Elena_Blanco;2100;1900;2200
 * Mediante la tecla `Ctrl`, selecciona el rango no contiguo formado por los nombres de los parámetros (`A2:A5`) y las ventas de Marzo (`D9:D11`).
 
 
-* Prueba a escribir en el *Cuadro de nombres* la sintaxis para rangos separados `A2:A5,D9:D11` y pulsa *Enter* para comprobar cómo Excel selecciona ambas zonas simultáneamente.
+* Prueba a escribir en el *Cuadro de nombres* la sintaxis para rangos separados `A2:A5;D9:D11` y pulsa *Enter* para comprobar cómo Excel selecciona ambas zonas simultáneamente.
 
 
 
@@ -71,13 +71,13 @@ Elena_Blanco;2100;1900;2200
 
 ### Módulo C: Las 3 Maneras de Crear Nombres de Rangos
 
-5. **Método 1 — Cuadro de Nombres:** Selecciona la celda **`B2`** (valor `0,21` del IVA) y asígnale el nombre **`IVA_General`** directamente desde el *Cuadro de nombres*.
+5. **Método 1 — Cuadro de Nombres:** Selecciona la celda **`B2`** (valor `0,21` del IVA) y asígnale el nombre **`Tipo_IVA`** directamente desde el *Cuadro de nombres*.
 
 
 6. **Método 2 — Crear desde la selección (Etiquetas):** Selecciona el rango **`A1:C5`**. Ve a `Fórmulas > Nombres definidos > Crear desde la selección` y marca la opción **Columna izquierda** para asignar automáticamente el nombre de cada parámetro a su celda de valor.
 
 
-7. **Método 3 — Definir nombre:** Selecciona la celda **`B5`** (valor `0,08` de la Comisión). Ve a `Fórmulas > Definir nombre` y asígnale el nombre **`Comision_Comercial`**.
+7. **Método 3 — Definir nombre:** Selecciona la celda **`B5`** (valor `0,08` de la Comisión). Ve a `Fórmulas > Definir nombre` y asígnale el nombre **`Comision_Ventas`**.
 
 
 
@@ -93,14 +93,9 @@ Elena_Blanco;2100;1900;2200
 ### Módulo E: Configuración del Ámbito y Auditoría de Nombres
 
 10. Abre el **Administrador de nombres** (`Fórmulas > Administrador de nombres`).
-
-
-11. Localiza el nombre **`Objetivo_Ventas`**, haz clic en **Modificar** y cambia su ámbito de **Libro** (global) a **`Parametros_Base`** (local de la hoja).
-
-
-12. Comprueba cómo en el Administrador de nombres aparecen reflejados todos los rangos creados, sus valores actuales y sus ámbitos.
-
-
+11. Localiza el nombre **`Objetivo_Ventas`** (creado previamente de forma global por defecto) y elimínalo de la lista, ya que Excel no permite modificar el ámbito de un nombre una vez creado.
+12. Vuelve a definir el rango de la celda `B3` pero asignándole explícitamente el ámbito **`Parametros_Base`** (local de la hoja) desde el cuadro de diálogo *Definir nombre*.
+13. Comprueba en el Administrador de nombres que el nuevo rango aparece correctamente vinculado al ámbito local de la hoja.
 
 ---
 
@@ -126,14 +121,13 @@ Elena_Blanco;2100;1900;2200
 
 ### Paso 3: Aplicar los 3 métodos para crear nombres
 
-1. **Método 1 (Cuadro de Nombres):** Selecciona la celda `B2`. En el *Cuadro de nombres*, borra la dirección `B2`, escribe `IVA_General` (sin espacios) y pulsa *Enter*.
+1. **Método 1 (Cuadro de Nombres):** Selecciona la celda `B2`. En el *Cuadro de nombres*, borra la dirección `B2`, escribe `Tipo_IVA` (sin espacios) y pulsa *Enter*.
 
 
 2. **Método 2 (Crear desde la selección):** Selecciona el rango `A1:C5`. Dirígete a la pestaña **Fórmulas**, grupo *Nombres definidos*, y pulsa **Crear desde la selección**. Desmarca la opción *Fila superior*, deja marcada **Columna izquierda** y pulsa **Aceptar**.
 
 
-3. **Método 3 (Definir nombre):** Selecciona la celda `B5`. Ve a la pestaña **Fórmulas** y haz clic en **Definir nombre**. Comprueba que el campo *Se refiere a* indique `=$B$5` y pulsa **Aceptar**.
-
+3. **Método 3 (Definir nombre):** Selecciona la celda `B5`. Ve a la pestaña **Fórmulas** y haz clic en **Definir nombre**. Comprueba que el campo *Se refiere a* indique `=$B$5`, asígnale el nombre **`Comision_Ventas`** y pulsa **Aceptar**.
 
 
 ### Paso 4: Crear nombres automáticos para filas y columnas
@@ -151,16 +145,10 @@ Elena_Blanco;2100;1900;2200
 
 
 
-### Paso 5: Gestionar y cambiar el Ámbito de un nombre
+### Paso 5: Gestionar y cambiar el Ámbito de un nombre (Ámbito Local)
 
 1. Ve a la pestaña **Fórmulas** y haz clic en **Administrador de nombres**.
-
-
-2. Selecciona de la lista el nombre **`Objetivo_Ventas`** y pulsa en **Modificar**.
-
-
-3. En el desplegable **Ámbito**, cambia de *Libro* a **`Parametros_Base`**.
-
-
-4. Haz clic en **Aceptar** y cierra la ventana. Ahora ese nombre solo se reconocerá localmente cuando estés dentro de esa hoja.
+2. Selecciona el nombre **`Objetivo_Ventas`** y haz clic en el botón **Eliminar** (recuerda que Excel no permite cambiar el ámbito de un nombre ya existente una vez guardado).
+3. Selecciona la celda **`B3`**, ve a la pestaña **Fórmulas** y haz clic en **Definir nombre**.
+4. En el cuadro de diálogo, escribe el nombre `Objetivo_Ventas` y en el desplegable **Ámbito**, selecciona explícitamente **`Parametros_Base`** en lugar de *Libro*. Haz clic en **Aceptar**. De este modo, el nombre queda configurado con ámbito estrictamente local para esa hoja.
 
