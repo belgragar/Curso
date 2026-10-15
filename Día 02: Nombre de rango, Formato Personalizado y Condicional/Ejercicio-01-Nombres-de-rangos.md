@@ -71,13 +71,13 @@ Elena_Blanco;2100;1900;2200
 
 ### Módulo C: Las 3 Maneras de Crear Nombres de Rangos
 
-5. **Método 1 — Cuadro de Nombres:** Selecciona la celda **`B2`** (valor `0,21` del IVA) y asígnale el nombre **`IVA_General`** directamente desde el *Cuadro de nombres*.
+5. **Método 1 — Cuadro de Nombres:** Selecciona la celda **`B2`** (valor `0,21` del IVA) y asígnale el nombre **`Tipo_IVA`** directamente desde el *Cuadro de nombres*.
 
 
 6. **Método 2 — Crear desde la selección (Etiquetas):** Selecciona el rango **`A1:C5`**. Ve a `Fórmulas > Nombres definidos > Crear desde la selección` y marca la opción **Columna izquierda** para asignar automáticamente el nombre de cada parámetro a su celda de valor.
 
 
-7. **Método 3 — Definir nombre:** Selecciona la celda **`B5`** (valor `0,08` de la Comisión). Ve a `Fórmulas > Definir nombre` y asígnale el nombre **`Comision_Comercial`**.
+7. **Método 3 — Definir nombre:** Selecciona la celda **`B5`** (valor `0,08` de la Comisión). Ve a `Fórmulas > Definir nombre` y asígnale el nombre **`Comision_Ventas`**.
 
 
 
