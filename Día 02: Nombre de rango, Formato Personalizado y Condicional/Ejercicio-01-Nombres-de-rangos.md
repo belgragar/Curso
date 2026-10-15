@@ -93,9 +93,6 @@ Elena_Blanco;2100;1900;2200
 ### Módulo E: Configuración del Ámbito y Auditoría de Nombres
 
 10. Abre el **Administrador de nombres** (`Fórmulas > Administrador de nombres`).
-
-
-11. Localiza el nombre **`Objetivo_Ventas`**, haz clic en **Modificar** y cambia su ámbito de **Libro** (global) a **`Parametros_Base`** (local de la hoja).
-
-
-12. Comprueba cómo en el Administrador de nombres aparecen reflejados todos los rangos creados, sus valores actuales y sus ámbitos.
+11. Localiza el nombre **`Objetivo_Ventas`** (creado previamente de forma global por defecto) y elimínalo de la lista, ya que Excel no permite modificar el ámbito de un nombre una vez creado.
+12. Vuelve a definir el rango de la celda `B3` pero asignándole explícitamente el ámbito **`Parametros_Base`** (local de la hoja) desde el cuadro de diálogo *Definir nombre*.
+13. Comprueba en el Administrador de nombres que el nuevo rango aparece correctamente vinculado al ámbito local de la hoja.
