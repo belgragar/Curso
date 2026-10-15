@@ -44,10 +44,10 @@ En una zona libre de la hoja, por ejemplo:
 
 | Celda |   Contenido |
 | ----- | ----------: |
-| `L1`  | Tipo de IVA |
-| `L2`  |        0,21 |
+| `O1`  | Tipo de IVA |
+| `O2`  |        0,21 |
 
-Selecciona la celda `L2`.
+Selecciona la celda `O2`.
 
 En el **Cuadro de nombres**, situado a la izquierda de la barra de fórmulas, escribe:
 
@@ -69,8 +69,8 @@ Crea también los siguientes nombres:
 
 | Celda | Valor | Nombre      |
 | ----- | ----: | ----------- |
-| `L4`  |  1500 | Limite_Alto |
-| `L5`  |   300 | Limite_Bajo |
+| `O4`  |  1500 | Limite_Alto |
+| `O5`  |   300 | Limite_Bajo |
 
 De esta forma tendrás tres valores que podrás utilizar en las fórmulas y reglas posteriores:
 
@@ -108,19 +108,19 @@ Unidades × Precio Unitario
 
 ### Paso 5 — Crear la columna IVA
 
-En `M1` escribe:
+En `L1` escribe:
 
 ```text
 IVA
 ```
 
-En `M2`, utiliza el nombre de rango creado anteriormente:
+En `L2`, utiliza el nombre de rango creado anteriormente:
 
 ```excel
 =K2*Tipo_IVA
 ```
 
-Copia la fórmula hasta `M13`.
+Copia la fórmula hasta `L13`.
 
 Observa la diferencia entre:
 
@@ -140,19 +140,19 @@ La segunda fórmula resulta más fácil de interpretar porque el nombre `Tipo_IV
 
 ### Paso 6 — Crear la columna Total
 
-En `N1` escribe:
+En `M1` escribe:
 
 ```text
 Total
 ```
 
-En `N2`, calcula:
+En `M2`, calcula:
 
 ```excel
 =K2+M2
 ```
 
-Copia la fórmula hasta `N13`.
+Copia la fórmula hasta `M13`.
 
 Ahora tendrás:
 
@@ -167,7 +167,7 @@ Importe + IVA = Total
 Selecciona el rango:
 
 ```text
-N2:N13
+M2:M13
 ```
 
 En el **Cuadro de nombres**, escribe:
@@ -178,7 +178,7 @@ Ventas_Totales
 
 Pulsa **Enter**.
 
-En una celda libre, por ejemplo `L8`, escribe:
+En una celda libre, por ejemplo `O8`, escribe:
 
 ```excel
 =SUMA(Ventas_Totales)
@@ -225,8 +225,8 @@ Selecciona los rangos:
 ```text
 F2:F13
 K2:K13
+L2:L13
 M2:M13
-N2:N13
 ```
 
 Aplica el formato personalizado:
@@ -260,7 +260,7 @@ Ahora vas a utilizar el formato condicional para crear una alerta visual.
 Selecciona todo el rango:
 
 ```text
-A2:N13
+A2:M13
 ```
 
 Ve a:
@@ -289,7 +289,7 @@ Comprueba que las filas correspondientes a pedidos pendientes se resaltan autom�
 Selecciona:
 
 ```text
-A2:N13
+A2:M13
 ```
 
 Crea una nueva regla de formato condicional mediante fórmula:
