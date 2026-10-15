@@ -8,7 +8,7 @@
 
 ## 2. Conjunto de Datos de Partida (Datasets)
 
-Pide a los alumnos que abran un libro nuevo en blanco en Excel M365 y que copien y peguen las siguientes tablas en diferentes pestañas o zonas de la hoja. *(Recuerda que los datos utilizan el punto y coma `;` como separador de columnas y están adaptados a la configuración regional de España).*
+Hay que abrir un libro nuevo en blanco en Excel M365 y pegar las siguientes tablas en diferentes pestañas. *(Recuerda que los datos utilizan el punto y coma `;` como separador de columnas y están adaptados a la configuración regional de España).*
 
 ### Bloque A: `Ventas_Trimestrales` (Para gráficos básicos, columnas, líneas y áreas)
 
@@ -51,17 +51,17 @@ Beneficio Neto;55.000,00;Accion_Norte;128,50;123,40;127,90
 ### Fase 1: Gráficos Básicos y Transformaciones Dinámicas en M365
 
 1. **Gráfico de Columnas Agrupadas:**
-* *Concepto a explicar:* Las columnas agrupadas permiten comparar de forma directa magnitudes discretas entre diferentes categorías (en este caso, zonas geográficas a lo largo de los trimestres).
+* *Recuerda:* Las columnas agrupadas permiten comparar de forma directa magnitudes discretas entre diferentes categorías (en este caso, zonas geográficas a lo largo de los trimestres).
 * *Pasos:* Seleccionamos el rango `A1:E5` de la tabla `Ventas_Trimestrales`. Vamos a la pestaña **Insertar** > grupo *Gráficos* > **Columna agrupada**. Modificamos el título por `Comparativa Trimestral por Zonas` y activamos los valores mediante el botón de elementos flotantes `+` marcando **Etiquetas de datos**.
 
 
 2. **Gráfico de Líneas transformado en Gráfico de Áreas:**
-* *Concepto a explicar:* El gráfico de líneas es ideal para observar tendencias temporales continuas. Al transformarlo en un gráfico de áreas, logramos visualizar además el volumen acumulado de aportación de cada serie.
+* *Recuerda:* El gráfico de líneas es ideal para observar tendencias temporales continuas. Al transformarlo en un gráfico de áreas, logramos visualizar además el volumen acumulado de aportación de cada serie.
 * *Pasos:* Seleccionamos de nuevo el rango `A1:E5`. Vamos a **Insertar** > **Gráfico de líneas con marcadores**. Una vez insertado, nos dirigimos a la pestaña superior contextual **Diseño de gráfico** > hacemos clic en el botón **Cambiar tipo de gráfico** > seleccionamos la categoría **Área** (elegimos *Área apilada*). Explicamos al alumnado cómo Excel M365 actualiza la estructura visual de manera fluida sin perder las referencias de los datos.
 
 
 3. **Gráfico Circular transformado en Gráfico de Anillo:**
-* *Concepto a explicar:* El gráfico circular representa partes de un todo, pero el gráfico de anillos ofrece una lectura más limpia y permite incorporar un hueco central para destacar datos globales o estética moderna.
+* *Recuerda:* El gráfico circular representa partes de un todo, pero el gráfico de anillos ofrece una lectura más limpia y permite incorporar un hueco central para destacar datos globales o estética moderna.
 * *Pasos:* Seleccionamos las columnas de Zona y Ventas Anuales (`A1:A5` combinada con `G1:G5`, o simplemente seleccionamos el rango `A1:A5` y `G1:G5` manteniendo pulsada la tecla `Ctrl`). Vamos a **Insertar** > **Gráfico circular** > *Circular 2D*. Inmediatamente, desde **Diseño de gráfico** > **Cambiar tipo de gráfico**, seleccionamos **Anillo**. Explicamos cómo cambiar el tamaño del agujero del anillo haciendo clic derecho sobre la serie y accediendo a *Formato de serie de datos*.
 
 
@@ -70,30 +70,30 @@ Beneficio Neto;55.000,00;Accion_Norte;128,50;123,40;127,90
 
 ### Fase 2: Exploración de Nuevos Tipos de Gráficos Avanzados en Excel M365
 
-Recorre con los alumnos la enorme variedad de familias de gráficos disponibles en la pestaña **Insertar** de Excel M365, explicando la utilidad de cada uno en entornos empresariales:
+Recorremos la enorme variedad de familias de gráficos disponibles en la pestaña **Insertar** de Excel M365, vemos la utilidad de cada uno en entornos empresariales:
 
 1. **Gráficos Combinados (Doble Eje):**
 * *Qué hacer:* Selecciona los datos de ventas de `Ventas_Trimestrales`. Ve a **Insertar** > **Gráficos recomendados** > pestaña **Todos los gráficos** > **Combinado**.
-* *Explicación docente:* Permite representar dos tipos de datos heterogéneos en un mismo espacio visual (por ejemplo, representar las ventas del Trimestre 1 en *Columnas* y las ventas del Trimestre 4 en una *Línea* situada sobre un **Eje secundario** para evitar distorsiones de escala).
+* *Recuerda:* Permite representar dos tipos de datos heterogéneos en un mismo espacio visual (por ejemplo, representar las ventas del Trimestre 1 en *Columnas* y las ventas del Trimestre 4 en una *Línea* situada sobre un **Eje secundario** para evitar distorsiones de escala).
 
 
 2. **Gráficos de Jerarquía (Rectángulos o Treemap):**
 * *Qué hacer:* Selecciona las columnas de Sector, Zona y Ventas Anuales. Ve a **Insertar** > icono de jerarquía > **Rectángulos (Treemap)**.
-* *Explicación docente:* Muestra datos jerárquicos mediante bloques rectangulares anidados donde el tamaño del rectángulo es proporcional a su valor numérico, ideal forzar la visibilidad de qué sector aporta más ingresos.
+* *Recuerda:* Muestra datos jerárquicos mediante bloques rectangulares anidados donde el tamaño del rectángulo es proporcional a su valor numérico, ideal forzar la visibilidad de qué sector aporta más ingresos.
 
 
 3. **Gráficos de Dispersión y Burbujas:**
 * *Qué hacer:* Selecciona la tabla `Operaciones_Soporte` (`A1:E6`). Ve a **Insertar** > **Gráfico de dispersión (X, Y) o de burbujas** > selecciona **Burbujas**. Configura el asistente para que el Eje X sea `Tiempo_Respuesta_Hrs`, el Eje Y sea `Satisfaccion_Cliente` y el tamaño de la burbuja represente `Incidencias_Mes`.
-* *Explicación docente:* Excelente para analizar correlaciones estadísticas complejas de tres variables de forma simultánea.
+* *Recuerda:* Excelente para analizar correlaciones estadísticas complejas de tres variables de forma simultánea.
 
 
 4. **Gráfico de Cascada (*Waterfall*):**
 * *Qué hacer:* Selecciona el rango `A1:B5` de la tabla `Finanzas_Y_Mercado`. Ve a **Insertar** > gráficos de cascada/embudo > **Cascada**.
-* *Explicación docente:* Indispensable en contabilidad y finanzas para ver cómo un valor inicial (ingresos) va incrementándose o reduciéndose mediante partidas parciales hasta llegar a un resultado final (beneficio neto).
+* *Recuerda:* Indispensable en contabilidad y finanzas para ver cómo un valor inicial (ingresos) va incrementándose o reduciéndose mediante partidas parciales hasta llegar a un resultado final (beneficio neto).
 
 
 5. **Gráfico de Embudo (*Funnel*):**
-* *Explicación docente:* Simula procesos secuenciales decrecientes (fases de un embudo de ventas, conversión de clientes o procesos de selección de personal).
+* *Recuerda:* Simula procesos secuenciales decrecientes (fases de un embudo de ventas, conversión de clientes o procesos de selección de personal).
 
 
 6. **Gráficos Especializados (Cotizaciones, Superficie, Radial y Mapas):**
