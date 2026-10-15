@@ -10,18 +10,18 @@ Cambia el nombre de la hoja a: `Practica_Dia1`
 
 ```tsv
 Código	Cliente	Comercial	Categoría	Unidades	Precio Unitario (€)	Descuento (%)	Estado	Stock	Stock Mínimo
-1001	Alfa S.L.	Laura	Hardware	15	125,50	5	Pendiente	25	20
+1001	Alfa S.L.	Laura	Hardware	15	125,50	0,05	Pendiente	25	20
 1002	Beta S.A.	Carlos	Software	8	320,00	0	Pagado	12	15
-1003	Gamma S.L.	Laura	Hardware	35	18,90	10	Pendiente	45	30
+1003	Gamma S.L.	Laura	Hardware	35	18,90	0,1	Pendiente	45	30
 1004	Delta S.A.	Ana	Consumibles	120	2,15	0	Pagado	350	200
-1005	Épsilon S.L.	Miguel	Software	3	890,00	15	Pendiente	8	10
-1006	Zeta S.L.	Carlos	Hardware	22	79,95	5	Enviado	30	25
+1005	Épsilon S.L.	Miguel	Software	3	890,00	0,15	Pendiente	8	10
+1006	Zeta S.L.	Carlos	Hardware	22	79,95	0.05	Enviado	30	25
 1007	Eta S.A.	Laura	Consumibles	60	4,80	0	Pendiente	50	60
-1008	Theta S.L.	Ana	Software	5	450,00	12	Pagado	16	12
+1008	Theta S.L.	Ana	Software	5	450,00	0,12	Pagado	16	12
 1009	Iota S.L.	Miguel	Hardware	18	149,00	0	Pendiente	15	20
-1010	Kappa S.A.	Carlos	Consumibles	95	3,20	8	Enviado	180	150
-1011	Lambda S.A.	Laura	Software	6	610,00	5	Pendiente	7	8
-1012	Mu S.L.	Ana	Hardware	28	95,75	10	Pagado	32	25
+1010	Kappa S.A.	Carlos	Consumibles	95	3,20	0,08	Enviado	180	150
+1011	Lambda S.A.	Laura	Software	6	610,00	0,05	Pendiente	7	8
+1012	Mu S.L.	Ana	Hardware	28	95,75	0,1	Pagado	32	25
 ```
 
 ---
