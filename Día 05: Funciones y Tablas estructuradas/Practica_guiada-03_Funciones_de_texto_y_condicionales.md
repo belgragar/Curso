@@ -19,7 +19,7 @@ La práctica se realizará **a la vez que se explican los conceptos del tema**. 
 
 ## 1. Datos iniciales
 
-Crea una hoja nueva llamada `Envios`.
+Crea un libro nuevo, llama a la Hoja1 `Envios`.
 
 Copia el siguiente bloque y pégalo directamente en la celda `A1`.
 
@@ -388,84 +388,7 @@ Si no coincide en alguna fila, investiga qué dato puede estar provocando la dif
 
 ---
 
-# 10. Novena fase: depuración de una fórmula incorrecta
-
-Ahora vamos a introducir deliberadamente un error.
-
-En una celda vacía escribe:
-
-```excel
-=SI(IZQUIERDA(A2;3)=900;D2*1,21;D2)
-```
-
-Observa el resultado.
-
-La fórmula intenta comparar:
-
-```excel
-IZQUIERDA(A2;3)
-```
-
-con:
-
-```text
-900
-```
-
-Pero `IZQUIERDA` devuelve texto.
-
-Además, `A2` puede contener espacios al principio.
-
----
-
-## Paso 7 — Analizar el error
-
-Antes de pedir ayuda a una IA, intenta identificar:
-
-1. ¿Qué devuelve realmente `IZQUIERDA(A2;3)`?
-2. ¿Es un número o un texto?
-3. ¿Existen espacios innecesarios?
-4. ¿La comparación debería realizarse contra `"900"` en lugar de `900`?
-
----
-
-# 11. Décima fase: depuración asistida por IA
-
-Ahora utiliza un asistente de IA para analizar la fórmula.
-
-Utiliza un prompt similar al siguiente:
-
-> Estoy trabajando con Microsoft Excel en español.
->
-> Tengo esta fórmula:
->
-> `=SI(IZQUIERDA(A2;3)=900;D2*1,21;D2)`
->
-> La celda A2 contiene un código de texto que puede tener espacios al principio. Necesito comprobar los tres primeros caracteres del código y realizar un cálculo diferente si comienzan por "900".
->
-> Explica por qué puede producirse un error y proporciona una fórmula corregida utilizando funciones de limpieza de texto. Utiliza separadores de argumentos con punto y coma.
-
-### Después de recibir la respuesta de la IA
-
-No copies directamente la fórmula.
-
-Comprueba:
-
-1. Qué problema ha detectado.
-2. Qué función propone utilizar para eliminar espacios.
-3. Si compara texto con texto.
-4. Si la fórmula utiliza correctamente los separadores `;`.
-5. Si la solución funciona realmente en Excel.
-
-Una posible solución será similar a:
-
-```excel
-=SI(IZQUIERDA(ESPACIOS(A2);3)="900";D2*1,21;D2)
-```
-
----
-
-# 12. Undécima fase: aplicar todo el proceso a una nueva entrada
+# 10. Novena fase: aplicar todo el proceso a una nueva entrada
 
 Para comprobar que las fórmulas son realmente reutilizables, añade manualmente una nueva fila al final de los datos.
 
@@ -490,7 +413,7 @@ Comprueba que puedes obtener:
 
 ---
 
-# 13. Resultado final esperado
+# 11. Resultado final esperado
 
 Al terminar la práctica, tu hoja deberá contener el listado original y las columnas calculadas:
 
@@ -514,7 +437,7 @@ Al terminar la práctica, tu hoja deberá contener el listado original y las col
 
 ---
 
-# 14. Qué conceptos hemos practicado
+# 12. Qué conceptos hemos practicado
 
 Durante esta práctica has utilizado de forma integrada los principales contenidos del tema:
 
@@ -530,13 +453,10 @@ Durante esta práctica has utilizado de forma integrada los principales contenid
 * Fórmulas anidadas.
 * Referencias a otras celdas.
 * Formato de moneda.
-* Identificación de errores en fórmulas.
-* Redacción de prompts para asistentes de IA.
-* Validación de las respuestas proporcionadas por la IA.
 
 ---
 
-## 15. Preguntas para comentar durante la práctica
+## 13. Preguntas para comentar durante la práctica
 
 No respondas necesariamente por escrito. Utiliza estas preguntas para razonar junto con el docente:
 
@@ -554,11 +474,9 @@ No respondas necesariamente por escrito. Utiliza estas preguntas para razonar ju
 
 7. ¿Qué ventaja tiene construir `Codigo_Seguimiento` a partir de las partes extraídas en lugar de escribirlo manualmente?
 
-8. Cuando una IA proporciona una fórmula, ¿por qué debemos comprobarla antes de incorporarla al libro?
-
 ---
 
-## 16. Mini-reto final
+## 14. Mini-reto final
 
 Modifica las reglas de clasificación para crear una nueva columna llamada `Nivel_Prioridad`.
 
