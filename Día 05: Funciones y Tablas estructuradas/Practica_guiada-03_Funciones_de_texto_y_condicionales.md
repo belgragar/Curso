@@ -1,29 +1,38 @@
-# Práctica guiada: Normalización y clasificación de envíos
+# Práctica guiada: Normalización, conversión y clasificación de envíos
 
-## Objetivo
+![Infografía de funciones](../imagenes/02-Practica_guiada03.png)
+![Resultado final del ejercicio 2](../imagenes/01-ejercicio2_resultado.png)
 
-En esta práctica vas a construir, paso a paso, una pequeña herramienta para gestionar los envíos de una empresa logística.
+## 1. Objetivo
 
-Partiremos de un listado de entradas recibido desde diferentes delegaciones. Los datos contienen algunos problemas habituales en archivos procedentes de otros sistemas:
+En esta práctica vas a construir, paso a paso, una herramienta para gestionar los envíos de una empresa logística.
+
+Partiremos de un listado de entradas recibido desde diferentes delegaciones con problemas habituales de integración entre sistemas:
 
 * Códigos escritos en minúsculas.
-* Espacios innecesarios al principio o al final.
-* Nombres de delegaciones escritos con diferentes formatos.
-* Códigos compuestos por varias partes.
-* Pesos que determinarán automáticamente una tarifa de envío.
-* Datos que posteriormente utilizaremos para construir códigos y descripciones normalizadas.
 
-La práctica se realizará **a la vez que se explican los conceptos del tema**. No se trata de completar todos los pasos de una vez, sino de ir incorporando cada transformación conforme se estudie la función correspondiente.
+
+* Espacios innecesarios al principio o al final.
+
+
+* Nombres de delegaciones deshomogeneizados.
+
+
+* Subcadenas extraídas mediante funciones de texto que quedan almacenadas como texto y deben operarse matemáticamente (conversión texto a número).
+
+
+* Números que deben formatearse con ceros a la izquierda para generar identificadores normalizados (conversión número a texto).
+
+
+* Asignación automática de tarifas mediante funciones condicionales (`SI.CONJUNTO`).
+
+
 
 ---
 
-## 1. Datos iniciales
+## 2. Conjunto de Datos (Dataset)
 
-Crea un libro nuevo, llama a la Hoja1 `Envios`.
-
-Copia el siguiente bloque y pégalo directamente en la celda `A1`.
-
-> **Importante:** el bloque utiliza tabulaciones entre columnas. No modifiques los datos antes de comenzar la práctica, ya que algunos espacios y diferencias de formato son intencionados.
+Crea un libro nuevo y nombra la hoja como `Envios`. Copia el siguiente bloque de datos con formato CSV (delimitado por punto y coma `;` adaptado a la configuración regional de España) y pégalo directamente en la celda `A1`.
 
 ```text
 Codigo_Entrada	Delegacion	Producto	Peso_kg	Unidades
@@ -43,15 +52,37 @@ MAD-8316-STD	 Madrid 	impresora térmica	3,8	10
 
 ---
 
-# 2. Primera fase: limpieza y normalización
+## 3. Tareas a Resolver
 
-### Paso 1 — Limpiar el código de entrada
+1. **Limpieza y normalización inicial:** Limpiar espacios y homogeneizar a mayúsculas/formato propio.
 
-Añade una nueva columna llamada:
 
-`Codigo_Normalizado`
+2. **Extracción de componentes:** Separar código de delegación, número de operación y tipo de envío.
 
-En `F2`, utiliza:
+
+3. **Conversión de Texto a Número (`VALOR`):** Convertir la subcadena de texto extraída del número de operación a un número real para poder realizar un incremento numérico.
+
+
+4. **Construcción de texto normalizado:** Generar descripciones formateadas.
+
+
+5. **Conversión de Número a Texto (`TEXTO`):** Convertir el número de operación modificado de nuevo a texto manteniendo una longitud fija de 5 dígitos con ceros a la izquierda (ejemplo: `07741`).
+
+
+6. **Clasificación condicional y cálculo:** Aplicar reglas de negocio con `SI.CONJUNTO` para determinar categoría y tarifa, y calcular el coste total.
+
+
+7. **Generación del código final de seguimiento:** Combinar los bloques normalizados.
+
+
+
+---
+
+## 4. Guía de Solución Paso a Paso
+
+### Fase 1: Limpieza de texto
+
+* **Columna F (`Codigo_Normalizado`):** En `F2`, elimina espacios y convierte a mayúsculas:
 
 ```excel
 =MAYUSC(ESPACIOS(A2))
@@ -66,17 +97,207 @@ La fórmula realiza dos operaciones:
 1. `ESPACIOS(A2)` elimina los espacios innecesarios.
 2. `MAYUSC(...)` convierte el código a mayúsculas.
 
-Por ejemplo:
+Por ejemplo: `bcn-7741-exp` se convierte en `BCN-7741-EXP`
 
-```text
-  bcn-7741-exp 
+* **Columna G (`Delegacion_Normalizada`):** En `G2`, elimina espacios y aplica formato de tipo nombre propio:
+
+
+```excel
+=NOMPROPIO(ESPACIOS(B2))
+
 ```
 
-se convierte en:
 
-```text
-BCN-7741-EXP
+
+---
+
+### Fase 2: Extracción de subcadenas
+
+* **Columna H (`Codigo_Delegacion`):** Extrae las 3 primeras letras de la izquierda:
+
+
+```excel
+=IZQUIERDA(F2;3)
+
 ```
+
+
+* **Columna J (`Tipo_Envio`):** Extrae las 3 letras de la derecha:
+
+
+```excel
+=DERECHA(F2;3)
+
+```
+
+
+* **Columna I (`Num_Op_Texto`):** Extrae los 4 caracteres centrales a partir de la posición 5:
+
+
+```excel
+=EXTRAE(F2;5;4)
+
+```
+
+
+
+---
+
+### Fase 3: Conversión de Texto a Número (`VALOR`)
+
+> **Concepto clave:** Las funciones de extracción de texto (`IZQUIERDA`, `DERECHA`, `EXTRAE`) siempre devuelven una cadena de texto, incluso si los caracteres son dígitos numéricos. Si intentamos hacer cálculos sobre `I2` o comparaciones numéricas estrictas, podemos obtener errores como `#¡VALOR!`.
+> 
+> 
+
+* **Columna K (`Num_Op_Numero`):** Convierte la cadena extraída en la celda `I2` en un valor numérico real.
+En `K2` escribe:
+
+
+```excel
+=VALOR(I2)
+
+```
+
+
+* **Columna L (`Num_Op_Incrementado`):** Para comprobar que el dato ahora es verdaderamente numérico, suma un incremento de `100` al número de operación.
+En `L2` escribe:
+
+
+```excel
+=K2+100
+
+```
+
+
+
+---
+
+### Fase 4: Conversión de Número a Texto (`TEXTO`)
+
+> **Concepto clave:** La función `TEXTO` toma un número real y lo convierte en una cadena de texto aplicando un formato específico (como rellenar con ceros a la izquierda o dar formato de fecha/moneda).
+> 
+> 
+
+* **Columna M (`Num_Op_Formateado`):** La empresa exige que todos los códigos de operación tengan exactamente **5 dígitos en formato texto**, agregando ceros a la izquierda si el número es menor a 10.000.
+En `M2` escribe:
+
+
+```excel
+=TEXTO(L2;"00000")
+
+```
+
+
+*Ejemplo:* El valor numérico `7841` pasa a ser el texto `"07841"`.
+
+---
+
+### Fase 5: Construcción de descripciones y clasificación
+
+* **Columna N (`Descripcion_Envio`):** Concatena el código de delegación, la delegación normalizada y el producto en formato propio:
+
+
+```excel
+=H2&" - "&G2&" - "&NOMPROPIO(C2)
+
+```
+
+
+* **Columna O (`Categoria_Envio`):** En `O2`, evalúa el peso del paquete (`D2`):
+
+
+```excel
+=SI.CONJUNTO(D2>10;"Pesada";D2>=3;"Media";VERDADERO;"Ligera")
+
+```
+
+
+* **Columna P (`Tarifa_Envio`):** En `P2`, asigna la tarifa en euros según el peso:
+
+
+```excel
+=SI.CONJUNTO(D2>10;15;D2>=3;8;VERDADERO;3)
+
+```
+
+
+* **Columna Q (`Coste_Total`):** Multiplica las unidades por la tarifa:
+
+
+```excel
+=E2*P2
+
+```
+
+
+(Aplica formato de celda de Moneda `#.##0,00 €`).
+
+
+
+---
+
+### Fase 6: Código de Seguimiento Final
+
+* **Columna R (`Codigo_Seguimiento`):** Une el código de la delegación, el nuevo número de operación formateado como texto y el tipo de envío:
+
+
+```excel
+=H2&"-"&M2&"-"&I2
+
+```
+
+
+*Resultado de ejemplo:* `BCN-07841-EXP`
+
+>Repetirlo sustituyendo los operadores `&` por las funciones CONCAT y UNIRCADENAS.
+
+---
+
+## 5. Estructura de Columnas Resultante
+
+| Columna | Nombre | Función principal / Tipo de conversión |
+| --- | --- | --- |
+| **A** | `Codigo_Entrada` | Dato de origen
+
+ |
+| **B** | `Delegacion` | Dato de origen
+
+ |
+| **C** | `Producto` | Dato de origen
+
+ |
+| **D** | `Peso_kg` | Dato de origen
+
+ |
+| **E** | `Unidades` | Dato de origen
+
+ |
+| **F** | `Codigo_Normalizado` | `=MAYUSC(ESPACIOS(A2))`<br> |
+| **G** | `Delegacion_Normalizada` | `=NOMPROPIO(ESPACIOS(B2))`<br> |
+| **H** | `Codigo_Delegacion` | `=IZQUIERDA(F2;3)`<br> |
+| **I** | `Tipo_Envio` | `=DERECHA(F2;3)`<br> |
+| **J** | `Num_Op_Texto` | `=EXTRAE(F2;5;4)`<br> |
+| **K** | `Num_Op_Numero` | `=VALOR(J2)` **(Texto $\rightarrow$ Número)**<br> |
+| **L** | `Num_Op_Incrementado` | `=K2+100` (Operación matemática)
+
+ |
+| **M** | `Num_Op_Formateado` | `=TEXTO(L2;"00000")` **(Número $\rightarrow$ Texto)**<br> |
+| **N** | `Descripcion_Envio` | `=H2&" - "&G2&" - "&NOMPROPIO(C2)`<br> |
+| **O** | `Categoria_Envio` | `=SI.CONJUNTO(D2>10;"Pesada";D2>=3;"Media";VERDADERO;"Ligera")`<br> |
+| **P** | `Tarifa_Envio` | `=SI.CONJUNTO(D2>10;15;D2>=3;8;VERDADERO;3)`<br> |
+| **Q** | `Coste_Total` | `=E2*P2`<br> |
+| **R** | `Codigo_Seguimiento` | `=H2&"-"&M2&"-"&I2`<br> |
+
+---
+
+## 6. Preguntas de Reflexión para el Alumnado
+
+1. **¿Por qué la extracción con `EXTRAE` requiere la función `VALOR` si queremos sumar o comparar el número de operación?**
+
+2. **¿Qué sucede si intentas aplicar la función `SUMA` sobre un rango de celdas obtenidas mediante `EXTRAE` directamente?**
+
+3. **¿Cuál es la diferencia entre cambiar el formato de celda a "00000" desde el menú de Excel versus utilizar la función `=TEXTO(celda; "00000")`?** *(Pista: piensa en qué ocurre cuando concatenas la celda con otros textos)*.
+
 
 ---
 
