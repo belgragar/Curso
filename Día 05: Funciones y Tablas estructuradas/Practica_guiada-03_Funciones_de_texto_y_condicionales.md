@@ -1,8 +1,5 @@
 # Práctica guiada: Normalización, conversión y clasificación de envíos
 
-![Infografía de funciones](../imagenes/02-Practica_guiada03.png)
-![Resultado final del ejercicio 2](../imagenes/01-ejercicio2_resultado.png)
-
 ## 1. Objetivo
 
 En esta práctica vas a construir, paso a paso, una herramienta para gestionar los envíos de una empresa logística.
