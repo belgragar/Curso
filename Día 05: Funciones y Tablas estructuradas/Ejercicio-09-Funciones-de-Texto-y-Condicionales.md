@@ -27,8 +27,8 @@ Cli-015	  CRISTINA  IGLESIAS REY	Cli-015	62100
 
 1. Elimine los espacios sobrantes de la columna **Cliente_Bruto** mediante **ESPACIOS()**.
 2. Cree una columna **Cliente** convirtiendo el nombre al formato correcto con **NOMPROPIO()**.
-3. Cree una columna **Código_MAY** con el identificador completamente en mayúsculas mediante **MAYUSC()**.
-4. Cree una columna **Código_min** con el identificador completamente en minúsculas mediante **MINUSC()**.
+3. Cree una columna **Codigo_MAY** con el identificador completamente en mayúsculas mediante **MAYUSC()**.
+4. Cree una columna **Codigo_min** con el identificador completamente en minúsculas mediante **MINUSC()**.
 
 **Funciones utilizadas**
 
@@ -51,34 +51,23 @@ Cliente: Ana Martínez López | Facturación: 52.430 €
 
 Utilice la función **CONCAT()**.
 
-A continuación, genere exactamente el mismo resultado utilizando **UNIRCADENAS()**.
-
-Compare ambas soluciones e indique cuál considera más legible.
-
-**Funciones utilizadas**
-
-* CONCAT
-* UNIRCADENAS
-
 >Va a haber un problema con el separador de miles. Para que el resultado sea el esperado habrá que usar la función **TEXTO()**
 >- =CONCAT(
-    "Cliente: ", F2,
-    " | Facturación: ",
-    TEXTO(D2; "#.##0 €")
-)
->- =UNIRCADENAS(
-    "";
-    VERDADERO;
-    "Cliente: "; F2;
+    "Cliente: "; E2;
     " | Facturación: ";
     TEXTO(D2; "#.##0 €")
 )
 
+**Funciones utilizadas:**
+
+* CONCAT
+* TEXTO
+  
 ---
 
 ## 🔴 Nivel avanzado — Clasificación automática de clientes
 
-Clasifique cada cliente según su facturación utilizando **SI.CONJUNTO()**:
+Clasifique cada cliente según su facturación (en una nueva columna llamada Categoria_Cliente) utilizando **SI.CONJUNTO()**:
 
 | Facturación | Categoría  |
 | ----------- | ---------- |
@@ -106,6 +95,8 @@ Seguimiento automático
 * SI
 * SI.CONJUNTO
 
+> La solución se puede optimizar añadiendo en otra zona de la hoja (o una hoja nueva "Datos") la tabla de clasificación de clientes
+
 ---
 
 ## 🔴🔴 Reto profesional — Informe automático
@@ -118,6 +109,3 @@ El cliente Ana Martínez López ha facturado 52.430 € y pertenece a la categor
 
 La frase deberá generarse automáticamente utilizando **UNIRCADENAS()** o **CONCAT()**, aprovechando las columnas calculadas en los ejercicios anteriores.
 
----
-
-Así, los ejercicios quedan perfectamente alineados con la teoría impartida en el Día 2 y reservan funciones como `IZQUIERDA()`, `DERECHA()`, `EXTRAE()`, `HALLAR()` y `LARGO()` para el tema dedicado específicamente a la extracción y análisis de cadenas de texto.
