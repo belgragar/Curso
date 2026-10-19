@@ -64,7 +64,7 @@ Ahora vamos a convertirlo en una **Tabla Estructurada**.
 ### Crear la Tabla
 
 1. Selecciona cualquier celda del rango.
-2. Pulsa: `Ctrl + T`
+2. Pulsa: `Ctrl + T` (o ir a la ficha Insertar -> Tabla)
 3. Comprueba que Excel ha seleccionado todo el rango.
 4. Activa: `La tabla tiene encabezados`
 5. Pulsa **Aceptar**.
@@ -122,10 +122,12 @@ Obserba qué ocurre. Excel debería completar automáticamente toda la columna.
 
 Añade una nueva columna denominada `IVA`. Utilizaremos un IVA del 21 %.
 
+Creamos una hoja nueva a la que llamamos `Datos`. En `A1` escribimos `IVA` y en `B1`escribimos `0,21`, a ésta celda le pondremos el nombre `Tipo_IVA`.
+
 En la primera fila escribe:
 
 ```excel
-=[@Importe]*0,21
+=[@Importe]*Tipo_IVA
 ```
 
 Pulsa **Enter**.
@@ -158,7 +160,8 @@ Hasta ahora hemos utilizado referencias estructuradas para realizar cálculos **
 
 ### Calcular la facturación total
 
-En una celda situada fuera de la tabla escribe:
+En la Hoja `Datos` en la celda `A3` escribe `Facturación total`. En la celda `B3` escribe:
+
 ```excel
 =SUMA(Tbl_Ventas[Total Factura])
 ```
@@ -167,13 +170,13 @@ La fórmula significa:
 
 ### Calcular el número de operaciones
 
-En otra celda escribe:
+En `A4` escribe `Número de operaciones` y en `B4`:
 ```excel
 =CONTARA(Tbl_Ventas[ID])
 ```
 ### Calcular la venta media
 
-En otra celda escribe:
+En `A5` escribe `Venta media` y en `B5` escribe:
 ```excel
 =PROMEDIO(Tbl_Ventas[Total Factura])
 ```
