@@ -66,3 +66,34 @@ Al finalizar esta sesión la tabla contendrá información enriquecida generada 
 
 ---
 
+# Conversión en Base de Datos Profesional
+
+## Objetivo general
+
+Transformar la hoja de datos en una base de datos profesional utilizando Tablas Estructuradas de Excel.
+
+## Desarrollo
+
+1. Convierta toda la información de la hoja **Base_Datos** en una Tabla Estructurada denominada:
+
+```text
+Tbl_MasterVentas
+```
+
+2. Sustituya las referencias tradicionales por referencias estructuradas cuando sea necesario.
+
+3. Cree una nueva hoja denominada **Dashboard_Síntesis**.
+
+4. En ella muestre mediante referencias estructuradas:
+
+* Número total de operaciones.
+* Facturación total.
+* Facturación media por operación.
+* Número de clientes empresa.
+* Número de clientes particulares.
+
+5. Inserte un gráfico que represente la evolución de la facturación por fecha.
+
+6. Compruebe que al añadir nuevos registros tanto los cálculos como el gráfico se actualizan automáticamente.
+
+---
