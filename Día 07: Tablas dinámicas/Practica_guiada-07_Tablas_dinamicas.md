@@ -17,7 +17,7 @@ La práctica está diseñada para realizarse **a la vez que se explican los conc
 
 ### Datos de partida
 
-Crea una hoja nueva denominada `Practica_Dia4`.
+Crea una hoja nueva denominada `Datos`.
 
 Copia el siguiente bloque y pégalo directamente en la celda `A1`.
 
