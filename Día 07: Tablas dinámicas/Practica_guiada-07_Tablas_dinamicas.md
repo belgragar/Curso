@@ -1,4 +1,4 @@
-# DÍA 4 - Práctica guiada paso a paso: Análisis de ventas y control de errores
+# Práctica Guiada 07: Análisis de ventas y control de errores
 
 Durante esta práctica vas a construir un pequeño informe de ventas.
 
