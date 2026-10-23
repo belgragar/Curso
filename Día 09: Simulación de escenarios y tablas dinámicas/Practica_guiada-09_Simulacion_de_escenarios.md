@@ -283,21 +283,34 @@ Cuota Mensual Fija;=PAGO(B6;B7;-B2);€/mes
 
 * **Nota didáctica sobre Escenarios:** Recuerda a los alumnos que los informes de escenarios **no se recalculan automáticamente** si cambias las celdas del modelo. Si se modifican las condiciones iniciales, se debe volver a hacer clic en **Resumen...** para actualizar la tabla comparativa.
 
-# Práctica Guiada 09: Optimización de Modelos Financieros con Solver y Análisis de Escenarios
+---
+
+# Práctica Guiada: Optimización de Modelos Financieros con Solver y Análisis de Escenarios
+
+---
 
 ## 1. Contexto de Negocio
 
 La empresa tecnológica **Nortech Solutions S.L.** está planificando el presupuesto de amortización de un préstamo corporativo de **100.000 €** a un tipo de interés nominal del **6,00% anual** a **5 años**.
 
-Hasta ahora, la dirección financiera ha evaluado el comportamiento de la cuota mensual mediante *Búsqueda de Objetivos*, *Tablas de Datos* y el *Administrador de Escenarios*. Sin embargo, la gerencia necesita resolver un problema de **optimización con múltiples variables sujetas a restricciones operativas del negocio** (límites de cuota máxima mensual, plazo máximo permitido por la entidad bancaria e importe mínimo del préstamo para cubrir la compra del equipamiento).
+La gerencia necesita resolver un problema de **optimización con múltiples variables sujetas a restricciones operativas del negocio** (límites de cuota máxima mensual, plazo máximo permitido por la entidad bancaria e importe del préstamo).
 
-Para dar respuesta a estas exigencias, utilizaremos la herramienta matemática **Solver**. Además, aplicaremos la técnica de **Guardar Escenarios desde Solver** para consolidar los resultados óptimos dentro del *Administrador de Escenarios* y generar un **Informe de Resumen Ejecutivo** comparativo para la dirección.
+Para dar respuesta a estas exigencias, utilizaremos la herramienta matemática **Solver**. Recordando los principios técnicos de la herramienta:
+
+* **Celda Objetivo:** Debe ser **obligatoriamente una celda que contenga una fórmula** (por ejemplo, el cálculo de la cuota mensual).
+
+
+* **Celdas Cambiantes:** Celdas con **datos numéricos fijos (sin fórmulas)** que Excel modificará para alcanzar la solución.
+
+
+
+Además, aplicaremos la técnica de **Guardar Escenarios desde Solver** para consolidar los resultados óptimos dentro del *Administrador de Escenarios* y generar un **Informe de Resumen Ejecutivo** comparativo para la dirección.
 
 ---
 
 ## 2. Conjunto de Datos (Dataset)
 
-Abre tu libro de Excel, crea una hoja llamada **Optimizacion_Solver** y copia exactamente la siguiente estructura a partir de la celda **A1**. Los datos están delimitados por punto y coma (`;`) para adaptarse estrictamente a la configuración regional de España (separador decimal con coma `,`).
+Abre tu libro de Excel, crea una hoja llamada **Optimizacion_Solver** y copia exactamente la siguiente estructura a partir de la celda **A1**. Los datos están delimitados por punto y coma (`;`) para adaptarse estrictamente a la configuración regional de España (coma `,` como separador decimal).
 
 ```csv
 Parametro_Financiacion;Valor;Unidad
@@ -322,21 +335,24 @@ Cuota Mensual Fija;=PAGO(B6;B7;-B2);€/mes
 
 
 2. **Asignación de Nombres a Celdas de Trabajo (Buena Práctica):**
-* Asignar nombres significativos a las celdas clave (`B2`: `Importe_Prestamo`, `B3`: `Interes_Anual`, `B4`: `Plazo_Anos`, `B8`: `Cuota_Mensual`) antes de ejecutar el análisis para que el informe final resulte legible e intuitivo para la dirección.
+* Asignar nombres significativos a las celdas clave (`B2`: `Importe_Prestamo`, `B3`: `Interes_Anual`, `B4`: `Plazo_Anos`, `B8`: `Cuota_Mensual`) antes de ejecutar el análisis para que los informes finales resulten legibles e intuitivos.
 
 
 
 
-3. **Caso 1 — Optimización Básica con Solver (Maximizar Financiación con Límite de Cuota):**
-* Configurar **Solver** para encontrar el **máximo importe de préstamo** que la empresa puede solicitar (`B2`), manteniendo el interés al 6,00% anual y el plazo a 5 años, respetando las siguientes restricciones:
+3. **Caso 1 — Optimización con Solver (Maximizar Financiación con Límite de Cuota):**
+* Configurar **Solver** para **maximizar el Importe del Préstamo (`B2`)** modificando el valor de `B2` (celda cambiante, dato numérico libre), con el objetivo indirecto sobre la fórmula de la cuota mensual (`B8`), respetando las siguientes restricciones:
 
 
-* La `Cuota_Mensual` (`B8`) no puede superar los **1.850,00 €/mes**.
+* La celda de la fórmula `Cuota_Mensual` (`B8`) **no puede superar los 1.850,00 €/mes** (`<= 1850`).
 
 
-* El `Importe_Prestamo` (`B2`) debe ser como mínimo de **80.000 €**.
+* El `Importe_Prestamo` (`B2`) debe ser como mínimo de **80.000 €** (`>= 80000`).
 
 
+
+
+* Configurar en Solver como **Celda Objetivo la fórmula `Cuota_Mensual` (`B8`)** con el valor **Máx** (o con valor exacto de 1850) cambiando el `Importe_Prestamo` (`B2`).
 
 
 * Al encontrar la solución óptima, utilizar el botón **Guardar escenario...** de Solver y nombrarlo **`Optimo_Cuota1850`**.
@@ -344,20 +360,17 @@ Cuota Mensual Fija;=PAGO(B6;B7;-B2);€/mes
 
 
 
-4. **Caso 2 — Optimización Multivariable con Solver (Ajuste de Capital y Plazo):**
-* Configurar **Solver** modificando simultáneamente **dos celdas cambiantes**: el `Importe_Prestamo` (`B2`) y el `Plazo_Anos` (`B4`), bajo las siguientes restricciones del mercado financiero:
+4. **Caso 2 — Optimización Multivariable con Solver (Minimizar Cuota Ajustando Capital y Plazo):**
+* Configurar **Solver** teniendo como **Celda Objetivo la fórmula `Cuota_Mensual` (`B8`)** para **Minimizar** su valor, modificando simultáneamente **dos celdas cambiantes** de datos numéricos: `Importe_Prestamo` (`B2`) y `Plazo_Anos` (`B4`), bajo las siguientes restricciones del mercado financiero:
 
 
-* Minimizar la `Cuota_Mensual` (`B8`).
+* El `Importe_Prestamo` (`B2`) debe ser exactamente de **100.000 €** (`= 100000`).
 
 
-* `Importe_Prestamo` (`B2`) debe ser exactamente de **100.000 €**.
+* El `Plazo_Anos` (`B4`) debe ser mayor o igual a **3 años** (`>= 3`) y menor o igual a **7 años** (`<= 7`).
 
 
-* `Plazo_Anos` (`B4`) debe ser mayor o igual a **3 años** y menor o igual a **7 años** (`<= 7`).
-
-
-* `Plazo_Anos` (`B4`) debe ser obligatoriamente un **número entero** (`int`).
+* El `Plazo_Anos` (`B4`) debe ser obligatoriamente un **número entero** (`int`).
 
 
 
@@ -388,11 +401,7 @@ Cuota Mensual Fija;=PAGO(B6;B7;-B2);€/mes
 > 
 
 1. Ve a la pestaña **Datos** en la cinta de opciones superior.
-
-
 2. Comprueba si en el extremo derecho aparece el botón **Solver** (grupo *Analizar*).
-
-
 3. Si no aparece visible:
 
 
@@ -415,80 +424,57 @@ Cuota Mensual Fija;=PAGO(B6;B7;-B2);€/mes
 ### Paso 2: Asignar nombres a las celdas de trabajo
 
 > **Enunciado de la tarea:**
-> Asignar nombres significativos a las celdas clave (`B2`: `Importe_Prestamo`, `B3`: `Interes_Anual`, `B4`: `Plazo_Anos`, `B8`: `Cuota_Mensual`) antes de ejecutar el análisis para que el informe final resulte legible e intuitivo para la dirección.
+> Asignar nombres significativos a las celdas clave (`B2`: `Importe_Prestamo`, `B3`: `Interes_Anual`, `B4`: `Plazo_Anos`, `B8`: `Cuota_Mensual`) antes de ejecutar el análisis para que los informes finales resulten legibles e intuitivos.
 > 
 > 
 
 1. Haz clic en la celda `B2`. En el **Cuadro de Nombres** (situado a la izquierda de la barra de fórmulas), escribe `Importe_Prestamo` y presiona *Intro*.
-
-
 2. Haz clic en la celda `B3`, dirígete al Cuadro de Nombres, escribe `Interes_Anual` y presiona *Intro*.
-
-
 3. Haz clic en la celda `B4`, dirígete al Cuadro de Nombres, escribe `Plazo_Anos` y presiona *Intro*.
-
-
 4. Haz clic en la celda `B8`, dirígete al Cuadro de Nombres, escribe `Cuota_Mensual` y presiona *Intro*.
-
-
 
 ---
 
 ### Paso 3: Resolver el Caso 1 con Solver y guardar el escenario (`Optimo_Cuota1850`)
 
 > **Enunciado de la tarea:**
-> Configurar **Solver** para encontrar el **máximo importe de préstamo** que la empresa puede solicitar (`B2`), manteniendo el interés al 6,00% anual y el plazo a 5 años, respetando las siguientes restricciones:
-> 
-> 
-> * La `Cuota_Mensual` (`B8`) no puede superar los **1.850,00 €/mes**.
-> 
-> 
-> * El `Importe_Prestamo` (`B2`) debe ser como mínimo de **80.000 €**.
-> Al encontrar la solución óptima, utilizar el botón **Guardar escenario...** de Solver y nombrarlo **`Optimo_Cuota1850`**.
-> 
-> 
+> Configurar **Solver** para maximizar el capital a financiar manteniendo la cuota por debajo del presupuesto. Se debe definir como **Celda Objetivo la fórmula `Cuota_Mensual` (`B8`)** ajustándola al valor exacto de `1850` (o Máx con restricción `<= 1850`), cambiando el dato numérico del `Importe_Prestamo` (`B2`). Restricción adicional: `Importe_Prestamo` (`B2`) debe ser `>= 80000`. Guardar la solución como escenario **`Optimo_Cuota1850`**.
 > 
 > 
 
 1. Ve a la pestaña **Datos > Solver**.
 
 
-2. Configura los campos del panel de parámetros de Solver:
+2. Configura los parámetros cumpliendo las reglas del modelo:
+* **Establecer objetivo:** Selecciona la celda de la fórmula **`B8`** (`Cuota_Mensual`).
 
 
-* **Establecer objetivo:** Selecciona la celda `B2` (`Importe_Prestamo`).
+* **Para:** Selecciona la opción **Valor de:** e introduce **`1850`** (o selecciona *Máx* habiendo añadido la restricción `B8 <= 1850`).
 
 
-* **Para:** Selecciona la opción **Máx** (para maximizar el capital solicitado).
-
-
-* **Cambiando las celdas de variables:** Selecciona la celda `B2` (`Importe_Prestamo`).
+* **Cambiando las celdas de variables:** Selecciona la celda del dato libre **`B2`** (`Importe_Prestamo`).
 
 
 
 
-3. Añade las restricciones haciendo clic en el botón **Agregar**:
+3. Añade la restricción haciendo clic en **Agregar**:
 
 
-* *Restricción 1:* `Cuota_Mensual` (`B8`) `<= 1850`
-
-* *Restricción 2:* `Importe_Prestamo` (`B2`) `>= 80000`
-
-
-
-4. Selecciona el método de resolución **Simplex LP** o **GRG No Lineal** y pulsa **Resolver**.
+* **Referencia de la celda:** `B2` (`Importe_Prestamo`)
+* **Operador:** `>=`
+* **Restricción:** `80000`
 
 
-5. En el cuadro de diálogo **Resultados de Solver**:
+4. Selecciona el método de resolución **GRG No Lineal** o **Simplex LP** y pulsa **Resolver**.
 
 
-* Verifica que Solver ha encontrado una solución.
+5. En la ventana **Resultados de Solver**:
 
 
-* Haz clic en el botón **Guardar escenario...** (situado en la parte derecha de la ventana).
+* Haz clic en el botón **Guardar escenario...** (parte derecha).
 
 
-* En el cuadro emergente, escribe como nombre: `Optimo_Cuota1850` y pulsa **Aceptar**.
+* Nombre del escenario: `Optimo_Cuota1850` y pulsa **Aceptar**.
 
 
 * Selecciona **Conservar solución de Solver** y pulsa **Aceptar**.
@@ -497,60 +483,52 @@ Cuota Mensual Fija;=PAGO(B6;B7;-B2);€/mes
 
 
 
-*(Resultado esperado: El importe del préstamo se ajustará automáticamente a **95.692,80 €**, con una cuota exacta de **1.850,00 €/mes**)*.
+*(Resultado esperado: Como `B8` está vinculada mediante la fórmula `=PAGO(...)` a `B2`, Solver ajustará automáticamente el dato de `B2` a **95.692,80 €**, logrando que la fórmula de la cuota en `B8` devuelva exactamente **1.850,00 €/mes**)*.
 
 ---
 
 ### Paso 4: Resolver el Caso 2 con Solver y guardar el escenario (`Optimo_PlazoMaximo`)
 
 > **Enunciado de la tarea:**
-> Configurar **Solver** modificando simultáneamente **dos celdas cambiantes**: el `Importe_Prestamo` (`B2`) y el `Plazo_Anos` (`B4`), bajo las siguientes restricciones del mercado financiero:
+> Configurar **Solver** definiendo como **Celda Objetivo la fórmula `Cuota_Mensual` (`B8`)** para **Minimizar** su valor, modificando las celdas cambiantes de datos libres **`B2`** (`Importe_Prestamo`) y **`B4`** (`Plazo_Anos`), bajo las siguientes restricciones:
 > 
 > 
-> * Minimizar la `Cuota_Mensual` (`B8`).
+> * `B2` (`Importe_Prestamo`) `= 100000`
 > 
+> * `B4` (`Plazo_Anos`) `>= 3`
 > 
-> * `Importe_Prestamo` (`B2`) debe ser exactamente de **100.000 €**.
+> * `B4` (`Plazo_Anos`) `<= 7`
 > 
-> 
-> * `Plazo_Anos` (`B4`) debe ser mayor o igual a **3 años** y menor o igual a **7 años** (`<= 7`).
-> 
-> 
-> * `Plazo_Anos` (`B4`) debe ser obligatoriamente un **número entero** (`int`).
-> Al encontrar la solución, guardar el resultado como un nuevo escenario denominado **`Optimo_PlazoMaximo`**.
+> * `B4` (`Plazo_Anos`) operador **int** (entero).
+> Al encontrar la solución, guardar el resultado como escenario **`Optimo_PlazoMaximo`**.
 > 
 > 
 > 
 > 
 
-1. Abre nuevamente **Datos > Solver**.
+1. Abre **Datos > Solver**.
 
 
-2. Pulsa el botón **Restablecer todo** para limpiar la configuración previa.
-3. Configura el nuevo modelo:
+2. Pulsa el botón **Restablecer todo** para limpiar los parámetros anteriores.
+3. Configura la nueva optimización:
+* **Establecer objetivo:** Selecciona la celda con fórmula **`B8`** (`Cuota_Mensual`).
 
 
-* **Establecer objetivo:** Selecciona `B8` (`Cuota_Mensual`).
+* **Para:** Selecciona **Mín** (para buscar la cuota mensual más baja).
 
 
-* **Para:** Selecciona **Mín** (para minimizar el impacto mensual en caja).
-
-
-* **Cambiando las celdas de variables:** Selecciona el rango `B2; B4` (`Importe_Prestamo` y `Plazo_Anos`).
+* **Cambiando las celdas de variables:** Selecciona las celdas de datos numéricos **`B2; B4`** (`Importe_Prestamo` y `Plazo_Anos`).
 
 
 
 
-4. Pulsa **Agregar** para incluir las siguientes restricciones:
+4. Pulsa **Agregar** para incluir las restricciones del modelo:
 
 
 * `B2` (`Importe_Prestamo`) `= 100000`
-
 * `B4` (`Plazo_Anos`) `>= 3`
-
 * `B4` (`Plazo_Anos`) `<= 7`
-
-* `B4` (`Plazo_Anos`) operador **int** (entero).
+* `B4` (`Plazo_Anos`) operador **int** (número entero).
 
 
 
@@ -563,7 +541,7 @@ Cuota Mensual Fija;=PAGO(B6;B7;-B2);€/mes
 
 * Haz clic en **Guardar escenario...**
 
-* Nombra el escenario como: `Optimo_PlazoMaximo` y pulsa **Aceptar**.
+* Escribe el nombre: `Optimo_PlazoMaximo` y pulsa **Aceptar**.
 
 
 * Marca **Conservar solución de Solver** y haz clic en **Aceptar**.
@@ -572,7 +550,7 @@ Cuota Mensual Fija;=PAGO(B6;B7;-B2);€/mes
 
 
 
-*(Resultado esperado: Solver ampliará el plazo a **7 años**, reduciendo la cuota fija mensual a **1.460,86 €/mes**)*.
+*(Resultado esperado: Solver ampliará la celda cambiante del plazo a **7 años**, provocando que la fórmula de la cuota en `B8` se reduzca al mínimo posible de **1.460,86 €/mes**)*.
 
 ---
 
@@ -585,15 +563,15 @@ Cuota Mensual Fija;=PAGO(B6;B7;-B2);€/mes
 
 1. Ve a la pestaña **Datos > Análisis de hipótesis > Administrador de escenarios...**
 
-2. Observa la lista de escenarios guardados: comprobarás que aparecen registrados **`Optimo_Cuota1850`** y **`Optimo_PlazoMaximo`** gracias al vínculo directo con Solver.
+2. En la lista de escenarios comprobarás que figuran guardados **`Optimo_Cuota1850`** y **`Optimo_PlazoMaximo`**.
 
 
 3. Haz clic en el botón **Resumen...**
 
-4. En el tipo de informe, deja seleccionada la opción **Resumen de escenarios**.
+4. Selecciona el tipo **Resumen de escenarios**.
 
 
-5. En **Celdas de resultado**, asegúrate de que está seleccionada la celda `B8` (`Cuota_Mensual`).
+5. En **Celdas de resultado**, confirma que está seleccionada la celda con fórmula **`B8`** (`Cuota_Mensual`).
 
 
 6. Haz clic en **Aceptar**.
@@ -604,14 +582,15 @@ Cuota Mensual Fija;=PAGO(B6;B7;-B2);€/mes
 
 ### Resumen Didáctico e Interpretación de Resultados
 
-* **Integración Nativa Solver - Escenarios:** Gracias a la opción *Guardar escenario* al finalizar la ejecución de Solver, evitamos perder los resultados de las optimizaciones matemáticas previas. Excel consolida automáticamente las soluciones en una nueva pestaña de informe.
+* **Regla Fundamental de Solver:** En la celda objetivo **siempre debemos seleccionar una celda que contenga una fórmula** (como `B8`, la cuota mensual calculada con `=PAGO(...)`). Las celdas cambiantes (`B2` o `B4`) son los **valores de entrada fijos que Solver probará hasta cumplir el objetivo**.
 
 
-* **Aportación de Nombres a Celdas:** Al haber etiquetado previamente las celdas (`Importe_Prestamo`, `Plazo_Anos`, `Cuota_Mensual`), la tabla resumen no muestra referencias abstractas como `B2` o `B8`, sino nombres de negocio directamente comprensibles para el equipo directivo.
+* **Etiquetado con Nombres Definidos:** Al haber nombrado previamente las celdas (`Importe_Prestamo`, `Plazo_Anos`, `Cuota_Mensual`), la tabla comparativa generada en la pestaña *Resumen de escenario* muestra etiquetas de negocio claras.
 
 
 * **Conclusión de Negocio:**
-* Si la empresa restringe su flujo de caja a 1.850,00 €/mes a 5 años, solo podrá solicitar **95.692,80 €**.
+* Si se limita la cuota máxima a **1.850,00 €/mes** a 5 años, el préstamo máximo alcanzable es de **95.692,80 €**.
+* Si se requieren los **100.000 €** íntegros, al ampliar el plazo a **7 años** (valor máximo de la restricción entera), la cuota desciende a **1.460,86 €/mes**, optimizando el flujo de caja de la empresa.
 
 
-* Si la empresa requiere obligatoriamente los **100.000 €** de financiación, optimizar el plazo a 7 años permite reducir la cuota a **1.460,86 €/mes**, mejorando notablemente la liquidez operativa.
+
