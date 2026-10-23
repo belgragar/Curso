@@ -1,4 +1,4 @@
-# Práctica Guiada 09: Tablas dinámicas
+# Práctica Guiada 10: Tablas dinámicas
 
 ### Datos de partida (Bloque 1)
 
