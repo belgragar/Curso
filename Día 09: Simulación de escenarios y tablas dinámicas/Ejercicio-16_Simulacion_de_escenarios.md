@@ -1,25 +1,24 @@
-# Ejercicio 16: Modelado Financiero y Plan de Expansión para "Sidrería El Llagar de Asturias"
+# Ejercicio 16: Modelado Financiero, Optimización con Solver y Análisis de Escenarios para "Sidrería El Llagar de Asturias"
 
 ## 1. Contexto de Negocio
 
-La empresa familiar **Sidrería El Llagar de Asturias S.L.**, ubicada en Villaviciosa, está evaluando la compra de un nuevo llagar tradicional y la ampliación de sus instalaciones de embotellado por un valor total de **100.000 €**.
+La empresa familiar **Sidrería El Llagar de Asturias S.L.**, ubicada en Villaviciosa, está evaluando la compra de un nuevo llagar tradicional y la ampliación de sus instalaciones por un valor total de **100.000 €**.
 
-Para tomar la decisión de inversión y financiación, la dirección necesita realizar un análisis integral dividido en dos vertientes:
+Para tomar la decisión ejecutiva, la gerencia necesita un análisis analítico integral en tres dimensiones:
 
-1. **Plan de Financiación y Simulación de Escenarios:** Estudiar la amortización del préstamo bancario (cuotas mensuales, desglose de capital e intereses en el primer mes, plazo con restricción de cuota, tipo de interés aplicado y capacidad de endeudamiento). Asimismo, la gerencia requiere evaluar la sensibilidad de la cuota mediante una *Tabla de datos de dos variables* (interés vs. plazo) y configurar 3 *Escenarios* (*Base*, *Conservador* y *Agresivo*) generando su correspondiente **Informe de Resumen de Escenarios**.
-
-
-2. **Evaluación de la Rentabilidad de la Sidrería (`TIR`):** Analizar los flujos netos de caja esperados por la venta de sidra natural durante los próximos 5 años calculando la Tasa Interna de Retorno (`TIR`) para verificar si supera el coste de capital.
+1. **Modelización Financiera Inicial:** Determinar las cuotas de amortización del préstamo, el desglose de capital e intereses en el primer mes, la duración bajo restricción presupuestaria, el tipo de interés implícito, la capacidad de endeudamiento, el valor futuro acumulado y la rentabilidad del proyecto (`TIR`).
+2. **Optimización Avanzada con Solver:** Encontrar la combinación óptima de **Importe del Préstamo** y **Plazo en Años** que maximice el valor actual neto de la operación o minimice el coste de financiación sujeto a restricciones estrictas del banco y de la tesorería de la sidrería. La solución hallada por Solver se guardará directamente como un **Escenario**.
 
 
+3. **Análisis de Hipótesis y Sensibilidad:** Evaluar la sensibilidad de la cuota mediante una *Tabla de datos de dos variables* (interés vs. plazo) y comparar mediante el **Administrador de escenarios** los modelos *Base*, *Conservador*, *Agresivo* y el modelo *Optimizado por Solver*.
 
-Como analista financiero, debes construir la plantilla modelo en Excel asegurando la configuración regional de España (coma `,` para decimales, punto `.` para miles y punto y coma `;` para separar argumentos en funciones).
+
 
 ---
 
 ## 2. Conjunto de Datos (Dataset)
 
-Copia los siguientes bloques de datos y pégalos en una hoja nueva de Excel llamada **Gestion_Sidreria** a partir de la celda **A1**. Los datos están delimitados por punto y coma (`;`) para su correcta importación.
+Copia los siguientes bloques de datos y pégalos en una hoja nueva de Excel llamada **Gestion_Sidreria** a partir de la celda **A1**. Los datos utilizan el punto y coma (`;`) como separador de columnas para garantizar la compatibilidad con el separador decimal de España (coma `,`).
 
 ```csv
 Parametro_Financiacion;Valor;Unidad
@@ -32,7 +31,7 @@ Oferta Entidad Financiera (Cuota);2100;€/mes
 
 ```
 
-A continuación, en la celda **D1**, copia la tabla con los flujos de caja previstos por la venta y distribución de cajas de sidra:
+A continuación, en la celda **D1**, copia la tabla con la previsión de flujos de caja generados por la venta de cajas de sidra natural:
 
 ```csv
 Año;Flujo de Caja (€)
@@ -53,66 +52,68 @@ Año 5;45000
 * Calcula la **Tasa de Interés Mensual** y el **Número Total de Períodos ($NPER$)**.
 
 
-
-
 2. **Cuota Periódica del Préstamo (`PAGO`):**
-* Determina la cuota fija mensual para amortizar los 100.000 € del llagar.
+* Determina la cuota fija mensual para amortizar el préstamo inicial de 100.000 € al 6% anual a 5 años.
 
 
+3. **Desglose del Primer Mes (`PAGOINT` y `PAGOPRIN`):**
+* Calcula los intereses (`PAGOINT`) y la amortización de capital (`PAGOPRIN`) correspondientes a la cuota del primer mes.
 
 
-3. **Desglose de Amortización del Primer Mes (`PAGOINT` y `PAGOPRIN`):**
-* Calcula los intereses (`PAGOINT`) y la amortización de capital (`PAGOPRIN`) correspondientes al primer mes.
+4. **Análisis de Duración con Cuota Limitada (`NPER`):**
+* Si la sidrería fija un límite de **2.000 €/mes**, calcula cuántos meses requerirá para devolver los 100.000 €.
 
 
-
-
-4. **Análisis de Duración con Cuota Restringida (`NPER`):**
-* Si la sidrería solo puede pagar un máximo de **2.000 €/mes**, calcula cuántos meses necesitará para amortizar la deuda.
-
-
-
-
-5. **Auditoría de Tipo de Interés (`TASA`):**
-* Un banco local ofrece financiar los 100.000 € en 60 meses exigiendo una cuota de **2.100 €/mes**. Deduce la tasa mensual implícita y su equivalente nominal anual.
-
-
+5. **Auditoría de Ofertas Bancarias (`TASA`):**
+* Una entidad financiera ofrece financiar los 100.000 € en 60 meses exigiendo una cuota fija de **2.100 €/mes**. Deduce la tasa mensual implícita y su tasa nominal anual equivalente.
 
 
 6. **Capacidad Máxima de Endeudamiento (`VA`):**
-* Si el tope infranqueable de la sidrería es de **2.000 €/mes** a 5 años al 6% anual, calcula el capital máximo que puede solicitar.
-
-
+* Si el tope infranqueable de la sidrería es de **2.000 €/mes** a 5 años al 6% anual, calcula el importe máximo del préstamo que podría solicitar.
 
 
 7. **Proyección de Fondo de Reserva (`VF`):**
 * Calcula cuánto dinero acumularía la empresa si depositara mensualmente la cuota del paso 2 en un fondo de inversión al 6% anual durante 5 años.
 
 
-
-
 8. **Evaluación de Rentabilidad de la Sidrería (`TIR`):**
-* Calcula la Tasa Interna de Retorno (`TIR`) del flujo de caja (rango `E2:E7`) para determinar la viabilidad del negocio.
+* Calcula la Tasa Interna de Retorno (`TIR`) del flujo de caja (rango `E2:E7`) para determinar la viabilidad del proyecto de expansión.
+
+
+9. **Tabla de Datos de Dos Variables (Sensibilidad de Cuota):**
+* Construye una matriz de doble entrada que analice la cuota mensual combinando tipos de interés (del **4,00%** al **8,00%** en pasos de **0,50%**) y plazos de amortización (**3, 4, 5, 6 y 7 años**).
+
+
+10. **Optimización Financiera con Solver y Guardado como Escenario:**
+* Activa e inicia la herramienta **Solver**. Configura el modelo para **Minimizar la Cuota Mensual Fija** cambiando simultáneamente el **Importe del Préstamo** (`B2`) y el **Plazo en Años** (`B4`) sujeto a las siguientes restricciones:
+
+
+* El *Importe del Préstamo* debe ser mayor o igual a **90.000 €** (`B2 >= 90000`).
+* El *Importe del Préstamo* debe ser menor o igual a **110.000 €** (`B2 <= 110000`).
+* El *Plazo en Años* debe ser mayor o igual a **4 años** (`B4 >= 4`).
+* El *Plazo en Años* debe ser menor o igual a **7 años** (`B4 <= 7`).
+* El *Plazo en Años* debe ser un número entero (`B4 = int`).
 
 
 
 
-9. **Tabla de Datos de Dos Variables (Sensibilidad de la Cuota):**
-* Construye una matriz de doble entrada que analice la cuota mensual combinando tipos de interés anuales (del **4,00%** al **8,00%** en pasos de **0,50%**) y plazos de amortización (**3, 4, 5, 6 y 7 años**).
+* Al encontrar la solución óptima, utiliza el botón **Guardar escenario...** de Solver para registrarla con el nombre **`Optimo_Solver`**.
 
 
 
 
-10. **Administrador de Escenarios e Informe Resumen:**
-* Genera 3 escenarios variando el *Importe del Préstamo* (`B2`), el *Interés Anual* (`B3`) y el *Plazo en Años* (`B4`):
+11. **Administrador de Escenarios e Informe Resumen Consolidado:**
+* Define en el Administrador de escenarios los modelos tradicionales cambiando el *Importe del Préstamo* (`B2`), el *Interés Anual* (`B3`) y el *Plazo en Años* (`B4`):
 
 
 * **Escenario Base:** `100.000 €` | `6,00%` | `5 años`
+
 * **Escenario Conservador:** `80.000 €` | `7,50%` | `4 años`
 * **Escenario Agresivo:** `120.000 €` | `5,00%` | `6 años`
 
 
-* Crea automáticamente un **Informe de Resumen de Escenarios** mostrando el impacto en la cuota resultante.
+
+* Genera un **Informe de Resumen de Escenarios** en una nueva pestaña consolidando todas las alternativas, incluyendo la solución **`Optimo_Solver`**.
 
 
 
@@ -130,7 +131,7 @@ Año 5;45000
 > Calcula la **Tasa de Interés Mensual** y el **Número Total de Períodos ($NPER$)**.
 
 1. En la celda `A9`, escribe: `Tasa Mensual`
-2. En la celda `B9`, introduce:
+2. En la celda `B9`, introduce la fórmula:
 ```excel
 =B3/B5
 
@@ -139,7 +140,7 @@ Año 5;45000
 
 *(Aplica formato Porcentaje con dos decimales: `0,50%`)*.
 3. En la celda `A10`, escribe: `Total Periodos (NPER)`
-4. En la celda `B10`, introduce:
+4. En la celda `B10`, introduce la fórmula:
 ```excel
 =B4*B5
 
@@ -156,7 +157,9 @@ Año 5;45000
 > Determina la cuota fija mensual para amortizar los 100.000 € del llagar.
 
 1. En la celda `A12`, escribe: `Cuota Mensual Fija (PAGO)`
-2. En la celda `B12`, introduce (utilizando signo negativo en el capital para obtener resultado positivo):
+2. En la celda `B12`, introduce la fórmula (añadiendo el signo negativo en el valor actual para obtener la cuota positiva):
+
+
 ```excel
 =PAGO(B9; B10; -B2)
 
@@ -173,7 +176,7 @@ Año 5;45000
 > Calcula los intereses (`PAGOINT`) y la amortización de capital (`PAGOPRIN`) correspondientes al primer mes.
 
 1. En la celda `A13`, escribe: `Interes Mes 1 (PAGOINT)`
-2. En la celda `B13`, introduce:
+2. En la celda `B13`, introduce la fórmula:
 ```excel
 =PAGOINT(B9; 1; B10; -B2)
 
@@ -182,7 +185,7 @@ Año 5;45000
 
 *(Resultado esperado: `500,00 €`)*.
 3. En la celda `A14`, escribe: `Capital Mes 1 (PAGOPRIN)`
-4. En la celda `B14`, introduce:
+4. En la celda `B14`, introduce la fórmula:
 ```excel
 =PAGOPRIN(B9; 1; B10; -B2)
 
@@ -199,7 +202,7 @@ Año 5;45000
 > Si la sidrería solo puede pagar un máximo de **2.000 €/mes**, calcula cuántos meses necesitará para amortizar la deuda.
 
 1. En la celda `A16`, escribe: `Meses Necesarios (NPER - Cuota 2.000€)`
-2. En la celda `B16`, introduce:
+2. En la celda `B16`, introduce la fórmula:
 ```excel
 =NPER(B9; -B6; B2)
 
@@ -210,13 +213,13 @@ Año 5;45000
 
 ---
 
-### Paso 5: Auditar la tasa de interés de la entidad bancaria (`TASA`)
+### Paso 5: Auditar el tipo de interés de la oferta bancaria (`TASA`)
 
 > **Enunciado de la tarea:**
 > Un banco local ofrece financiar los 100.000 € en 60 meses exigiendo una cuota de **2.100 €/mes**. Deduce la tasa mensual implícita y su equivalente nominal anual.
 
 1. En la celda `A18`, escribe: `Tasa Mensual Implicita (TASA)`
-2. En la celda `B18`, introduce:
+2. En la celda `B18`, introduce la fórmula:
 ```excel
 =TASA(B10; -B7; B2)
 
@@ -225,7 +228,7 @@ Año 5;45000
 
 *(Resultado esperado: `0,79%`)*.
 3. En la celda `A19`, escribe: `Tasa Anual Real Equivalente`
-4. En la celda `B19`, introduce:
+4. En la celda `B19`, introduce la fórmula:
 ```excel
 =B18*B5
 
@@ -242,7 +245,7 @@ Año 5;45000
 > Si el tope infranqueable de la sidrería es de **2.000 €/mes** a 5 años al 6% anual, calcula el capital máximo que puede solicitar.
 
 1. En la celda `A21`, escribe: `Capital Maximo Financiable (VA)`
-2. En la celda `B21`, introduce:
+2. En la celda `B21`, introduce la fórmula:
 ```excel
 =VA(B9; B10; -B6)
 
@@ -259,7 +262,7 @@ Año 5;45000
 > Calcula cuánto dinero acumularía la empresa si depositara mensualmente la cuota del paso 2 en un fondo de inversión al 6% anual durante 5 años.
 
 1. En la celda `A23`, escribe: `Fondo Acumulado (VF)`
-2. En la celda `B23`, introduce:
+2. En la celda `B23`, introduce la fórmula:
 ```excel
 =VF(B9; B10; -B12)
 
@@ -276,7 +279,7 @@ Año 5;45000
 > Calcula la Tasa Interna de Retorno (`TIR`) del flujo de caja (rango `E2:E7`) para determinar la viabilidad del negocio.
 
 1. En la celda `D9`, escribe: `TIR del Proyecto Sidrería`
-2. En la celda `E9`, introduce:
+2. En la celda `E9`, introduce la fórmula:
 ```excel
 =TIR(E2:E7)
 
@@ -292,59 +295,132 @@ Año 5;45000
 > **Enunciado de la tarea:**
 > Construye una matriz de doble entrada que analice la cuota mensual combinando tipos de interés anuales (del **4,00%** al **8,00%** en pasos de **0,50%**) y plazos de amortización (**3, 4, 5, 6 y 7 años**).
 
-1. Prepara la matriz en el rango `G2:L11`:
-* En la celda esquina `G2`, vincula la fórmula de la cuota: `=B12`.
+1. Prepara la estructura de la matriz en el rango `G2:L11`:
+* En la esquina `G2`, vincula la fórmula de la cuota: `=B12`.
+* En la fila `H2:L2`, escribe los plazos: `3`, `4`, `5`, `6`, `7`.
+* En la columna `G3:G11`, introduce la serie de intereses: `4,00%`, `4,50%`, `5,00%`, `5,50%`, `6,00%`, `6,50%`, `7,00%`, `7,50%`, `8,00%`.
 
 
-* En la cabecera horizontal (`H2:L2`), escribe los plazos en años: `3`, `4`, `5`, `6`, `7`.
-* En la columna vertical (`G3:G11`), introduce los tipos de interés: `4,00%`, `4,50%`, `5,00%`, `5,50%`, `6,00%`, `6,50%`, `7,00%`, `7,50%`, `8,00%`.
-
-
-2. Selecciona todo el rango de la matriz: **`G2:L11`**.
-
-
+2. Selecciona todo el rango **`G2:L11`**.
 3. Ve a **Datos > Análisis de hipótesis > Tabla de datos...**
-
 4. Configura los parámetros:
-
-
 * **Celda de entrada (fila):** **`B4`** (Plazo en Anos).
-
-
 * **Celda de entrada (columna):** **`B3`** (Interes Anual Nominal).
 
 
-
-
-5. Haz clic en **Aceptar** y asigna formato de moneda (`€`) al rango interior `H3:L11`.
+5. Haz clic en **Aceptar** y asigna formato de moneda (`€`) al rango `H3:L11`.
 
 ---
 
-### Paso 10: Configurar el Administrador de Escenarios e Informe Resumen
+### Paso 10: Optimizar el modelo con Solver y Guardar la solución como Escenario
 
 > **Enunciado de la tarea:**
-> Genera 3 escenarios variando el *Importe del Préstamo* (`B2`), el *Interés Anual* (`B3`) y el *Plazo en Años* (`B4`). Crea automáticamente un **Informe de Resumen de Escenarios** mostrando el impacto en la cuota resultante.
+> Configura **Solver** para **Minimizar la Cuota Mensual Fija** (`B12`) cambiando el **Importe del Préstamo** (`B2`) y el **Plazo en Años** (`B4`) sujeto a las restricciones de rango e integridad indicadas. Guarda la solución como el escenario **`Optimo_Solver`**.
+> 
+> 
 
-1. Ve a **Datos > Análisis de hipótesis > Administrador de escenarios...**
-
-2. **Escenario Base:** Haz clic en **Agregar**, nombra como `Base`, selecciona celdas cambiantes `B2:B4` e introduce: `100000`, `0,06`, `5`.
-
-
-3. **Escenario Conservador:** Haz clic en **Agregar**, nombra como `Conservador`, celdas cambiantes `B2:B4` e introduce: `80000`, `0,075`, `4`.
+1. **Activar Solver (si no estuviera visible):** Ve a **Archivo > Opciones > Complementos**, selecciona **Complementos de Excel** en la parte inferior, pulsa **Ir...**, marca la casilla **Solver** y haz clic en **Aceptar**.
 
 
-4. **Escenario Agresivo:** Haz clic en **Agregar**, nombra como `Agresivo`, celdas cambiantes `B2:B4` e introduce: `120000`, `0,05`, `6`.
+2. Dirígete a la pestaña **Datos > Solver**.
 
 
-5. **Generar Informe:** En la ventana del Administrador de escenarios, pulsa **Resumen...**, verifica que la celda de resultado sea **`B12`** (Cuota Mensual) y haz clic en **Aceptar**.
+3. En el cuadro de diálogo de Solver, configura:
+
+
+* **Establecer objetivo:** **`B12`** (Cuota Mensual Fija).
+
+
+* **Para:** Marca la opción **Mín** (Minimizar cuota).
+
+
+* **Cambiando las celdas de variables:** **`B2; B4`** (Importe del Préstamo y Plazo).
+
+
+
+
+4. **Agregar Restricciones** (haz clic en el botón **Agregar** para cada una):
+
+
+* `B2 <= 110000`
+
+* `B2 >= 90000`
+
+* `B4 <= 7`
+
+* `B4 >= 4`
+
+* `B4 = int` (selecciona el operador `int` para obligar a que el plazo sea un número entero de años).
+
+
+
+
+5. Asegúrate de tener marcada la casilla **"Hacer que las variables sin restricciones sean no negativas"** y selecciona el método de resolución **Simplex LP** o **GRG No Lineal**.
+
+
+6. Haz clic en el botón **Resolver**.
+
+
+7. Cuando aparezca el cuadro **Resultados de Solver**, haz clic en el botón **Guardar escenario...**
+
+8. Escribe el nombre del escenario: **`Optimo_Solver`** y haz clic en **Aceptar**.
+
+
+9. En la ventana principal de Resultados de Solver, selecciona **Conservar solución de Solver** y pulsa **Aceptar**.
+
+
+* *(Resultado esperado de Solver: Para minimizar la cuota dentro de los límites, Solver ajustará el préstamo al mínimo permitido de **90.000 €** y alargará el plazo al máximo de **7 años** (84 meses), resultando en una cuota optimizada de **1.313,29 €/mes**)*.
 
 
 
 ---
 
-### Resumen Executivo e Interpretación Didáctica
+### Paso 11: Configurar los Escenarios Tradicionales y Generar el Informe de Resumen Consolidado
 
-* **Viabilidad Económica:** La compra del llagar genera una **TIR del 18,04%**, superior al coste de financiación bancario del **6,00%** nominal anual. Esto confirma la alta rentabilidad del proyecto de producción de sidra.
+> **Enunciado de la tarea:**
+> Define los escenarios *Base*, *Conservador* y *Agresivo*, y genera un **Informe de Resumen de Escenarios** que consolide todas las alternativas junto a la solución de Solver.
+> 
+> 
+
+1. Ve a **Datos > Análisis de hipótesis > Administrador de escenarios...**
+2. Comprueba que el escenario **`Optimo_Solver`** ya aparece en la lista gracias al paso anterior.
 
 
-* **Comparativa de Escenarios:** El Informe de Resumen de Escenarios demuestra que ajustando la inversión inicial a 80.000 € a 4 años al 7,50% (*Conservador*), la cuota se sitúa en **1.933,90 €/mes**, casi idéntica al escenario *Base* (**1.933,28 €/mes**), lo que da margen de maniobra a la gerencia para decidir el volumen de adquisición final.
+3. **Agregar Escenario Base:**
+* Haz clic en **Agregar**.
+* Nombre: `Base` | Celdas cambiantes: **`B2:B4`**.
+* Valores: `B2 = 100000`, `B3 = 0,06`, `B4 = 5`.
+
+
+
+
+4. **Agregar Escenario Conservador:**
+* Haz clic en **Agregar**.
+* Nombre: `Conservador` | Celdas cambiantes: **`B2:B4`**.
+* Valores: `B2 = 80000`, `B3 = 0,075`, `B4 = 4`.
+
+
+5. **Agregar Escenario Agresivo:**
+* Haz clic en **Agregar**.
+* Nombre: `Agresivo` | Celdas cambiantes: **`B2:B4`**.
+* Valores: `B2 = 120000`, `B3 = 0,05`, `B4 = 6`.
+
+
+
+
+6. **Generar Informe Resumen:**
+* En la ventana del Administrador de escenarios, haz clic en el botón **Resumen...**
+* Selecciona **Resumen de escenarios**.
+* En **Celdas de resultado**, introduce la celda de la cuota: **`B12`**.
+* Haz clic en **Aceptar**.
+
+
+
+---
+
+### Resumen Ejecutivo e Interpretación Didáctica
+
+* **Integración de Solver y Escenarios:** Gracias a la opción *Guardar escenario*, la solución óptima encontrada por Solver (**1.313,29 €/mes** financiando 90.000 € a 7 años) queda reflejada automáticamente junto a las propuestas manuales (*Base*, *Conservador* y *Agresivo*) en una única tabla comparativa.
+
+
+* **Análisis de Viabilidad Global:** La compra del llagar genera una **TIR del 18,04%**, cifra muy superior al coste de capital bancario (**6,00%**), asegurando la rentabilidad del plan de negocio de la sidrería.
