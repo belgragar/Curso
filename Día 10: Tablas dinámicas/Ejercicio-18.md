@@ -1,4 +1,4 @@
-# Ejercicio Práctico: Análisis Comercial y de Alojamiento Turístico en Asturias
+# Ejercicio 8: Análisis Comercial y de Alojamiento Turístico en Asturias
 
 ## 1. Contexto de Negocio
 
