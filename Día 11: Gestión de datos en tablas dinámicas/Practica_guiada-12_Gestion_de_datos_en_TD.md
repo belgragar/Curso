@@ -106,8 +106,7 @@ V-115;Lana y Telas de los Ancares;Textil;20/06/2025;89,00;2
 
 
 
-
-* **Paso 4: Extracción de valores con `IMPORTARDATOSDINAMICOS**`
+- **Paso 4: Extracción de valores con `IMPORTARDATOSDINAMICOS**
 1. Haz clic en una celda vacía de la hoja (por ejemplo, `H4`) e introduce el signo `=`.
 2. Haz clic directamente sobre una celda de valor dentro de la tabla dinámica que contenga un importe. Excel generará automáticamente una fórmula estructurada similar a esta:
 `=IMPORTARDATOSDINAMICOS("Importe_Euros"; $A$3; "Modalidad"; "Cuchillería")`
