@@ -181,7 +181,7 @@ Queremos extraer las columnas de Comercial, Provincia e Importe para las ventas 
 * `FILTRAR(...)` toma el rango de columnas `[Comercial]:[Importe_Venta]` y extrae únicamente las filas donde la provincia es `"Asturias"`.
 
 
-* `ORDENAR( ... ; 3; -1)` recibe la matriz filtrada y la ordena basándose en su **3ª columna** (*Importe_Venta*) de forma descendente (`-1`).
+* `ORDENAR( ... ; 4; -1)` recibe la matriz filtrada y la ordena basándose en su **4ª columna** (*Importe_Venta*) de forma descendente (`-1`).
 
 
 
