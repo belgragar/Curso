@@ -251,7 +251,7 @@ Para generar un desplegable o reporte limpio de las provincias con actividad com
 
 El departamento comercial requiere identificar rápidamente las operaciones importantes superiores a `1.500,00 €`, mostrando el Comercial y el Importe.
 
-1. Haz clic en la celda **S24**.
+1. Haz clic en la celda **S34**.
 2. Escribe la siguiente fórmula anidada:
 
 
