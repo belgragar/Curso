@@ -172,7 +172,7 @@ Queremos extraer las columnas de Comercial, Provincia e Importe para las ventas 
 
 
 ```excel
-=ORDENAR(FILTRAR(Tbl_Ventas[[Comercial]:[Importe_Venta]]; Tbl_Ventas[Provincia] = "Asturias"); 3; -1)
+=ORDENAR(FILTRAR(Tbl_Ventas[[Comercial]:[Importe_Venta]]; Tbl_Ventas[Provincia] = "Asturias"); 4; -1)
 
 ```
 
