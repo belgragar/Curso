@@ -256,7 +256,7 @@ El departamento comercial requiere identificar rápidamente las operaciones impo
 
 
 ```excel
-=ORDENAR(FILTRAR(Tbl_Ventas[[Comercial]:[Importe_Venta]]; Tbl_Ventas[Importe_Venta] > 1500); 3; -1)
+=ORDENAR(FILTRAR(Tbl_Ventas[[Comercial]:[Importe_Venta]]; Tbl_Ventas[Importe_Venta] > 1500); 4; -1)
 
 ```
 
@@ -284,7 +284,7 @@ Haz clic en **V24** e introduce la fórmula anidada de filtro y ordenación:
 
 
 ```excel
-=ORDENAR(FILTRAR(Tbl_Ventas[[Comercial]:[Importe_Venta]]; Tbl_Ventas[Provincia] = "Madrid"); 3; -1)
+=ORDENAR(FILTRAR(Tbl_Ventas[[Comercial]:[Importe_Venta]]; Tbl_Ventas[Provincia] = "Madrid"); 4; -1)
 
 ```
 
