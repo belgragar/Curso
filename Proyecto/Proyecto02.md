@@ -90,3 +90,72 @@ Diseñar un Dashboard visual e interactivo utilizando gráficos dinámicos y tar
 
 ---
 
+
+## Día 8 — Fase 3: Modernización del sistema de consultas
+
+### Objetivo general
+
+Sustituir las búsquedas de datos tradicionales por funciones de búsqueda moderna: **BUSCARX** y **COINCIDIRX** (materia explicada en el Día 8).
+
+### Desarrollo
+
+1. En la hoja **`Ventas_Brutas`** o en una sección auxiliar de consulta, crea un buscador operativo por `Código_Operación`.
+2. Utiliza **`BUSCARX`** para recuperar automáticamente el `Cliente`, `Comercial` e `Importe` correspondiente a un código introducido.
+3. Utiliza **`COINCIDIRX`** para determinar la posición relativa exacta de una provincia o comercial en el cuadro general.
+4. Implementa la gestión de errores nativa de `BUSCARX` (`[si_no_se_encuentra]`) para evitar mostrar errores tipo `#N/A`.
+5. Incluye una breve nota explicativa en la hoja detallando las ventajas técnicas de `BUSCARX` frente a `BUSCARV`.
+
+Los ejercicios de este día 8 han sido modificados por:
+
+### Objetivo general
+
+Sustituir los métodos de búsqueda tradicionales del sistema por un modelo interactivo, robusto y visual basado en **BUSCARX** y **COINCIDIRX**, integrando la extracción multicolumna, la búsqueda por tramos, la búsqueda inversa y la visualización dinámica mediante gráficos interactivos del Día 07.
+
+### Bloque 1: Sistema de Consulta Principal (`Ventas_Brutas`)
+
+1. **Buscador de Operaciones Multi-columna:**
+   * En la hoja **`Ventas_Brutas`** (o pestaña **`Buscador`**), crea un panel interactivo por `Código_Operación`.
+   * Utiliza una **única fórmula de `BUSCARX**` que devuelva simultáneamente el `Cliente`, `Comercial`, `Provincia` e `Importe`.
+   * Configura el parámetro nativo `[si_no_se_encuentra]` con el mensaje: `"Operación no registrada"`.
+
+2. **Consulta Historica de Última Operación y Tramo:**
+   * Utiliza **`BUSCARX` con `modo_busqueda = -1**` para localizar la fecha y monto de la *última transacción* registrada para un comercial determinado.
+   * Utiliza **`BUSCARX` en modo de coincidencia aproximada (`-1`)** para calcular automáticamente la tasa de comisión aplicable a cada operación según la tabla oficial de tramos de la empresa.
+
+### Bloque 2: Integración Visual — Mini-Dashboard de Comercial (Conexión Día 07 + Día 08)
+
+3. **Gráfico Dinámico de Rendimiento:**
+   * Diseña una sección de consulta por `Comercial` con un desplegable de selección.
+   * Emplea `BUSCARX` para extraer la serie de ventas trimestrales del comercial a una tabla auxiliar de apoyo.
+   * Vincula a esta tabla de apoyo un **Gráfico Dinámico** (Día 07) que se actualice automáticamente al cambiar la selección.
+
+### Bloque 3: Documentación Técnica y Auditoría con IA
+
+4. **Nota de Arquitectura de Datos y Auditoría IA:**
+   * Incluye un cuadro de texto en la hoja explicando las ventajas técnicas de la migración a `BUSCARX`.
+   * Audita la fórmula del Mini-Dashboard utilizando un prompt en ChatGPT/Claude y adjunta el informe técnico devuelto por la IA.
+
+### 🚀 Retos de Extensión "PRO" (Para los que acaben pronto 😉)
+
+* **Reto 1 (Título Dinámico en Gráfico):** Haz que el título del gráfico del Mini-Dashboard cambie automáticamente concatenando texto y fórmulas (ej. `="Informe de Rendimiento Comercial: " & B3`).
+
+* **Reto 2 (Búsqueda Bidireccional Matriz 2D):** Implementa una búsqueda cruzada de 2 ejes (`Fila x Columna`) combinando dos funciones `BUSCARX` anidadas para consultar la venta de un `Comercial` en una `Provincia` concreta.
+
+* **Reto 3 (Auditoría con IA):** Consulta a ChatGPT/Claude/Copilot para evaluar la velocidad de cálculo de una búsqueda bidireccional en tablas de más de 100.000 filas.
+
+---
+
+## Fase 4: Informes automáticos con matrices dinámicas
+
+### Objetivo general
+
+Construir reportes automáticos auto-expandibles mediante las funciones de matriz dinámica: **FILTRAR**, **UNICO**, **ORDENAR** y **SECUENCIA** (materia explicada en el Día 9).
+
+### Desarrollo
+
+1. Crea una nueva hoja denominada **`Informes_Automaticos`**.
+2. Mediante **`UNICO`**, genera un listado automático y dinámico de los clientes sin duplicados.
+3. Mediante **`ORDENAR`** y **`FILTRAR`**, genera una tabla dinámica de consulta que extraiga todas las operaciones de un `Canal` específico elegible, ordenadas de mayor a menor importe.
+4. Genera una lista numerada automática para el informe mediante la función **`SECUENCIA`**.
+
+---
