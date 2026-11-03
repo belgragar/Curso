@@ -15,7 +15,7 @@ ID_Empleado;Nombre_Bruto;Registro_Crudo;Codigo_Tributo;Horas_Trabajadas
   EMP-101/MAD  ;  gÓmez lÓpez, ana  ;OVD/60321/Soporte/B;900-8452-X;38,42
   EMP-102/BCN  ; martín ruiz, Carlos ;MAD/20149/Ventas/A;800-3911-Y;40,11
   EMP-103/SEV  ;MUÑIZ gómez, laura  ;SEV/80932/Logistica/C;900-5520-Z;35,78
-  EMP-104/MAD  ;Iópez Martín, pedro ;MAD/20150/Ventas/B;750-1049-W;41,50
+  EMP-104/MAD  ;lópez Martín, pedro ;MAD/20150/Ventas/B;750-1049-W;41,50
   EMP-105/VLC  ;  martín ruiz, carlos;VAL/40211/Soporte/A;900-9988-V;39,80
 
 ```
