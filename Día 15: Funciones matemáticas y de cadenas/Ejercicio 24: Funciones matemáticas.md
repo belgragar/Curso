@@ -1,55 +1,45 @@
-# Ejercicio 24: Funciones matemáticas avanzadas
-
-En este ejercicio utilizaremos una **Tabla Estructurada** nombrada `Tbl_ParteTrabajo` y combinaremos:
-
-1. **`SUMAR.SI.CONJUNTO`**: Agregación multidimensional con varios criterios.
-
-
-2. **`SUMAPRODUCTO`**: Multiplicación matricial sin columnas auxiliares.
-
-
-3. **`SUBTOTALES`**: Subtotal dinámico que respeta los filtros aplicados.
-
-
-4. **`AGREGAR`**: Subtotal avanzado que omite errores estructurales (`#¡VALOR!`) y filtros.
-
-
-5. **`REDONDEAR.MAS`**: Redondeo al alza alejado de cero (para reglas de facturación).
-
-
-6. **`REDONDEAR.MENOS`**: Redondeo hacia el cero (para conteo estricto de horas completadas).
-
-
-7. **`ENTERO`**: Truncamiento al entero inferior más próximo (incluyendo la diferencia de comportamiento con valores negativos).
-
-
-8. **`RESIDUO`**: Lógica de división e interruptor binario para automatización visual con formato condicional.
-
-
-
----
+# Ejercicio 24: Funciones matemáticas avanzadas - Auditoría Logística y Facturación de Portes
 
 ## 1. Contexto de Negocio
 
-Trabajas como analista de operaciones en una empresa de servicios industriales y tecnológicos en Asturias. La dirección necesita auditar el parte semanal de trabajo de los técnicos para preparar la facturación a clientes, controlar los costes de producción interna y ajustar las desviaciones presupuestarias acumuladas.
+Trabajas como analista de logística y costes en una empresa de distribución de suministros industriales con sede en Gijón. La dirección comercial te ha entregado el registro de los envíos interurbanos de la última semana.
 
-Para asegurar la escalabilidad del modelo, trabajarás sobre una **Tabla Estructurada de Excel**. Deberás procesar horas de servicio con decimales, evaluar reglas estrictas de precisión financiera, asegurar los sumatorios globales ante registros que contienen errores, realizar comparativas de truncamiento de penalizaciones negativas y aplicar una lectura visual alternada (cebreado) totalmente dinámica.
+Para profesionalizar el control de costes y facturación, debes convertir el registro inicial en una **Tabla Estructurada de Excel** denominada `Tbl_EnviosLogistica`. Tu objetivo es:
+
+1. Auditar los pesos de las expediciones y aplicar las reglas del transportista (cobro por tramos de tonelada/kilo completo al alza).
+
+
+2. Calcular los costes brutos mediante multiplicación matricial directa sin columnas intermedias.
+
+
+3. Garantizar la consolidación de importes ignorando incidencias de carga de datos (`#¡VALOR!`).
+
+
+4. Evaluar las bonificaciones por volumen mediante agregación condicional multidimensional.
+
+
+5. Comparar los comportamientos de truncamiento sobre penalizaciones por retraso en entregas (diferenciando `ENTERO` de `REDONDEAR.MENOS` con valores negativos).
+
+
+6. Automatizar un patrón de lectura alterno (cebreado) mediante lógica divisional de filas que no se desconfigure al filtrar o reorganizar datos.
+
+
 
 ---
 
 ## 2. Conjunto de Datos (Dataset)
 
-Copia el siguiente bloque de texto en formato CSV (delimitado por punto y coma `;` adaptado a la configuración regional de España) y pégalo directamente en la celda **A1** de una hoja nueva de Excel:
+Copia el siguiente contenido en formato CSV (adaptado a la configuración regional de España con `;` como separador de columnas y `,` como separador decimal) y pégalo directamente en la celda **A1** de una hoja nueva de Excel:
 
 ```csv
-ID_Parte;Servicio;Horas_Reales;Tarifa_Hora;Turno_Noche;Importe_Material;Ajuste_Presupuesto
-PAR-101;Mantenimiento;10,25;50,00;SI;120,50;-2,20
-PAR-102;Soporte;8,50;60,00;NO;45,00;-1,80
-PAR-103;Mantenimiento;12,75;55,00;SI;#¡VALOR!;-3,50
-PAR-104;Ventas;7,10;45,00;NO;0,00;0,00
-PAR-105;Mantenimiento;9,00;52,00;NO;85,25;-4,10
-PAR-106;Soporte;11,80;48,00;NO;15,00;-0,50
-PAR-107;Mantenimiento;6,40;58,00;SI;300,00;-1,20
+ID_Envio;Zona_Destino;Peso_Toneladas;Tarifa_Tonelada;Transporte_Nocturno;Seguro_Riesgo;Penalizacion_Retraso
+ENV-801;Norte;3,15;85,00;SI;150,25;-12,40
+ENV-802;Centro;5,80;72,50;NO;60,00;-8,10
+ENV-803;Norte;2,05;90,00;SI;#¡VALOR!;-15,75
+ENV-804;Sur;4,10;68,00;NO;0,00;0,00
+ENV-805;Norte;6,90;80,00;NO;110,50;-22,30
+ENV-806;Centro;8,35;70,00;NO;40,00;-3,80
+ENV-807;Norte;1,20;95,00;SI;210,00;-5,60
 
 ```
 
@@ -57,41 +47,39 @@ PAR-107;Mantenimiento;6,40;58,00;SI;300,00;-1,20
 
 ## 3. Tareas a Resolver
 
-1. **Estructuración de Datos:** Convierte el rango `A1:G8` en una Tabla Estructurada con el nombre **`Tbl_ParteTrabajo`**.
+1. **Conversión a Tabla Estructurada:** Convierte el rango `A1:G8` en una Tabla Estructurada de Excel y asígnale el nombre **`Tbl_EnviosLogistica`**.
 
 
-2. **Agregación Multidimensional (`SUMAR.SI.CONJUNTO`):** Calcula el total de horas reales acumuladas para el servicio de `"Mantenimiento"` realizadas en `"Turno_Noche = SI"` utilizando referencias estructuradas.
+2. **Agregación Multidimensional (`SUMAR.SI.CONJUNTO`):** En una celda fuera de la tabla, calcula el total de `Peso_Toneladas` para la `"Zona_Destino"` igual a `"Norte"` que además se hayan realizado con `"Transporte_Nocturno"` igual a `"SI"` utilizando referencias estructuradas.
 
 
-3. **Multiplicación Matricial Directa (`SUMAPRODUCTO`):** Calcula el coste total bruto de mano de obra en un solo paso multiplicando la columna `Horas_Reales` por `Tarifa_Hora` sin añadir columnas intermedias.
+3. **Multiplicación Matricial Directa (`SUMAPRODUCTO`):** En otra celda externa, calcula el coste global base del transporte multiplicando la columna `Peso_Toneladas` por `Tarifa_Tonelada` en un solo paso y sin crear columnas auxiliares.
 
 
-4. **Subtotales ante Filtros e Interfaz (`SUBTOTALES`):** Añade la **Fila de Totales** a la tabla y configura la celda de la columna `Horas_Reales` con la función `SUBTOTALES` (código `109`) para que el sumatorio responda visualmente a los filtros aplicados.
+4. **Subtotales Dinámicos (`SUBTOTALES`):** Activa la **Fila de Totales** de la tabla estructurada y configura el sumatorio dinámico de la columna `Peso_Toneladas` mediante la función `SUBTOTALES` (código `109`) para que responda a los filtros de interfaz.
 
 
-5. **Integridad ante Errores (`AGREGAR`):** Calcula fuera de la tabla el importe total de la columna `Importe_Material` mediante la función `AGREGAR` para omitir automáticamente el valor `#¡VALOR!` de la fila 4.
+5. **Consolidación Robusta ante Errores (`AGREGAR`):** Calcula fuera de la tabla la suma total de la columna `Seguro_Riesgo` omitiendo automáticamente el valor de error `#¡VALOR!`.
 
 
 6. **Control de Precisión y Reglas de Facturación (`REDONDEAR.MAS` y `REDONDEAR.MENOS`):**
-* Añade la columna **`Horas_Facturables`**: Aplica la regla comercial donde las fracciones de hora se cobren como hora completa (`REDONDEAR.MAS` a `0` decimales).
+* Añade una columna calculada llamada **`Toneladas_Facturables`**: La agencia de transportes factura por cada fracción de tonelada iniciada como una tonelada completa (`REDONDEAR.MAS` a `0` decimales).
 
 
-* Añade la columna **`Horas_Enteras`**: Calcula solo las horas completas trabajadas para el cómputo estricto de producción (`REDONDEAR.MENOS` a `0` decimales).
-
-
-
-
-7. **Comparativa de Truncamiento y Negativos (`ENTERO` vs `REDONDEAR.MENOS`):**
-* Añade la columna **`Ajuste_Entero`**: Trunca la columna `Ajuste_Presupuesto` utilizando `=ENTERO([@[Ajuste_Presupuesto]])`.
-
-
-* Añade la columna **`Ajuste_Menos`**: Trunca la misma columna utilizando `=REDONDEAR.MENOS([@[Ajuste_Presupuesto]]; 0)`.
-
-
-* *Analiza la diferencia entre ambos resultados con números negativos*.
+* Añade una columna calculada llamada **`Toneladas_Base`**: Muestra únicamente las toneladas enteras completas para la liquidación de incentivos (`REDONDEAR.MENOS` a `0` decimales).
 
 
 
 
-8. **Automatización Visual por Filas (`RESIDUO`):** Aplica una regla de Formato Condicional con `RESIDUO` y `FILA` para colorear en un verde claro tenue únicamente las filas pares de la tabla.
+7. **Comparativa de Truncamiento en Negativos (`ENTERO` vs `REDONDEAR.MENOS`):**
+* Añade una columna calculada llamada **`Penalizacion_Entero`**: Evalúa el entero de la columna `Penalizacion_Retraso` mediante `=ENTERO([@[Penalizacion_Retraso]])`.
+
+
+* Añade una columna calculada llamada **`Penalizacion_Menos`**: Evalúa el truncamiento hacia cero con `=REDONDEAR.MENOS([@[Penalizacion_Retraso]]; 0)`.
+
+
+
+
+8. **Automatización Visual por Filas (`RESIDUO`):** Aplica un Formato Condicional mediante fórmula utilizando `RESIDUO` y `FILA` para colorear en un tono gris o azul claro tenue únicamente las filas pares de la tabla.
+
 
