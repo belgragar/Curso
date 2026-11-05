@@ -9,7 +9,6 @@ La **Fundación Jacobea del Principado de Asturias** gestiona la Red Pública de
 
 Para modernizar la gestión operativa, auditar la afluencia, simular presupuestos de conservación y automatizar los partes diarios de recepción, la Fundación ha encomendado la construcción del libro de trabajo maestro **`Camino_Santiago_Asturias_Gestion.xlsm`**.
 
-
 ---
 
 ## 📋 DATOS DE EJEMPLO PARA EL PROYECTO (FORMATO TSV PARA PEGAR DIRECTAMENTE EN EXCEL)
@@ -70,12 +69,11 @@ REG-047	12/07/2026	Camino Primitivo	Etapa 1	Albergue de Oviedo	Oviedo	España	2	
 REG-048	13/07/2026	Camino del Norte	Etapa 1	Albergue de Llanes	Llanes	Canadá	1	7,00
 REG-049	14/07/2026	Camino Primitivo	Etapa 2	Albergue de Grado	Grado	Portugal	1	5,00
 REG-050	15/07/2026	Camino del Norte	Etapa 2	Albergue de Ribadesella	Ribadesella	España	2	10,00
-
 ```
 
 ---
 
-### 2. Tabla Auxiliar: `Tbl_Albergues` (10 registros)
+### 2. Tabla Auxiliar: `Tbl_Albergues` (12 registros)
 
 > 💡 **Instrucciones de copia para el alumnado:** Pega el siguiente bloque en otra hoja y nómbralo como la tabla estructurada `Tbl_Albergues`.
 
@@ -91,7 +89,7 @@ ALB-07	Albergue de Llanes	Camino del Norte	Llanes	40	985777888
 ALB-08	Albergue de Ribadesella	Camino del Norte	Ribadesella	30	985888999
 ALB-09	Albergue de Villaviciosa	Camino del Norte	Villaviciosa	24	985999000
 ALB-10	Albergue de Gijón	Camino del Norte	Gijón	50	985000111
-ALB-11	Palacio de Meras	Camino del Primitivo	Tineo	450	985001011
+ALB-11	Palacio de Meras	Camino Primitivo	Tineo	45	985001011
 ALB-12	La Casona del Peregrino	Camino del Norte	Llanes	42	985014211
 ```
 
@@ -111,12 +109,10 @@ ALB-12	La Casona del Peregrino	Camino del Norte	Llanes	42	985014211
 1. **Origen de datos limpio:** Partir de la tabla estructurada `Tbl_RegistroPeregrinos`.
 2. **Inserción de la Tabla Dinámica:** Crear una primera Tabla Dinámica en una hoja nueva denominada `TD_Afluencia_Concejos`.
 3. **Estructuración:**
-* Disponer el campo *Concejo* en **FILAS**.
-* Disponer el campo *Albergue* anidado justo debajo de *Concejo*.
-* Disponer el campo *Pernoctaciones* en **VALORES** (Suma).
-* Disponer el campo *Ruta* en **FILTROS** (Camino Primitivo / Camino del Norte).
-
-
+   * Disponer el campo *Concejo* en **FILAS**.
+   * Disponer el campo *Albergue* anidado justo debajo de *Concejo*.
+   * Disponer el campo *Pernoctaciones* en **VALORES** (Suma).
+   * Disponer el campo *Ruta* en **FILTROS** (Camino Primitivo / Camino del Norte).
 4. **Mantenimiento y actualización:** Simular la incorporación de nuevos registros de peregrinos en la celda final de la tabla de origen y verificar la actualización mediante *Analizar tabla dinámica > Actualizar*.
 
 ---
@@ -127,12 +123,10 @@ ALB-12	La Casona del Peregrino	Camino del Norte	Llanes	42	985014211
 2. Ir a la cinta de opciones **Insertar** > **Tabla dinámica**.
 3. Seleccionar *Nueva hoja de cálculo* y renombrar la pestaña creada como `TD_Afluencia_Concejos`.
 4. En el panel lateral *Campos de la tabla dinámica*:
-* Arrastrar **Concejo** a la sección **FILAS**.
-* Arrastrar **Albergue** a **FILAS** (posicionándolo justo debajo de Concejo).
-* Arrastrar **Pernoctaciones** a **VALORES** (se configurará como `Suma de Pernoctaciones`).
-* Arrastrar **Ruta** a la sección **FILTROS**.
-
-
+   * Arrastrar **Concejo** a la sección **FILAS**.
+   * Arrastrar **Albergue** a **FILAS** (posicionándolo justo debajo de Concejo).
+   * Arrastrar **Pernoctaciones** a **VALORES** (se configurará como `Suma de Pernoctaciones`).
+   * Arrastrar **Ruta** a la sección **FILTROS**.
 5. Para comprobar la actualización dinámica, añadir una fila al final de `Tbl_RegistroPeregrinos`, volver a `TD_Afluencia_Concejos`, ir a la pestaña **Analizar tabla dinámica** y hacer clic en **Actualizar**.
 
 ---
@@ -146,11 +140,9 @@ ALB-12	La Casona del Peregrino	Camino del Norte	Llanes	42	985014211
 
 1. **Múltiples métricas sobre un mismo campo:** En la hoja `TD_Analisis_Economico`, insertar una Tabla Dinámica con el campo *Pais_Origen* en **FILAS** y añadir el campo *Aportacion_EUR* **tres veces** en el área de **VALORES**.
 2. **Configuración de funciones de resumen:**
-* **Campo 1:** Renombrar a "Aportación Total" (Función *Suma*).
-* **Campo 2:** Renombrar a "Aportación Media por Peregrino" (Función *Promedio*).
-* **Campo 3:** Renombrar a "% Cuota de Aportación" (Configurar en *Mostrar valores como* -> **% del total general**).
-
-
+   * **Campo 1:** Renombrar a "Aportación Total" (Función *Suma*).
+   * **Campo 2:** Renombrar a "Aportación Media por Peregrino" (Función *Promedio*).
+   * **Campo 3:** Renombrar a "% Cuota de Aportación" (Configurar en *Mostrar valores como* -> **% del total general**).
 3. **Formato persistente de campo:** Aplicar formato de moneda `Moneda (€)` a los dos primeros campos y `Porcentaje (0,0%)` al tercero directamente desde *Configuración de campo de valor > Formato de número*.
 
 ---
@@ -171,36 +163,40 @@ ALB-12	La Casona del Peregrino	Camino del Norte	Llanes	42	985014211
 * **Epígrafe del Manual:** **`2.3 Gestión de datos en tablas dinámicas`**
 * **Contexto Jacobeo:** Estacionalidad de las pernoctaciones y control de aportaciones por intervalos.
 
-#### 📝 Tareas a desarrollar:
+#### 📝 Tareas a desarrollar (Detalle de Tablas Dinámicas y Agrupaciones):
 
-1. **Agrupación temporal y por intervalos:**
-* En `TD_Estacionalidad`, agrupar el campo *Fecha* por **Meses** y **Trimestres** para observar los picos de afluencia.
-* Agrupar el campo *Aportacion_EUR* en intervalos o tramos de 5 € (de 0 € a 20 €) para analizar el perfil de donaciones de los peregrinos.
+Para completar esta fase, se deben construir **dos Tablas Dinámicas independientes** en la hoja `TD_Estacionalidad`:
 
-
-2. **Controles visuales de filtrado:**
-* Insertar una **Segmentación de Datos (Slicer)** para el campo *Ruta*.
-* Insertar una **Escala de Tiempo (Timeline)** sobre el campo *Fecha*.
-* Sincronizar ambos controles con las tablas dinámicas mediante *Conexiones de informe*.
-
-
-3. **Extracción directa:** Utilizar la función `=IMPORTARDATOSDINAMICOS()` en un panel exterior para extraer el total de pernoctaciones del albergue de *Salas* y de *Pola de Allande*.
+1. **Tabla Dinámica 1 (`TD_Estacionalidad_Fechas` - Estacionalidad Temporal):**
+   * **Origen:** `Tbl_RegistroPeregrinos`
+   * **Configuración de Campos:**
+     * Área **FILAS**: Arrastrar el campo `Fecha`. Una vez colocado, hacer clic derecho sobre cualquier fecha de la tabla, seleccionar **Agrupar...** y marcar **Meses** y **Trimestres** (desmarcando Años o Días si procede) para estructurar la afluencia temporalmente.
+     * Área **VALORES**: Arrastrar `Pernoctaciones` (configurado como *Suma*).
+     * Área **FILTROS**: Arrastrar `Ruta`.
+2. **Tabla Dinámica 2 (`TD_Donaciones_Intervalos` - Análisis de Aportaciones):**
+   * **Origen:** `Tbl_RegistroPeregrinos`
+   * **Configuración de Campos:**
+     * Área **FILAS**: Arrastrar el campo `Aportacion_EUR`. Una vez situado, hacer clic derecho sobre los valores numéricos de la tabla, seleccionar **Agrupar...** e indicar los parámetros de intervalos (*Comenzar en*: `0`, *Terminar en*: `20`, *Por*: `5`) para crear los tramos de donación.
+     * Área **VALORES**: Arrastrar `ID_Registro` (configurado automáticamente como *Cuenta* o *Recuento*) para cuantificar cuántos peregrinos aportan en cada tramo.
+3. **Controles visuales de filtrado y extracción directa con fórmulas:**
+   * Insertar una **Segmentación de Datos (Slicer)** para el campo *Ruta* y una **Escala de Tiempo (Timeline)** sobre el campo *Fecha*, conectándolas a ambas tablas mediante *Conexiones de informe*.
+   * **Extracción de datos sin crear tablas dinámicas nuevas:** En un cuadro resumen exterior (por ejemplo, en la parte derecha de la hoja), extraer el total de pernoctaciones de un albergue específico utilizando la función `=IMPORTARDATOSDINAMICOS()`. No se crea una tabla dinámica nueva para esto; la función apunta directamente a un dato presente en la primera tabla dinámica realizada en la Fase 1 (`TD_Afluencia_Concejos`).
 
 ---
 
 #### 🛠️ SOLUCIÓN PASO A PASO (FASE 3)
 
-1. **Agrupar fechas:** En la hoja `TD_Estacionalidad`, hacer clic derecho sobre cualquier fecha en la tabla dinámica > **Agrupar...** > Seleccionar **Meses** y **Trimestres** (desmarcar Años si estuviera activo) > Aceptar.
-2. **Agrupar montos:** En una tabla con aportaciones en filas, hacer clic derecho sobre un número > **Agrupar...** > Ajustar *Comenzar en*: `0`, *Terminar en*: `20`, *Por*: `5` > Aceptar.
-3. **Insertar Slicers:** Seleccionar la tabla dinámica, ir a **Analizar tabla dinámica** > **Insertar segmentación de datos** (marcar *Ruta*) y a continuación clic en **Insertar escala de tiempo** (marcar *Fecha*).
-4. **Conexiones:** Hacer clic derecho sobre la cabecera de la Segmentación de Datos > **Conexiones de informe...** y marcar todas las tablas dinámicas del libro que deban filtrarse en simultáneo.
-5. **Función `IMPORTARDATOSDINAMICOS`:** En una celda fuera de la tabla, escribir `=` y pulsar directamente sobre la celda que contiene el valor del Albergue de Salas en la tabla dinámica. Excel generará automáticamente:
-```excel
-=IMPORTARDATOSDINAMICOS("Pernoctaciones"; $A$3; "Albergue"; "Albergue de Salas")
-
-```
-
-
+1. **Construir TD 1 (Estacionalidad):** Insertar la tabla dinámica en `TD_Estacionalidad`, colocar `Fecha` en **FILAS** y `Pernoctaciones` en **VALORES**. Clic derecho en las fechas > **Agrupar...** > Seleccionar **Meses** y **Trimestres**.
+2. **Construir TD 2 (Intervalos de aportación):** Colocar debajo o en un lateral otra tabla dinámica con `Aportacion_EUR` en **FILAS** y `ID_Registro` en **VALORES**. Clic derecho en los importes > **Agrupar...** > Definir inicio `0`, fin `20` e intervalo `5`.
+3. **Slicers y Conexiones:** Seleccionar cualquier tabla dinámica > **Analizar tabla dinámica** > **Insertar segmentación de datos** (`Ruta`). Clic derecho en la segmentación > **Conexiones de informe** y marcar ambas tablas dinámicas.
+4. **Extracción con `IMPORTARDATOSDINAMICOS` (Aclaración de no crear tabla nueva):**
+   * Ir a la celda del cuadro de mando exterior donde se quiera mostrar el dato aislado.
+   * Escribir `=` y hacer clic directamente sobre la celda que contiene el total del *Albergue de Salas* dentro de la Tabla Dinámica de la Fase 1 (`TD_Afluencia_Concejos`).
+   * Excel insertará automáticamente la fórmula:
+     ```excel
+     =IMPORTARDATOSDINAMICOS("Pernoctaciones"; TD_Afluencia_Concejos!$A$3; "Albergue"; "Albergue de Salas")
+     ```
+   * Esto permite extraer ese indicador clave (KPI) para un panel ejecutivo sin necesidad de rehacer o crear otra tabla dinámica.
 
 ---
 
@@ -212,32 +208,18 @@ ALB-12	La Casona del Peregrino	Camino del Norte	Llanes	42	985014211
 #### 📝 Tareas a desarrollar:
 
 1. **Matriz derramada de albergues destacados:** En la hoja `Listados_Activos`, construir una fórmula en una sola celda utilizando las funciones de matriz dinámica:
-```excel
-=ORDENAR(FILTRAR(Tbl_Albergues[Nombre_Albergue]; (Tbl_Albergues[Ruta]="Camino Primitivo") * (Tbl_Albergues[Plazas]>20); "Sin resultados"); 1; 1)
-
-```
-
-
-2. **Selección de columnas específicas con `ELEGIRCOLS`:** Generar un reporte simplificado de la tabla `Tbl_Albergues` mostrando únicamente las columnas de *Nombre_Albergue* (columna 2) y *Telefono* (columna 6) filtradas para el Camino del Norte:
-```excel
-=ELEGIRCOLS(FILTRAR(Tbl_Albergues; Tbl_Albergues[Ruta]="Camino del Norte"); 2; 6)
-
-```
-
-
-3. **Consolidación horizontal con `APILARH`:** Crear un encabezado compuesto uniendo en paralelo las etiquetas "Albergue", "Concejo" y "Capacidad" con sus respectivos datos filtrados:
-```excel
-=APILARH(ELEGIRCOLS(Tbl_Albergues; 2; 4); ELEGIRCOLS(Tbl_Albergues; 5))
-
-```
-
-
-4. **Listado de países sin duplicados:** Generar una columna derramada con `=ORDENAR(UNICOS(Tbl_RegistroPeregrinos[Pais_Origen]))`.
-5. **Lista desplegable dinámica con operador `#`:**
-* En una celda de consulta (`B3`), crear una Validación de Datos de tipo *Lista*.
-* En el origen, apuntar a la primera celda de la lista de países derramada añadiendo el operador de desbordamiento: `=H2#`.
-
-
+   ```excel
+   =ORDENAR(FILTRAR(Tbl_Albergues[Nombre_Albergue]; (Tbl_Albergues[Ruta]="Camino Primitivo") * (Tbl_Albergues[Plazas]>20); "Sin resultados"); 1; 1)
+   ```
+2. **Selección de columnas específicas con `ELEGIRCOLS`:** Generar un reporte simplificado extrayendo columnas directas de la tabla mediante referencia de columna limpia:
+   ```excel
+   =ELEGIRCOLS(Tbl_Albergues; 2; 6)
+   ```
+3. **Consolidación horizontal con `APILARH`:** Unir de forma directa las columnas de nombre y teléfono empleando directamente las referencias de columnas de la tabla estructurada sin anidaciones complejas:
+   ```excel
+   =APILARH(Tbl_Albergues[Nombre_Albergue]; Tbl_Albergues[Telefono])
+   ```
+4. **Listado de países sin duplicados y validación interactiva:** Generar una columna derramada con `=ORDENAR(UNICOS(Tbl_RegistroPeregrinos[Pais_Origen]))` y vincularla a una lista desplegable mediante el operador de desbordamiento (`#`).
 
 ---
 
@@ -245,45 +227,40 @@ ALB-12	La Casona del Peregrino	Camino del Norte	Llanes	42	985014211
 
 1. Ir a la hoja `Listados_Activos`.
 2. En la celda `A3`, escribir la fórmula de filtrado y ordenación:
-`=ORDENAR(FILTRAR(Tbl_Albergues[Nombre_Albergue]; (Tbl_Albergues[Ruta]="Camino Primitivo") * (Tbl_Albergues[Plazas]>20); "Sin resultados"); 1; 1)`
-3. En la celda `D3`, emplear **`ELEGIRCOLS`** sobre el resultado filtrado para extraer únicamente el nombre y el teléfono:
-`=ELEGIRCOLS(FILTRAR(Tbl_Albergues; Tbl_Albergues[Ruta]="Camino del Norte"); 2; 6)`
-4. En la celda `G3`, utilizar **`APILARH`** para combinar matrices horizontales personalizadas en una sola salida derramada:
-`=APILARH(ELEGIRCOLS(Tbl_Albergues; 2; 4); ELEGIRCOLS(Tbl_Albergues; 5))`
+   `=ORDENAR(FILTRAR(Tbl_Albergues[Nombre_Albergue]; (Tbl_Albergues[Ruta]="Camino Primitivo") * (Tbl_Albergues[Plazas]>20); "Sin resultados"); 1; 1)`
+3. En la celda `D3`, aplicar **`ELEGIRCOLS`** referenciando la tabla completa y las columnas deseadas (ej. columna 2 y 6):
+   `=ELEGIRCOLS(Tbl_Albergues; 2; 6)`
+4. En la celda `G3`, utilizar **`APILARH`** uniendo de forma limpia las columnas directas de la tabla:
+   `=APILARH(Tbl_Albergues[Nombre_Albergue]; Tbl_Albergues[Telefono])`
 5. En la celda `H2`, escribir `=ORDENAR(UNICOS(Tbl_RegistroPeregrinos[Pais_Origen]))`.
-6. Seleccionar la celda `B3` > pestaña **Datos** > **Validación de datos** > Seleccionar **Lista** en *Permitir* > En *Origen*, escribir `=H2#` y hacer clic en **Aceptar**.
+6. Crear una validación de datos de tipo *Lista* en `B3` apuntando al origen con desbordamiento: `=H2#`.
 
 ---
 
-### 🔹 FASE 5: DASHBOARD VISUAL CON GRÁFICOS DINÁMICOS
+### 🔹 FASE 5: DASHBOARD VISUAL CON GRÁFICOS DINÁMICOS VARIADOS
 
 * **Epígrafe del Manual:** **`2.5 Gráficos Dinámicos`**
-* **Contexto Jacobeo:** Panel ejecutivo visual de comparativa entre rutas y ocupación por etapas.
+* **Contexto Jacobeo:** Panel ejecutivo visual con múltiples perspectivas gráficas conectadas a segmentaciones.
 
 #### 📝 Tareas a desarrollar:
 
-1. **Creación de Gráficos Dinámicos:**
-* **Gráfico 1 (Columnas Agrupadas):** Vinculado a la ocupación por albergue en el Camino Primitivo (*Oviedo, Grado, Salas, Tineo, Allande, Grandas*).
-* **Gráfico 2 (Líneas con Marcadores):** Vinculado a la evolución mensual de pernoctaciones comparando Camino Primitivo vs. Camino del Norte.
-
-
+1. **Creación de Gráficos Dinámicos Múltiples:** Para practicar distintos tipos de representación visual, se exige construir y poblar gráficos basados en las diferentes tablas dinámicas trabajadas en fases anteriores:
+   * **Gráfico 1 (Columnas Agrupadas):** Vinculado a la tabla de afluencia por albergue de la Fase 1 (`TD_Afluencia_Concejos`).
+   * **Gráfico 2 (Líneas con Marcadores):** Vinculado a la tabla de estacionalidad mensual y trimestral de la Fase 3 (`TD_Estacionalidad`).
+   * **Gráfico 3 (Gráfico Circular o de Anillos):** Vinculado a la tabla de análisis económico por país de origen de la Fase 2 (`TD_Analisis_Economico`).
 2. **Personalización UX/UI:**
-* Ocultar todos los botones de campos del gráfico para una estética limpia.
-* Añadir etiquetas de datos y títulos dinámicos.
-* Conectar los gráficos a la segmentación de datos de *Ruta* y a la escala de tiempo.
-
-
+   * Ocultar todos los botones de campo del gráfico para una estética limpia.
+   * Conectar los gráficos a la segmentación de datos general (`Ruta`) para que interactúen de forma sincronizada.
 
 ---
 
 #### 🛠️ SOLUCIÓN PASO A PASO (FASE 5)
 
-1. Hacer clic en la tabla dinámica base de afluencia por albergue.
-2. Ir a la ficha **Analizar tabla dinámica** > **Gráfico dinámico**.
-3. Elegir el tipo **Columna agrupada** y pulsar Aceptar.
-4. Para la comparativa mensual, crear una segunda tabla dinámica con *Fecha* (Meses) en FILAS, *Ruta* en COLUMNAS y *Pernoctaciones* en VALORES. Insertar sobre ella un gráfico dinámico de **Líneas con marcadores**.
-5. Hacer clic derecho sobre cualquiera de los botones grises dentro del gráfico y seleccionar **Ocultar todos los botones de campos de gráfico**.
-6. Conectar los gráficos a los Slicers mediante **Conexiones de informe** de la segmentación.
+1. Posicionarse en la tabla dinámica de la Fase 1 (`TD_Afluencia_Concejos`), ir a **Analizar tabla dinámica** > **Gráfico dinámico** y seleccionar el tipo **Columnas agrupadas**.
+2. Posicionarse en la tabla dinámica de estacionalidad de la Fase 3, insertar un gráfico dinámico de tipo **Líneas**.
+3. Posicionarse en la tabla dinámica de análisis económico de la Fase 2, insertar un gráfico dinámico de tipo **Circular** o **Anillos**.
+4. Hacer clic derecho sobre los botones de campo integrados en cada gráfico y seleccionar **Ocultar todos los botones de campos de gráfico**.
+5. Asegurar que las segmentaciones de datos de ruta controlen los tres gráficos mediante la opción *Conexiones de informe*.
 
 ---
 
@@ -295,26 +272,20 @@ ALB-12	La Casona del Peregrino	Camino del Norte	Llanes	42	985014211
 #### 📝 Tareas a desarrollar:
 
 1. **Configuración de página e impresión:**
-* Definir el **Área de Impresión** en la hoja de informe mensual evitando zonas vacías.
-* Configurar **Títulos de Impresión** (`Diseño de página > Imprimir títulos`) para repetir las filas de encabezado en todas las páginas impresas.
-* Insertar un salto de página automático tras cada etapa/concejo.
-
-
+   * Definir el **Área de Impresión** en la hoja de informe mensual evitando zonas vacías.
+   * Configurar **Títulos de Impresión** (`Diseño de página > Imprimir títulos`) para repetir las filas de encabezado en todas las páginas impresas.
 2. **Visualización y diseño de informe:**
-* Inmovilizar los paneles superiores para mantener visibles las cabeceras durante el desplazamiento (*Vista > Inmovilizar paneles*).
-* Ajustar el diseño de las tablas dinámicas a **Formato Tabular** con la opción **Repetir todas las etiquetas de elementos** activada.
-
-
+   * Inmovilizar los paneles superiores para mantener visibles las cabeceras durante el desplazamiento (*Vista > Inmovilizar paneles*).
+   * Ajustar el diseño de las tablas dinámicas a **Formato Tabular** con la opción **Repetir todas las etiquetas de elementos** activada.
 
 ---
 
 #### 🛠️ SOLUCIÓN PASO A PASO (FASE 6)
 
 1. Seleccionar el rango del informe y pulsar en **Diseño de página** > **Área de impresión** > **Establecer área de impresión**.
-2. En **Diseño de página** > **Imprimir títulos**, hacer clic en *Filas a repetir en extremo superior* y seleccionar la fila `$1:$1` (cabeceras).
-3. Seleccionar la celda `A2` (debajo de las cabeceras) y hacer clic en **Vista** > **Inmovilizar paneles** > **Inmovilizar paneles**.
-4. Hacer clic sobre la tabla dinámica > ir a la pestaña **Diseño** > **Diseño de informe** > seleccionar **Mostrar en formato tabular**.
-5. En el mismo menú **Diseño de informe**, activar la opción **Repetir todas las etiquetas de elementos**.
+2. En **Diseño de página** > **Imprimir títulos**, seleccionar la fila `$1:$1` en *Filas a repetir en extremo superior*.
+3. Seleccionar la celda `A2` y hacer clic en **Vista** > **Inmovilizar paneles** > **Inmovilizar paneles**.
+4. Configurar las tablas dinámicas en modo **Formato Tabular** desde la pestaña *Diseño* y activar **Repetir todas las etiquetas de elementos**.
 
 ---
 
@@ -325,55 +296,20 @@ ALB-12	La Casona del Peregrino	Camino del Norte	Llanes	42	985014211
 
 #### 📝 Tareas a desarrollar:
 
-1. **2.7.1 Búsquedas bidireccionales y avanzadas:**
-* Usar `BUSCARX` para consultar el teléfono de emergencia y plazas de un albergue según su código:
-`=BUSCARX(B3; Tbl_Albergues[ID_Albergue]; Tbl_Albergues[Telefono]:Tbl_Albergues[Plazas]; "No hallado")`.
-* Realizar una búsqueda en 2 ejes (*Albergue × Mes*) combinando `INDICE` + `COINCIDIRX`.
-
-
-2. **2.7.2 Limpieza de texto y matemática de precisión:**
-* Corregir nombres de peregrinos importados con espacios superfluos usando `ESPACIOS()`.
-* Extraer el código de concejo a partir del localizador mediante `TEXTOANTES()` o `EXTRAE()`.
-* Unir el código de credencial y país mediante `UNIRCADENAS("-"; VERDADERO; Rango)`.
-* Calcular importes filtrados respetando filas ocultas con `SUBTOTALES(109; Rango)`.
-
-
-3. **2.7.3 Funciones de Base de Datos:**
-* Crear un cuadro de criterios en la hoja y aplicar `BDPROMEDIO` y `BDSUMA` para calcular la estancia media y donaciones de peregrinos procedentes de *Alemania* o *Francia* en el *Camino Primitivo*.
-
-
-4. **2.7.4 Modelado financiero del albergue de Grandas de Salime:**
-* Para financiar la reforma del albergue de Grandas de Salime (Préstamo: 80.000 €, Plazo: 5 años, Interés anual: 4,5%):
-* Calcular la cuota mensual con `=PAGO(4,5%/12; 5*12; -80000)`.
-* Desglosar intereses y capital cuota a cuota con `PAGOINT()` y `PAGOPRIN()`.
-* Determinar la Tasa Interna de Retorno con `TIR()` para evaluar la sostenibilidad del proyecto.
-
-
-
-
+1. **Búsquedas avanzadas y limpieza de textos:**
+   * Usar `BUSCARX` para consultar el teléfono y plazas de un albergue según su código: `=BUSCARX(B3; Tbl_Albergues[ID_Albergue]; Tbl_Albergues[Telefono]; "No hallado")`.
+   * Corregir nombres de peregrinos con espacios superfluos usando `ESPACIOS()` y unirlos con `UNIRCADENAS()`.
+2. **Funciones de Base de Datos y Financieras:**
+   * Aplicar `BDSUMA` sobre un rango de criterios para filtrar donaciones de peregrinos alemanes o franceses.
+   * Modelar el préstamo de reforma del albergue de Grandas de Salime (80.000 €, 5 años, 4,5% interés) empleando `PAGO`, `PAGOINT` y `PAGOPRIN`.
 
 ---
 
 #### 🛠️ SOLUCIÓN PASO A PASO (FASE 7)
 
-1. **Búsqueda con `BUSCARX`:** En la celda `C3`, introducir:
-`=BUSCARX(B3; Tbl_Albergues[ID_Albergue]; Tbl_Albergues[Telefono]; "No hallado")`
-2. **Limpieza de textos:**
-* En una columna auxiliar, limpiar espacios con `=ESPACIOS(A2)`.
-* Para concatenar código y país sin incluir vacíos: `=UNIRCADENAS("-"; VERDADERO; A2; G2)`.
-
-
-3. **Funciones de Base de Datos:**
-* Diseñar en el rango `J1:K2` el cuadro de criterios (`Ruta` = `Camino Primitivo`, `Pais_Origen` = `Alemania`).
-* Aplicar la fórmula: `=BDSUMA(Tbl_RegistroPeregrinos; "Aportacion_EUR"; J1:K2)`.
-
-
-4. **Cálculo Financiero:**
-* Cuota mensual: `=PAGO(4,5%/12; 60; -80000)` *(Resultado: ~1.491,62 €)*.
-* Interés del primer mes: `=PAGOINT(4,5%/12; 1; 60; -80000)` *(Resultado: 300,00 €)*.
-* Amortización de capital mes 1: `=PAGOPRIN(4,5%/12; 1; 60; -80000)` *(Resultado: ~1.191,62 €)*.
-
-
+1. **Búsqueda:** Introducir `=BUSCARX(B3; Tbl_Albergues[ID_Albergue]; Tbl_Albergues[Telefono]; "No hallado")`.
+2. **BDSUMA:** Diseñar un pequeño rango de criterios con los encabezados de la tabla y aplicar `=BDSUMA(Tbl_RegistroPeregrinos; "Aportacion_EUR"; RangoCriterios)`.
+3. **Financieras:** Calcular la cuota mensual con `=PAGO(4,5%/12; 60; -80000)` y el desglose de intereses del primer mes con `=PAGOINT(4,5%/12; 1; 60; -80000)`.
 
 ---
 
@@ -384,32 +320,18 @@ ALB-12	La Casona del Peregrino	Camino del Norte	Llanes	42	985014211
 
 #### 📝 Tareas a desarrollar:
 
-1. **Diseño del Formulario de Entrada:**
-* Insertar un **Cuadro Combinado (Combo Box)** para seleccionar la nacionalidad del peregrino.
-* Insertar **Botones de Opción (Radio Buttons)** dentro de un **Cuadro de Grupo (Frame)** para marcar el tipo de credencial (*Oficial Jacobea*, *Digital*, *Federación Internacional*).
-* Insertar una **Casilla de Verificación (Checkbox)** para indicar si el peregrino solicita servicio de *Transporte de Equipaje (Mochila)*.
-* Insertar un **Control de Número (Spinner)** para seleccionar el número de pernoctaciones.
-
-
-2. **Vinculación a celdas y fórmulas de cálculo:** Vincular los controles a celdas ocultas y calcular la tarifa final mediante `=SI()`, `=ELEGIR()` e `=INDICE()`.
-3. **Protección y guardado:** Bloquear las celdas con fórmulas, desproteger solo las celdas de entrada, proteger la hoja con contraseña y guardar el archivo como **Plantilla de Excel (`.xltx`)**.
+1. **Diseño del Formulario y Controles:**
+   * Insertar controles de formulario (Cuadro Combinado para nacionalidad, Botones de Opción para credencial, Casilla de verificación para equipaje y Control de número para pernoctaciones).
+2. **Protección y Guardado como Plantilla:**
+   * Desbloquear exclusivamente las celdas de entrada manual, proteger la hoja con contraseña y guardar el libro con extensión **Plantilla de Excel (`.xltx`)**.
 
 ---
 
 #### 🛠️ SOLUCIÓN PASO A PASO (FASE 8)
 
-1. Activar la pestaña **Programador** (desde *Archivo > Opciones > Personalizar cinta de opciones* > Marcar *Programador*).
-2. Ir a **Programador** > **Insertar** > *Controles de formulario*:
-* Dibujar el **Cuadro combinado**, hacer clic derecho > *Formato de control* > Rango de entrada: lista de países (`H2:H15`), Vincular con la celda: `$Z$1`.
-* Dibujar los **Botones de opción** vinculados a `$Z$2`.
-* Dibujar el **Control de número** (mínimo 1, máximo 10) vinculado a `$Z$3`.
-
-
-3. Calcular la tarifa final en la celda del recibo:
-`=Z3 * 5 + SI(Z4=VERDADERO; 3; 0)` *(donde Z4 es la casilla de verificación de equipaje)*.
-4. Seleccionar el rango de celdas de entrada manual > Clic derecho > *Formato de celdas* > Pestaña *Proteger* > Desmarcar **Bloqueada**.
-5. Ir a **Revisar** > **Proteger hoja** > Asignar contraseña.
-6. Guardar el archivo desde **Archivo > Guardar como** eligiendo el tipo **Plantilla de Excel (*.xltx)**.
+1. Activar la ficha **Programador**, ir a **Insertar** y añadir los controles de formulario vinculándolos a celdas auxiliares de control.
+2. Calcular la tarifa final mediante fórmulas lógicas (`=SI()`, `=ELEGIR()`).
+3. Desproteger celdas de entrada en *Formato de celdas*, activar la protección de hoja desde la pestaña *Revisar* y guardar como **Plantilla de Excel (*.xltx)**.
 
 ---
 
@@ -420,125 +342,69 @@ ALB-12	La Casona del Peregrino	Camino del Norte	Llanes	42	985014211
 
 #### 📝 Tareas a desarrollar:
 
-1. **Administrador de Escenarios:**
-* Definir 3 hipótesis de gestión para la temporada alta:
-* **Escenario Conservador:** Aportación sugerida = 5 €, Ocupación = 60%.
-* **Escenario Previsto:** Aportación sugerida = 8 €, Ocupación = 80%.
-* **Escenario Optimista:** Aportación sugerida = 10 €, Ocupación = 95%.
-
-
-* Generar el **Informe Resumen de Escenarios** en una hoja nueva.
-
-
-2. **Tabla de Datos de 2 Variables (Matriz de Sensibilidad):**
-* Crear una Tabla de Datos de dos entradas que evalúe el *Beneficio Neto Anual del Albergue* cruzando diferentes niveles de *Aportación Media (filas: 5€ a 12€)* y *Coste Energético Mensual (columnas: 400€ a 1.200€)*.
-
-
-3. **Búsqueda de Objetivo / Solver:**
-* Aplicar *Búsqueda de Objetivo* para determinar cuántos peregrinos deben alojarse en el albergue de *Tineo* para cubrir exactamente los costes fijos de mantenimiento de 3.500 € mensuales (punto de equilibrio / breakeven).
-
-
+1. **Administrador de Escenarios:** Definir hipótesis (Conservador, Previsto, Optimista) y generar el informe resumen.
+2. **Tabla de Datos de 2 Variables:** Cruzar niveles de aportación media y costes energéticos mensuales para evaluar el beneficio neto.
+3. **Búsqueda de Objetivo:** Determinar el volumen exacto de peregrinos necesario en Tineo para alcanzar el punto de equilibrio (*breakeven*).
 
 ---
 
 #### 🛠️ SOLUCIÓN PASO A PASO (FASE 9)
 
-1. **Administrador de Escenarios:**
-* Ir a **Datos** > **Análisis de hipótesis** > **Administrador de escenarios**.
-* Pulsar **Agregar**, nombrar `Conservador`, seleccionar celdas cambiantes (`$B$1:$B$2`) e introducir los valores `5` y `0,60`.
-* Repetir para los escenarios `Previsto` (`8` y `0,80`) y `Optimista` (`10` y `0,95`).
-* Pulsar **Resumen...**, seleccionar la celda del resultado de ingresos y pulsar **Aceptar**.
-
-
-2. **Tabla de datos de 2 variables:**
-* Disponer los valores de aportación (5 a 12) en la columna `D5:D12` y los costes energéticos (400 a 1200) en la fila `E4:I4`.
-* En la celda esquina `D4`, vincular la fórmula del Beneficio Neto (`=B10`).
-* Seleccionar el rango completo `D4:I12`.
-* Ir a **Datos** > **Análisis de hipótesis** > **Tabla de datos**.
-* *Celda de entrada (fila)*: Celda del coste energético.
-* *Celda de entrada (columna)*: Celda de la aportación media. Pulsar **Aceptar**.
-
-
-3. **Búsqueda de Objetivo:**
-* Ir a **Datos** > **Análisis de hipótesis** > **Búsqueda de objetivo**.
-* *Definir la celda*: Celda de Beneficio Neto.
-* *Con el valor*: `0` (o `3500` según el enfoque de ingresos netos).
-* *Para cambiar la celda*: Celda de número de peregrinos. Pulsar **Aceptar**.
-
-
+1. Ir a **Datos** > **Análisis de hipótesis** > **Administrador de escenarios** para registrar los supuestos y generar el reporte resumen.
+2. Construir la matriz de doble entrada y utilizar la herramienta **Tabla de datos** especificando las celdas de entrada de fila y columna.
+3. Aplicar **Búsqueda de objetivo** sobre la celda de beneficio neto para despejar la celda cambiante de afluencia.
 
 ---
 
-### 🔹 FASE 10: AUTOMATIZACIÓN DE TAREAS REPETITIVAS CON MACROS Y VBA
+### 🔹 FASE 10: AUTOMATIZACIÓN DE TAREAS REPETITIVAS CON LA GRABADORA DE MACROS
 
 * **Epígrafe del Manual:** **`2.10 Macros. Herramientas avanzadas`**
-* **Contexto Jacobeo:** Automatización del proceso de cierre diario de caja y volcado de registro al archivo central.
+* **Contexto Jacobeo:** Automatización del proceso de cierre diario de caja y vaciado del formulario de registro.
+
+> 📝 **Nota metodológica:** En esta fase se trabaja exclusivamente utilizando la interfaz visual de la **Grabadora de Macros** de Excel. Si se requiere algún ajuste o bloque de código en **VBA**, este se obtendrá pidiéndolo directamente a la Inteligencia Artificial como soporte didáctico de apoyo.
 
 #### 📝 Tareas a desarrollar:
 
 1. **Grabación de Macro Operativa:**
-* Utilizar la Grabadora de Macros para automatizar la limpieza de los campos de datos del formulario de entrada de peregrinos tras cada registro.
-* Asignar un atajo de teclado (`Ctrl + Mayús + L`).
-
-
-2. **Edición en Visual Basic para Aplicaciones (VBA):**
-* Acceder al Editor de VBA (`Alt + F11`), abrir el módulo y optimizar el código insertando `Application.ScreenUpdating = False` al inicio para evitar parpadeos de pantalla.
-* Añadir un mensaje de confirmación interactivo: `MsgBox "El registro de peregrinos se ha guardado correctamente.", vbInformation, "Red de Albergues de Asturias"`.
-
-
-3. **Asignación visual:** Crear un botón con forma corporativa en la hoja de recepción (*"Registrar Peregrino"*) y asignarle la macro grabada.
-4. **Seguridad:** Guardar definitivamente el documento con la extensión **Libro de Excel habilitado para macros (`.xlsm`)**.
+   * Iniciar la grabadora de macros desde la ficha *Programador* asignando un método abreviado (`Ctrl + Mayús + L`).
+   * Realizar los pasos de limpieza de los campos de entrada del formulario y detener la grabación.
+2. **Asistencia opcional de IA (VBA):** Consultar opcionalmente a la IA si se desea refinar el código generado por la grabadora añadiendo optimizaciones de pantalla (`Application.ScreenUpdating = False`) o mensajes emergentes (`MsgBox`).
+3. **Asignación y Guardado:** Asociar la macro a un botón con forma corporativa en la hoja de recepción y guardar obligatoriamente el libro como **Libro habilitado para macros (`.xlsm`)**.
 
 ---
 
 #### 🛠️ SOLUCIÓN PASO A PASO (FASE 10)
 
-1. **Grabar Macro:**
-* Ir a **Programador** > **Grabar macro**.
-* Nombre: `LimpiarFormularioPeregrino`, Método abreviado: `L` (con Mayús presionado: `Ctrl + Mayús + L`).
-* Seleccionar las celdas de entrada manual del formulario, pulsar la tecla `Suprimir` y hacer clic en **Detener grabación**.
-
-
-2. **Optimización VBA:**
-* Pulsar `Alt + F11` para abrir el Editor de Microsoft Visual Basic para Aplicaciones.
-* En el panel de proyecto, abrir `Módulos` > `Módulo1`.
-* Modificar el código insertando la optimización de pantalla y el mensaje final:
-```vba
-Sub LimpiarFormularioPeregrino()
-    Application.ScreenUpdating = False
-
-    ' Limpieza de celdas de entrada
-    Range("C4:C8").ClearContents
-
-    Application.ScreenUpdating = True
-    MsgBox "El registro de peregrinos se ha guardado correctamente.", vbInformation, "Red de Albergues de Asturias"
-End Sub
-
-```
-
-
-
-
-3. **Asignar a botón:** En la hoja de Excel, ir a **Insertar** > **Formas** > Dibujar un rectángulo redondado, hacer clic derecho sobre la forma > **Asignar macro...** > Seleccionar `LimpiarFormularioPeregrino` y pulsar **Aceptar**.
-4. **Guardado final:** Ir a **Archivo > Guardar como**, seleccionar el tipo **Libro de Excel habilitado para macros (*.xlsm)** y nombrar como `Camino_Santiago_Asturias_Gestion.xlsm`.
+1. Ir a **Programador** > **Grabar macro**. Asignar el nombre `LimpiarFormulario` y el método abreviado `Ctrl + Mayús + L`.
+2. Seleccionar las celdas de entrada del formulario, pulsar *Suprimir* y hacer clic en **Detener grabación**.
+3. *(Opcional - Soporte IA)*: Si se solicita a la IA optimizar el código grabado, insertar el siguiente bloque en el Módulo de VBA (`Alt + F11`):
+   ```vba
+   Sub LimpiarFormulario()
+       Application.ScreenUpdating = False
+       Range("C4:C8").ClearContents
+       Application.ScreenUpdating = True
+       MsgBox "Formulario limpiado con éxito.", vbInformation, "Red de Albergues"
+   End Sub
+   ```
+4. Insertar una forma en la hoja, hacer clic derecho > **Asignar macro** y seleccionar `LimpiarFormulario`.
+5. Guardar el archivo como **Libro de Excel habilitado para macros (*.xlsm)**.
 
 ---
 
 ## 📊 MATRIZ DE SEGUIMIENTO Y EVALUACIÓN PEDAGÓGICA
 
 | Fase | Epígrafe del Manual | Entregable Práctico en `Camino_Santiago_Asturias_Gestion.xlsm` |
-| --- | --- | --- |
+| :---: | :--- | :--- |
 | **1** | 2.1 Tablas Dinámicas Base | Hoja `TD_Afluencia_Concejos` con jerarquía Concejo > Albergue. |
 | **2** | 2.2 Campos de Valor | Hoja `TD_Analisis_Economico` con Suma, Promedio y % de Cuota. |
-| **3** | 2.3 Gestión e Interacción | Hoja `TD_Estacionalidad` con agrupación mensual, Slicers y Timeline. |
+| **3** | 2.3 Gestión e Interacción | Hoja `TD_Estacionalidad` con agrupación mensual/intervalos y Slicers. |
 | **4** | 2.4 Listados Dinámicos | Hoja `Listados_Activos` con `FILTRAR`, `UNICOS`, `ELEGIRCOLS`, `APILARH` y `#`. |
-| **5** | 2.5 Gráficos Dinámicos | Dashboard visual interactivo con gráficos conectados a Slicers. |
+| **5** | 2.5 Gráficos Dinámicos | Dashboard visual con gráficos múltiples (columnas, líneas y anillos). |
 | **6** | 2.6 Impresión y Layout | Configuración de títulos de impresión, saltos de página y vista tabular. |
 | **7** | 2.7 Funciones Avanzadas | Módulo de consulta con `BUSCARX`, `BDPROMEDIO` y amortización `PAGO`. |
 | **8** | 2.8 Plantillas y Formularios | Plantilla `.xltx` con controles de formulario y protección de celda. |
 | **9** | 2.9 Simulación de Escenarios | Informe Resumen de Escenarios y Tabla de Datos de 2 variables. |
-| **10** | 2.10 Macros y Automatización | Botón interactivo con macro VBA en archivo `.xlsm`. |
+| **10** | 2.10 Macros y Automatización | Botón interactivo con macro grabada en archivo `.xlsm`. |
 
 ---
-
 *Manual elaborado de acuerdo a las especificaciones del Módulo 2 de Excel Avanzado (Especialidad IFCT56 Excel Avanzado y Power BI) y adaptado a Microsoft 365 Edición Educativa (Configuración regional: Español de España).*
