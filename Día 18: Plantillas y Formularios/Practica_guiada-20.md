@@ -40,7 +40,7 @@ En una hoja limpia denominada `Nueva_Tabla`, introduce en la fila 1 únicamente 
 
 | A1 | B1 | C1 | D1 | E1 | F1 | G1 |
 | --- | --- | --- | --- | --- | --- | --- |
-| **Universidades** | **Arquitectura e Ingenierías Técnicas** | **Diplomaturas** | **Licenciaturas** | **Arquitectura e Ingenierías** | **Títulos Dobles** | **Total** |
+| **Universidad** | **Arquitectura e Ingenierías Técnicas** | **Diplomaturas** | **Licenciaturas** | **Arquitectura e Ingenierías** | **Títulos Dobles** | **Total** |
 
 ---
 
