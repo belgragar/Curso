@@ -1,0 +1,44 @@
+﻿ID_Venta;Fecha;Cliente;Provincia;Producto;Unidades;Importe;Comercial;Estado
+1001;01/09/2026; Ana García ;Madrid;Portátil;2;1800,00;Laura;OK
+1002;02.09.2026;JUAN PÉREZ;madrid;Monitor;4;1200,00;Pedro;OK
+1003;03/09/2026;Ana García;MADRID;Teclado;10;450,00;Laura;Pendiente
+1003;03/09/2026;Ana García;MADRID;Teclado;10;450,00;Laura;Pendiente
+1004;;María López;Valencia;Ratón;15;225,00;;OK
+1005;05/09/2026;Carlos Ruiz;valencia;Impresora;2;ERROR;Pedro;OK
+1006;06/09/2026;  Lucía Martín  ;SEVILLA;Portátil;1;950,00;Laura;OK
+1007;07.09.2026;Pablo Díaz;Sevilla;Monitor;3;900,00;Pedro;pendiente
+1008;08/09/2026;MARTA GÓMEZ ;BARCELONA;Teclado;8;360,00;Laura;OK
+1009;09/09/2026;;Barcelona;Ratón;20;300,00;Pedro;OK
+1010;10.09.2026;Diego Sánchez;Madrid;Impresora;1;275,00;Laura;OK
+1011;11/09/2026;Laura Pérez;MADRID;Portátil;2;1900,00;Pedro;OK
+1012;12/09/2026;Ana García;madrid;Monitor;2;600,00;Laura;Pendiente
+1013;13/09/2026;Javier López;Valencia;Teclado;12;540,00;Pedro;OK
+1014;14/09/2026;Sonia Ruiz; VALENCIA ;Ratón;18;270,00;Laura;OK
+1015;15/09/2026;Carlos Ruiz;Sevilla;Impresora;2;550,00;Pedro;OK
+1016;16/09/2026;Lucía Martín;sevilla;Portátil;1;1100,00;Laura;OK
+1017;17/09/2026;Pablo Díaz;Barcelona;Monitor;5;1500,00;Pedro;PENDIENTE
+1018;18/09/2026;Marta Gómez;Barcelona;Teclado;6;270,00;Laura;OK
+1019;19/09/2026;Diego Sánchez;Madrid;Ratón;25;375,00;Pedro;OK
+1020;20/09/2026;Laura Pérez;Madrid;Impresora;2;600,00;Laura;OK
+1021;21.09.2026;Javier López;Valencia;Portátil;1;975,00;Pedro;OK
+1022;22/09/2026;Sonia Ruiz;VALENCIA;Monitor;4;1200,00;Laura;OK
+1023;23/09/2026;Carlos Ruiz;Sevilla;Teclado;10;450,00;Pedro;Pendiente
+1024;24/09/2026;Lucía Martín;Sevilla;Ratón;16;240,00;Laura;OK
+1025;25/09/2026;Pablo Díaz;Barcelona;Impresora;1;275,00;Pedro;OK
+1026;26/09/2026;Marta Gómez;Barcelona;Portátil;2;2000,00;Laura;OK
+1027;27/09/2026;Diego Sánchez;Madrid;Monitor;3;900,00;Pedro;OK
+1028;28/09/2026;Ana García;Madrid;Teclado;9;405,00;Laura;Pendiente
+1029;29/09/2026;María López;Valencia;Ratón;14;210,00;Pedro;OK
+1030;30/09/2026;Carlos Ruiz;Sevilla;Impresora;2;550,00;Laura;OK
+1031;01/10/2026;Lucía Martín;Sevilla;Portátil;1;1050,00;Pedro;OK
+1032;02/10/2026;Pablo Díaz;Barcelona;Monitor;4;1200,00;Laura;OK
+1033;03/10/2026;Marta Gómez;Barcelona;Teclado;7;315,00;Pedro;OK
+1034;04/10/2026;Diego Sánchez;Madrid;Ratón;22;330,00;Laura;OK
+1035;05/10/2026;Laura Pérez;Madrid;Impresora;2;600,00;Pedro;Pendiente
+1036;06/10/2026;Javier López;Valencia;Portátil;1;980,00;Laura;OK
+1037;07/10/2026;Sonia Ruiz;Valencia;Monitor;3;900,00;Pedro;OK
+1038;08/10/2026;Carlos Ruiz;Sevilla;Teclado;11;495,00;Laura;OK
+1039;09/10/2026;Lucía Martín;Sevilla;Ratón;17;255,00;Pedro;OK
+1040;10/10/2026;Pablo Díaz;Barcelona;Impresora;1;275,00;Laura;OK
+1041;11/10/2026;  Ana García  ;madrid;Monitor;2;600,00;Laura;ok
+1042;12/10/2026;Nuevo Cliente;Madrid;Ratón;10;150,00;Pedro;Pendiente
