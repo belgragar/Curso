@@ -21,7 +21,7 @@ ID_Venta;Fecha;Cliente;Provincia;Producto;Unidades;Importe;Comercial;Estado
 1. Abre un libro de Excel/Power BI en blanco.
 
 
-2. Ve a **Datos > Obtener datos > Desde un archivo > Desde texto/CSV**.
+2. Ve a **Datos/Inicio > Obtener datos > Desde un archivo > Desde texto/CSV**.
 
 
 3. Selecciona `Practica_Power_Query_Ventas.csv` y pulsa **Importar**.
@@ -31,7 +31,7 @@ ID_Venta;Fecha;Cliente;Provincia;Producto;Unidades;Importe;Comercial;Estado
 
 
 
-###Paso 2: Eliminación de columnas superfluas
+## Paso 2: Eliminación de columnas superfluas
 
 1. Observa la columna `Comercial`.
 
