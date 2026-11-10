@@ -1,0 +1,5 @@
+ID_Venta;Fecha;Delegacion;Categoria;Canal_Online;Canal_Tienda;Canal_Empresa
+VEN-001;2026-01-05;Madrid;Informática;1250.0;850.0;3000.0
+VEN-002;2026-01-12;Barcelona;Periféricos;450.5;1200.0;0.0
+VEN-003;2026-01-18;Valencia;Informática;2100.0;1500.0;4500.0
+VEN-004;2026-01-25;Madrid;Servicios;800.0;300.0;1200.0
