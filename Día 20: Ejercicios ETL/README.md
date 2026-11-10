@@ -122,7 +122,7 @@ $$[Unidades] \times [PrecioUnitario]$$
 
 
 
-### Paso 3: Aplicación de la Dificultad Técnia — Agrupación (Group By)
+### Paso 3: Aplicación de la Dificultad Técnica — Agrupación (Group By)
 
 1. En la pestaña **Inicio** (o **Transformar**), haz clic en el botón **Agrupar por**.
 
