@@ -289,10 +289,6 @@ Los tres archivos CSV adjuntos contienen la misma estructura estandarizada (deli
 
 4. Haz clic en **Cerrar y aplicar**.
 
-
-
----
-
 ### ❓ Preguntas de Comprobación
 
 1. **¿Qué ocurre si el mes que viene se añade el archivo `Ventas_Abril_2026.csv` a la carpeta?**
@@ -304,6 +300,68 @@ Los tres archivos CSV adjuntos contienen la misma estructura estandarizada (deli
 2. **¿Por qué es preferible almacenar los datos en formato vertical (desdinamizado) en lugar de tener una columna por cada canal de venta?**
 * *Respuesta:* Porque el motor de Power BI / Power Query funciona mediante modelos relacionales tabulares. Tener los canales en filas permite filtrar, segmentar por canal y crear medidas DAX simples sin necesidad de sumar múltiples columnas a mano.
 
+
+```python
+import pandas as pd
+
+# Creamos el cuarto archivo correspondiente a Abril 2026
+# Mantenemos exactamente la misma estructura de columnas que los 3 anteriores:
+# ID_Venta, Fecha, Delegacion, Categoria, Canal_Online, Canal_Tienda, Canal_Empresa
+
+data_abril = {
+    'ID_Venta': ['VEN-013', 'VEN-014', 'VEN-015', 'VEN-016'],
+    'Fecha': ['2026-04-02', '2026-04-11', '2026-04-19', '2026-04-26'],
+    'Delegacion': ['Madrid', 'Valencia', 'Barcelona', 'Sevilla'],
+    'Categoria': ['Periféricos', 'Informática', 'Servicios', 'Informática'],
+    'Canal_Online': [1600.00, 2100.00, 750.00, 1300.00],
+    'Canal_Tienda': [920.00, 1100.00, 500.00, 850.00],
+    'Canal_Empresa': [2800.00, 3900.00, 1400.00, 2600.00]
+}
+
+df_abr = pd.DataFrame(data_abril)
+file_name = 'Ventas_Abril_2026.csv'
+df_abr.to_csv(file_name, index=False, sep=';', encoding='utf-8')
+
+print(f"Archivo {file_name} generado con éxito.")
+
+
+```
+
+```text
+Archivo Ventas_Abril_2026.csv generado con éxito.
+
+
+```
+
+Tu archivo CSV adicional está listo:
+
+
+---
+
+### 📥 Apartado Adicional: Comprobación de la Actualización Automática al Añadir un Nuevo Archivo
+
+#### Paso 5: Comprobación de Carga Incremental (Actualización)
+
+1. **Guarda el nuevo archivo:** Descarga el fichero `Ventas_Abril_2026.csv` y muévelo a la misma carpeta `Ventas_Mensuales` donde están guardados los archivos de Enero, Febrero y Marzo.
+
+
+2. **Ejecuta la actualización en Power BI / Excel:**
+* En **Power BI Desktop:** En la pestaña **Inicio** de la cinta de opciones, haz clic en el botón **Actualizar**.
+
+
+* En **Excel:** Dirígete a la pestaña **Datos** y pulsa **Actualizar todo** (o haz clic derecho sobre la tabla cargada y selecciona *Actualizar*).
+
+
+
+
+3. **Verificación de resultados:**
+* Observa la columna `Fecha` o `ID_Venta` en tu modelo o tabla final.
+
+
+* Comprobarás que los registros `VEN-013` a `VEN-016` correspondientes al mes de Abril se han incorporado automáticamente a la consulta.
+
+
+* **Power Query** habrá aplicado de forma transparente todos los pasos configurados previamente (combinación, desdinamización de las columnas `Canal_Online`, `Canal_Tienda` y `Canal_Empresa`, y asignación de tipos de datos) sin necesidad de modificar el código ni repetir el trabajo manual.
 
 ***
 
