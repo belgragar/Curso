@@ -1,3 +1,4 @@
+# Ejercicios ETL
 
 ## 0. Preparación común
 
@@ -167,10 +168,6 @@ En la vista de **Datos**:
 
 ***
 
-Aquí tienes el texto del ejercicio completamente redactado y adaptado para el nuevo fichero de Access que has adjuntado:
-
----
-
 ## 6. Access – Base de datos de Agencia de Viajes (Tours y Turistas)
 
 **Objetivo:** Conectar a una base de datos Access, seleccionar tablas y aplicar transformaciones básicas en Power Query.
@@ -221,50 +218,92 @@ En la **Vista de Datos** de Power BI, verifica que:
 
 ***
 
-## 7. Carpeta – Consolidar varios CSV de ventas mensuales
+## 7. Carpeta – Consolidación de Carpeta y Desdinamización (Unpivot) en Power Query
 
-**Objetivo:** Conectar a una carpeta, combinar archivos con la misma estructura y aplicar transformaciones comunes.
+### Enunciado y Objetivo de Negocio
 
-**1. Importar la carpeta de datos**
-* En **Power BI Desktop**, ve a **Inicio** → **Obtener datos** → **Más…** → **Carpeta**.
-* Selecciona la carpeta **`Ventas_Mensuales`** y pulsa **Combinar y transformar datos**.
-* En la ventana emergente de vista previa, cambia el **Archivo de ejemplo** a **`Ventas_2024_04.csv`** para interpretar correctamente todas las columnas.
-* Pulsa el botón **Aceptar**.
- 
-**2. Revelar columnas de meses posteriores (`Descuento` y `Precio unitario`)**
-* Una vez dentro del **Editor de Power Query**, selecciona la consulta principal **`Ventas_Mensuales`**.
-* En el panel derecho (**Pasos aplicados**), busca el paso llamado **"Se expandió Transformar archivo"** (o similar) y haz clic en el icono de la **tuerca/engranaje** ⚙️ situado a su derecha.
-* En la ventana emergente, haz clic en **Cargar más** para que Power Query lea la estructura de todos los archivos de la carpeta.
-* Asegúrate de marcar todas las columnas (incluidas **`Descuento`** y **`Precio unitario`**) y pulsa **Aceptar**.
- 
-**3. Unificar las columnas de precio (`Precio` vs. `Precio unitario`)**
-* Ve a la pestaña **Agregar columna** en la barra superior y selecciona **Columna condicional**.
-* Configura la nueva columna con estos parámetros:
-* **Nombre de la columna:** `Precio_Final`
-* **Si** `Precio` **es igual a** *(déjalo en blanco / null)* ➔ **Devolver valor de una columna:** `Precio unitario`
-* **De lo contrario** ➔ **Devolver valor de una columna:** `Precio`
- 
-* Haz clic en **Aceptar**.
-* Selecciona y elimina las dos columnas originales (`Precio` y `Precio unitario`), y renombra `Precio_Final` simplemente como **`Precio`**.
+El departamento de ventas de la empresa recibe mensualmente un archivo CSV enviado por cada delegación. Todos los archivos tienen la **misma estructura de columnas**, pero presentan los datos matriciales: las ventas vienen divididas en columnas según el canal comercial (`Canal_Online`, `Canal_Tienda`, `Canal_Empresa`).
 
-**4. Limpieza de datos, tipos y filtros**
-* **Origen del archivo:** Renombra la columna `Source.Name` a **`Archivo`**.
-* **Separadores decimales:** Selecciona las columnas `Precio`, `Importe` y `Descuento`. Haz clic derecho en el encabezado de cualquiera de ellas → **Cambiar tipo** → **Usar configuración regional...** Escoge la alternativa **Número decimal** con configuración regional **Inglés (Estados Unidos)** para que interprete el punto (`.`) correctamente como separador decimal.
-* **Filtrar filas de totales e incompletas:**
-* En la columna `Fecha`, despliega el filtro y desmarca la opción **Total**.
-* En la columna `Importe`, despliega el filtro y desmarca la opción **(Nulo/Vacio)**.
- 
-* **Tipos de datos finales:** Confirma los tipos de datos en la barra superior:
-* `Fecha` → **Fecha**
-* `Unidades` → **Número entero**
-* `Precio`, `Importe`, `Descuento` → **Número decimal**
+Tu objetivo es configurar una conexión a la carpeta compartida en **Power Query** para unificar automáticamente todos los archivos mensuales recibidos y **desdinamizar las columnas de los canales** para obtener una estructura relacional óptima en formato de lista (Filas: *ID_Venta*, *Fecha*, *Delegacion*, *Categoria*, *Canal*, *Importe*).
 
- 
-* **Nombre de la consulta:** Haz clic derecho sobre la consulta en el panel izquierdo y renómbrala como **`fact_Ventas_Carpeta`**.
+---
 
-**5. Cargar datos**
-* Ve a la pestaña **Inicio** y pulsa **Cerrar y aplicar**.
- 
+### 🗂️ Archivos de Ejemplo (Guardar juntos en una carpeta llamada `Ventas_Mensuales`)
+
+Los tres archivos CSV adjuntos contienen la misma estructura estandarizada (delimitador: punto y coma `;`):
+
+* **Ventas_Enero_2026.csv** 
+
+
+* **Ventas_Febrero_2026.csv** 
+
+
+* **Ventas_Marzo_2026.csv** 
+
+
+
+---
+
+### ⚙️ Procedimiento Paso a Paso en Power BI Desktop / Excel
+
+#### Paso 1: Conexión a la Carpeta
+
+1. Abre **Power BI Desktop** (o Excel) y dirígete a **Obtener datos > Desde un archivo > Carpeta**.
+
+
+2. Busca la carpeta donde has guardado los 3 archivos CSV (`Ventas_Mensuales`) y haz clic en **Aceptar**.
+3. En la ventana emergente, selecciona **Combinar > Transformar datos** (o haz clic en *Transformar datos* y luego en el icono de combinar archivos en la columna `Content`).
+
+
+
+#### Paso 2: Validación de la Combinación
+
+1. Power Query generará automáticamente una consulta de archivo de muestra y combinará los 3 ficheros.
+
+
+2. Comprueba que las columnas unificadas son: `ID_Venta`, `Fecha`, `Delegacion`, `Categoria`, `Canal_Online`, `Canal_Tienda`, `Canal_Empresa`.
+
+#### Paso 3: Transformación Avanzada (Desdinamizar / Unpivot)
+
+1. Selecciona las columnas que **NO** quieres desdinamizar: pulsa `Ctrl` y haz clic en `Source.Name`, `ID_Venta`, `Fecha`, `Delegacion` y `Categoria`.
+2. Haz clic derecho sobre el encabezado de cualquiera de las columnas seleccionadas y elige **Desdinamizar otras columnas** (o *Anulación de dinamización de otras columnas*).
+
+
+3. Verás que las 3 columnas de canales se convierten en dos nuevas columnas:
+* **Atributo:** Renombra esta columna como `Canal_Venta`.
+* **Valor:** Renombra esta columna como `Importe`.
+
+
+4. Aplica **Reemplazar valores** sobre la columna `Canal_Venta` para quitar el prefijo `Canal_` si deseas dejar solo `Online`, `Tienda` y `Empresa`.
+
+#### Paso 4: Ajuste de Tipos de Datos y Carga
+
+1. Cambia el tipo de dato de `Fecha` a **Fecha**.
+
+
+2. Cambia el tipo de dato de `Importe` a **Número decimal** (o Moneda).
+
+
+3. Renombra la consulta final como `fct_Ventas_Consolidadas`.
+
+
+4. Haz clic en **Cerrar y aplicar**.
+
+
+
+---
+
+### ❓ Preguntas de Comprobación
+
+1. **¿Qué ocurre si el mes que viene se añade el archivo `Ventas_Abril_2026.csv` a la carpeta?**
+* *Respuesta:* Solo hay que pulsar en el botón **Actualizar**; Power Query leerá el nuevo archivo, lo anexará al resto y le aplicará los mismos pasos de desdinamización sin tener que rehacer nada.
+
+
+
+
+2. **¿Por qué es preferible almacenar los datos en formato vertical (desdinamizado) en lugar de tener una columna por cada canal de venta?**
+* *Respuesta:* Porque el motor de Power BI / Power Query funciona mediante modelos relacionales tabulares. Tener los canales en filas permite filtrar, segmentar por canal y crear medidas DAX simples sin necesidad de sumar múltiples columnas a mano.
+
 
 ***
 
