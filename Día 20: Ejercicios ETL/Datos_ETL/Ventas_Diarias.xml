@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VentasEmpresa>
+    <Transacciones>
+        <Transaccion>
+            <ID_Transaccion>TRX-1001</ID_Transaccion>
+            <Fecha>2026-04-01</Fecha>
+            <Tienda>Madrid Central</Tienda>
+            <Categoria>Informática</Categoria>
+            <Producto>Portátil Pro 15</Producto>
+            <Unidades>2</Unidades>
+            <PrecioUnitario>850.00</PrecioUnitario>
+        </Transaccion>
+        <Transaccion>
+            <ID_Transaccion>TRX-1002</ID_Transaccion>
+            <Fecha>2026-04-01</Fecha>
+            <Tienda>Madrid Central</Tienda>
+            <Categoria>Periféricos</Categoria>
+            <Producto>Teclado Mecánico</Producto>
+            <Unidades>5</Unidades>
+            <PrecioUnitario>45.00</PrecioUnitario>
+        </Transaccion>
+        <Transaccion>
+            <ID_Transaccion>TRX-1003</ID_Transaccion>
+            <Fecha>2026-04-01</Fecha>
+            <Tienda>Barcelona Norte</Tienda>
+            <Categoria>Informática</Categoria>
+            <Producto>Monitor 27 4K</Producto>
+            <Unidades>3</Unidades>
+            <PrecioUnitario>320.00</PrecioUnitario>
+        </Transaccion>
+        <Transaccion>
+            <ID_Transaccion>TRX-1004</ID_Transaccion>
+            <Fecha>2026-04-02</Fecha>
+            <Tienda>Madrid Central</Tienda>
+            <Categoria>Informática</Categoria>
+            <Producto>Portátil Pro 15</Producto>
+            <Unidades>1</Unidades>
+            <PrecioUnitario>850.00</PrecioUnitario>
+        </Transaccion>
+        <Transaccion>
+            <ID_Transaccion>TRX-1005</ID_Transaccion>
+            <Fecha>2026-04-02</Fecha>
+            <Tienda>Valencia Este</Tienda>
+            <Categoria>Servicios</Categoria>
+            <Producto>Soporte Técnico Anual</Producto>
+            <Unidades>2</Unidades>
+            <PrecioUnitario>500.00</PrecioUnitario>
+        </Transaccion>
+        <Transaccion>
+            <ID_Transaccion>TRX-1006</ID_Transaccion>
+            <Fecha>2026-04-02</Fecha>
+            <Tienda>Barcelona Norte</Tienda>
+            <Categoria>Periféricos</Categoria>
+            <Producto>Ratón Inalámbrico</Producto>
+            <Unidades>10</Unidades>
+            <PrecioUnitario>25.00</PrecioUnitario>
+        </Transaccion>
+        <Transaccion>
+            <ID_Transaccion>TRX-1007</ID_Transaccion>
+            <Fecha>2026-04-03</Fecha>
+            <Tienda>Valencia Este</Tienda>
+            <Categoria>Informática</Categoria>
+            <Producto>Monitor 27 4K</Producto>
+            <Unidades>2</Unidades>
+            <PrecioUnitario>320.00</PrecioUnitario>
+        </Transaccion>
+        <Transaccion>
+            <ID_Transaccion>TRX-1008</ID_Transaccion>
+            <Fecha>2026-04-03</Fecha>
+            <Tienda>Madrid Central</Tienda>
+            <Categoria>Servicios</Categoria>
+            <Producto>Instalación de Redes</Producto>
+            <Unidades>1</Unidades>
+            <PrecioUnitario>1200.00</PrecioUnitario>
+        </Transaccion>
+        <Transaccion>
+            <ID_Transaccion>TRX-1009</ID_Transaccion>
+            <Fecha>2026-04-03</Fecha>
+            <Tienda>Barcelona Norte</Tienda>
+            <Categoria>Informática</Categoria>
+            <Producto>Portátil Pro 15</Producto>
+            <Unidades>4</Unidades>
+            <PrecioUnitario>850.00</PrecioUnitario>
+        </Transaccion>
+    </Transacciones>
+</VentasEmpresa>
