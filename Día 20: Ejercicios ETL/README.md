@@ -2,8 +2,8 @@
 ## 0. Preparación común
 
 1. Abrir **Power BI Desktop**.
-2. Crear un informe en blanco y lo guardarlo como `Clase01_PowerQuery_Practicas.pbix`.
-3. Tener a mano una carpeta local llamada `Datos_Clase01` donde se irán guardando los archivos que se descarguen (CSV, Excel, XML, etc.).
+2. Crear un informe en blanco y lo guardarlo como `Ejercicios_ETL.pbix`.
+3. Tener a mano una carpeta local llamada `Datos_ETL` donde se irán guardando los archivos que se descarguen (CSV, Excel, XML, etc.).
 
 **Todas** las consultas deben crearse pulsando **“Transformar datos”** (no “Cargar”), para trabajar en el Editor de Power Query.
 
@@ -24,9 +24,12 @@
    - Limpia la columna `Producto`:
      - Quitar espacios al inicio y final.  
      - Convertir todo a mayúsculas o minúsculas.  
+   - Añadir columa personalizada
+     - Crear una columna personalizada llamada `Importe_Nuevo` que sea igual al producto de las unidades por el precio unitario.
+     - Borrar la columna `Importe` anterior.
+     - Renombrar la columna `Importe_Nuevo` a `Importe`.
    - Filtra las filas:
-     - Elimina las filas con `Importe` vacío o nulo.  
-     - Conserva solo las ventas con `Importe` mayor que 100.  
+     - Conserva sólo las ventas con `Importe` mayor que 100.  
    - Elimina columnas que no vayas a usar (por ejemplo, un ID interno).  
 4. Renombra la consulta como `stg_Ventas_CSV`.  
 5. Renombra los pasos aplicados con nombres descriptivos (por ejemplo, “Filtrar importe mayor que 100”).  
