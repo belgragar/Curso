@@ -72,27 +72,130 @@
 
 ***
 
-## 3. XML – Catálogo de productos
+## 3. XML – Importación de XML y Agrupación Avanzada (Group By)
 
-**Objetivo:** Leer un archivo XML, navegar por nodos y convertir la estructura en una tabla.
+**Enunciado y Objetivo de Negocio**
 
-1. En Power BI Desktop, ve a **Inicio → Obtener datos → Más… → XML**.  
-2. Selecciona `Productos.xml` y pulsa **Transformar datos**.  
-3. En el Editor de Power Query:
-   - Navega por la estructura hasta localizar la tabla con los productos (normalmente un nodo `Producto`).  
-   - Expande los campos:
-     - `IdProducto`, `Nombre`, `Categoria`, `Precio`. (Puede haberlo hecho de forma automática) 
-   - Cambia los tipos de datos:
-     - `IdProducto`, `Nombre`, `Categoria` → Texto.  
-     - `Precio` → Número decimal.  
-   - Renombra la consulta como `dim_Productos_XML`.  
-   - Renombra los pasos aplicados (por ejemplo, “Expandir nodo Producto”).  
-4. Pulsa **Cerrar y aplicar**.
+El sistema ERP de la empresa exporta las transacciones comerciales diarias de las tiendas en un único archivo XML. Cada elemento del XML representa una venta individualizada con su producto, unidades vendidas, precio unitario y tienda.
 
-**Comprobación:** En la vista de Datos:
-- Hay una fila por producto.
-- `Precio` es numérico.
-- No hay columnas con estructuras anidadas sin expandir.
+La dirección comercial **no necesita el detalle fila a fila**, sino un resumen consolidado por **Tienda** y **Categoría** para analizar el volumen de negocio acumulado, el número total de unidades comercializadas y el importe total facturado.
+
+Tu objetivo es importar el archivo XML en **Power Query**, expandir la tabla de nodos, crear una columna calculada de `ImporteTotal` y aplicar una **Agrupación Multicriterio (Group By)**.
+
+### ⚙️ Procedimiento Paso a Paso en Power BI Desktop / Excel
+
+### Paso 1: Conexión al Archivo XML y Expansión de Nodos
+
+1. Ve a **Obtener datos > Desde un archivo > XML** (o pestaña *Datos > Obtener datos > De un archivo > Desde XML* en Excel).
+
+
+2. Selecciona el archivo `Ventas_Diarias.xml` y haz clic en **Transformar datos**.
+
+
+3. En el Editor de Power Query, haz clic en el icono de **Expansión** (doble flecha opuesta) en el encabezado de la columna `Transaccion` (o `Table`) para mostrar todos los campos child: `ID_Transaccion`, `Fecha`, `Tienda`, `Categoria`, `Producto`, `Unidades`, `PrecioUnitario`.
+
+### Paso 2: Limpieza de Tipos de Datos y Columna Personalizada
+
+1. Asigna los tipos de datos estrictos:
+
+
+* `Unidades` $\rightarrow$ **Número entero**
+
+
+* `PrecioUnitario` $\rightarrow$ **Número decimal**
+
+
+* `Tienda` y `Categoria` $\rightarrow$ **Texto**
+
+
+
+
+2. Dirígete a la pestaña **Agregar columna > Columna personalizada**.
+
+
+3. Nombra la columna como `ImporteTotal` e introduce la fórmula:
+
+$$[Unidades] \times [PrecioUnitario]$$
+
+
+4. Asegúrate de cambiar el tipo de datos de `ImporteTotal` a **Número decimal**.
+
+
+
+### Paso 3: Aplicación de la Dificultad Técnia — Agrupación (Group By)
+
+1. En la pestaña **Inicio** (o **Transformar**), haz clic en el botón **Agrupar por**.
+
+
+2. En la ventana emergente, selecciona la opción **Avanzado**.
+3. Configura las agrupaciones principales (filas resumidas):
+* **Primer nivel de agrupación:** `Tienda`
+* Haz clic en **Agregar agrupación**
+* **Segundo nivel de agrupación:** `Categoria`
+
+
+4. Define las operaciones de agregación (columnas calculadas):
+* **Operación 1:**
+* *Nombre de nueva columna:* `Total_Ventas`
+* *Operación:* **Suma**
+* *Columna:* `ImporteTotal`
+
+
+* Haz clic en **Agregar agregación**
+* **Operación 2:**
+* *Nombre de nueva columna:* `Total_Unidades`
+* *Operación:* **Suma**
+* *Columna:* `Unidades`
+
+
+* Haz clic en **Agregar agregación**
+* **Operación 3:**
+* *Nombre de nueva columna:* `Num_Transacciones`
+* *Operación:* **Recuento de filas**
+
+
+
+
+5. Pulsa **Aceptar**.
+
+### Paso 4: Carga del Modelo
+
+1. Renombra la consulta como `tbl_ResumenVentasXML`.
+
+
+2. Haz clic en **Cerrar y aplicar** (o *Cerrar y cargar* en Excel).
+
+
+
+
+
+### 📊 Resultado Esperado tras la Agrupación
+
+La consulta agrupada resultante debe resumir las 9 transacciones del XML en solo **6 filas agregadas**:
+
+| Tienda | Categoria | Total_Ventas | Total_Unidades | Num_Transacciones |
+| --- | --- | --- | --- | --- |
+| **Madrid Central** | Informática | 2.550,00 € | 3 | 2 |
+| **Madrid Central** | Periféricos | 225,00 € | 5 | 1 |
+| **Madrid Central** | Servicios | 1.200,00 € | 1 | 1 |
+| **Barcelona Norte** | Informática | 4.360,00 € | 7 | 2 |
+| **Barcelona Norte** | Periféricos | 250,00 € | 10 | 1 |
+| **Valencia Este** | Servicios | 1.000,00 € | 2 | 1 |
+| **Valencia Este** | Informática | 640,00 € | 2 | 1 |
+
+
+
+### ❓ Preguntas de Comprobación
+
+1. **¿Cuál es la diferencia entre realizar un agrupamiento en Power Query antes de cargar y realizar un agrupamiento mediante una tabla dinámica o medidas DAX?**
+* *Respuesta:* La agrupación en Power Query se realiza en la fase de extracción/transformación (ETL), reduciendo el tamaño del conjunto de datos cargado en memoria, ideal para aligerar el modelo cuando no se necesita analizar el nivel de transacción individual.
+
+
+
+
+2. **Si el origen XML cambia y recibe 50 transacciones más mañana, ¿hay que volver a configurar la agrupación?**
+* *Respuesta:* No; la instrucción de agrupación queda guardada como un paso M (`Table.Group`) en la consulta. Al presionar **Actualizar**, Power Query leerá las nuevas filas del XML y aplicará la suma y el recuento automáticamente.
+
 
 ***
 
