@@ -1,4 +1,4 @@
-# Práctica guiada 23: creación de un modelo en estrella
+# Práctica guiada 23: Creación de un modelo en estrella
 
 ## 1. Objetivos de la práctica
 
