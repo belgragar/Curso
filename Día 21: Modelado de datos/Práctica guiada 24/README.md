@@ -85,55 +85,148 @@ Para realizar el ejercicio, utilizarás como fuente el archivo adjunto **`Merx D
 
 #### **B. Generación de las Tablas de Dimensiones**
 
-* **Crear `DIM_Cliente`:**
-1. En el panel izquierdo de Consultas, haz clic derecho sobre `Ventas_Origen` y selecciona **Referenciar**.
-2. Renombra la nueva consulta a **`DIM_Cliente`**.
-3. Selecciona únicamente las columnas `ID_Cliente`, `Nombre_Cliente` y `Ciudad_Cliente` (haz clic derecho en el encabezado > *Quitar otras columnas*).
-4. Selecciona la columna `ID_Cliente`, haz clic derecho y elige **Quitar duplicados**.
+```python
+import pandas as pd
+xls = pd.ExcelFile('Merx Data.xlsx')
+print("Sheet names:", xls.sheet_names)
+for sheet in xls.sheet_names:
+    df = pd.read_excel('Merx Data.xlsx', sheet_name=sheet)
+    print(f"\nSheet: {sheet}")
+    print("Columns:", df.columns.tolist())
+    print("Head:\n", df.head(2))
 
 
-* **Crear `DIM_Producto`:**
-1. Haz clic derecho sobre `Ventas_Origen` > **Referenciar**.
-2. Renombra a **`DIM_Producto`**.
-3. Selecciona las columnas `ID_Producto`, `Nombre_Producto`, `Categoria` y `Precio_Unitario` > *Quitar otras columnas*.
-4. Selecciona `ID_Producto` y aplica **Quitar duplicados**.
+```
+
+```text
+Sheet names: ['Transacciones']
+
+Sheet: Transacciones
+Columns: ['Fecha', 'Factura', 'No. Parte', 'Producto', 'Producto Completo', 'Marca', 'Etiquetas', 'Subcategoría', 'Categoría', 'Cat', 'Unidad Negocio', 'Tipo de Compra', 'Cantidad', 'Precio Venta', 'Costo Venta']
+Head:
+        Fecha     Factura No. Parte                 Producto                      Producto Completo    Marca Etiquetas                    Subcategoría            Categoría  Cat Unidad Negocio Tipo de Compra  Cantidad  Precio Venta  Costo Venta
+0 2020-05-05  INV7778844   P373917  Alimento Lácteo Finesse  Alimento Lácteo Finesse x 6und x 150g  Finesse    Yogurt  Lácteos, Huevos Y Refrigerados  Alimentos y Bebidas  A&B   Supermercado         Física         1      236.1168     118.0584
+1 2020-02-28  INV7779415   P373917  Alimento Lácteo Finesse  Alimento Lácteo Finesse x 6und x 150g  Finesse    Yogurt  Lácteos, Huevos Y Refrigerados  Alimentos y Bebidas  A&B   Supermercado         Física         1      236.1168     118.0584
 
 
-* **Crear `DIM_Comercial`:**
-1. Haz clic derecho sobre `Ventas_Origen` > **Referenciar**.
-2. Renombra a **`DIM_Comercial`**.
-3. Selecciona las columnas `ID_Comercial` y `Nombre_Comercial` > *Quitar otras columnas*.
-4. Selecciona `ID_Comercial` y aplica **Quitar duplicados**.
+```
+
+```python
+df = pd.read_excel('Merx Data.xlsx', sheet_name='Transacciones')
+print("Shape:", df.shape)
+print("Info:")
+df.info()
 
 
+```
 
-#### **C. Generación de la Tabla de Hechos (`FACT_Ventas`)**
+```text
+Shape: (103498, 15)
+Info:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 103498 entries, 0 to 103497
+Data columns (total 15 columns):
+ #   Column             Non-Null Count   Dtype         
+---  ------             --------------   -----         
+ 0   Fecha              103498 non-null  datetime64[ns]
+ 1   Factura            103498 non-null  object        
+ 2   No. Parte          103498 non-null  object        
+ 3   Producto           103498 non-null  object        
+ 4   Producto Completo  103498 non-null  object        
+ 5   Marca              103498 non-null  object        
+ 6   Etiquetas          103498 non-null  object        
+ 7   Subcategoría       103498 non-null  object        
+ 8   Categoría          103498 non-null  object        
+ 9   Cat                103498 non-null  object        
+ 10  Unidad Negocio     103498 non-null  object        
+ 11  Tipo de Compra     103498 non-null  object        
+ 12  Cantidad           103498 non-null  int64         
+ 13  Precio Venta       103498 non-null  float64       
+ 14  Costo Venta        103498 non-null  float64       
+dtypes: datetime64[ns](1), float64(2), int64(1), object(11)
+memory usage: 11.8+ MB
 
-1. Haz clic derecho sobre `Ventas_Origen` > **Referenciar** y renombra la consulta como **`FACT_Ventas`**.
-2. Conserva únicamente las columnas de claves foráneas y valores numéricos/transaccionales:
-* `ID_Venta`, `Fecha_Venta`, `ID_Cliente`, `ID_Producto`, `ID_Comercial`, `Cantidad`, `Importe_Total`.
 
+```
 
-3. Haz clic derecho sobre la consulta original `Ventas_Origen` y **desmarca** la opción **Habilitar carga** (esto evitará llevar la tabla plana original redundante al modelo de datos final).
-4. Ve a la pestaña **Inicio** y pulsa **Cerrar y aplicar**.
+¡Tienes toda la razón y te pido disculpas! He revisado directamente las columnas reales del archivo **`Merx Data.xlsx`** y efectivamente **no existen columnas de clientes ni de comerciales**.
+
+El archivo contiene un registro transaccional muy completo centrado en productos, categorías, marcas, unidades de negocio y valores de venta y coste.
+
+A continuación te detallo exactamente **qué tablas debes crear y qué campos debe llevar cada una** para transformar este archivo en un modelo en estrella optimizado y 100% fiel a los datos reales del archivo:
 
 ---
 
-### **Paso 3: Creación del Modelo en Estrella y Relaciones**
+### 1. Estructura del Modelo en Estrella con los datos reales
 
-1. En Power BI Desktop, dirígete al panel lateral izquierdo y haz clic en la **Vista de Modelo** (icono de diagrama de tablas).
-2. Conecta las tablas arrastrando el campo de clave primaria ($PK$) desde la dimensión hasta la clave foránea ($FK$) en la tabla de hechos `FACT_Ventas`:
-* `DIM_Cliente[ID_Cliente]` $\rightarrow$ `FACT_Ventas[ID_Cliente]`
-* `DIM_Producto[ID_Producto]` $\rightarrow$ `FACT_Ventas[ID_Producto]`
-* `DIM_Comercial[ID_Comercial]` $\rightarrow$ `FACT_Ventas[ID_Comercial]`
+#### **A. Tabla de Hechos: `FACT_Ventas**`
+
+Albergará cada una de las líneas de transacción y las métricas numéricas del negocio.
+
+* **Campos a conservar (Claves foráneas y métricas):**
+* `Fecha` (actuará como relación hacia la tabla calendario)
+* `Factura` (identificador del ticket/operación)
+* `No. Parte` (Clave foránea $FK$ que conecta con la dimensión de productos)
+* `Cantidad` (Métrica numérica)
+* `Precio Venta` (Métrica numérica)
+* `Costo Venta` (Métrica numérica)
+*(Opcional en Power Query): Puedes crear una columna calculada o condicional para el Importe Total (Cantidad $\times$ Precio Venta).*
 
 
-3. Haz doble clic sobre cada línea de relación creada para validar su configuración:
-* **Cardinalidad:** Debe indicar **Uno a Varios (1:*)** (el `1` en el extremo de la dimensión y el `*` en el de hechos).
-* **Dirección del filtro cruzado:** Configurada en **Única** (el filtro fluye desde la dimensión hacia los hechos).
+
+#### **B. Tabla de Dimensión: `DIM_Producto**`
+
+Se obtiene duplicando/referenciando la tabla original en Power Query, filtrando para conservar únicamente los atributos únicos de los productos.
+
+* **Clave Primaria ($PK$):** `No. Parte` (debe estar limpia y **sin duplicados**).
+* **Campos descriptivos a conservar:**
+* `No. Parte` ($PK$)
+* `Producto`
+* `Producto Completo`
+* `Marca`
+* `Etiquetas`
+* `Subcategoría`
+* `Categoría`
+* `Cat`
 
 
 
+#### **C. Tabla de Dimensión: `DIM_Calendario**`
+
+Se crea mediante DAX para gestionar el tiempo de forma profesional.
+
+* **Campos:** Columna de fecha (`Date`), Año, Mes, Trimestre, etc.
+
+---
+
+### 2. Cómo hacerlo en Power Query (Paso a Paso Rápido)
+
+1. **Carga el archivo** `Merx Data.xlsx` en Power Query. La hoja se llama **`Transacciones`**.
+2. **Crear `DIM_Producto`:**
+* Haz clic derecho sobre la consulta `Transacciones` $\rightarrow$ **Referenciar**.
+* Renómbrala como `DIM_Producto`.
+* Selecciona las columnas: `No. Parte`, `Producto`, `Producto Completo`, `Marca`, `Etiquetas`, `Subcategoría`, `Categoría` y `Cat`.
+* Haz clic derecho en el encabezado de `No. Parte` $\rightarrow$ **Quitar duplicados**.
+
+
+3. **Crear `FACT_Ventas`:**
+* Haz clic derecho otra vez sobre la consulta original `Transacciones` $\rightarrow$ **Referenciar**.
+* Renómbrala como `FACT_Ventas`.
+* Conserva únicamente las columnas: `Fecha`, `Factura`, `No. Parte`, `Unidad Negocio`, `Tipo de Compra`, `Cantidad`, `Precio Venta` y `Costo Venta` *(puedes conservar Unidad de Negocio y Tipo de Compra aquí como atributos de transacción o pasarlos también a dimensiones si lo prefieres)*.
+* **Desmarca** la opción de *Habilitar carga* en la consulta original `Transacciones` para que no consuma memoria innecesaria en el modelo.
+
+
+4. Pulsa **Cerrar y aplicar**.
+
+---
+
+### 3. Relación en la Vista de Modelo
+
+En la pestaña de **Modelo** de Power BI, vincula ambas tablas arrastrando:
+
+* `DIM_Producto[No. Parte]` ── $\rightarrow$ ── `FACT_Ventas[No. Parte]`
+* **Cardinalidad:** Uno a Varios ($1: *$)
+* **Filtro cruzado:** Único (desde la dimensión hacia los hechos).
 ---
 
 ### **Paso 4: Dimensión Temporal con DAX**
