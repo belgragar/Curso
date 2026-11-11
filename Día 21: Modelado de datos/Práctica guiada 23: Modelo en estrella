@@ -1,0 +1,553 @@
+# Práctica guiada: creación de un modelo en estrella
+
+## 1. Objetivos de la práctica
+
+- Distinguir una tabla de hechos de una tabla de dimensiones.
+- Identificar claves primarias y claves foráneas.
+- Comprobar si una clave de dimensión es única.
+- Construir un esquema en estrella.
+- Crear relaciones de uno a varios.
+- Configurar la dirección de filtro.
+- Detectar problemas de duplicados y tipos de datos.
+- Crear una tabla calendario básica.
+- Validar el modelo mediante visualizaciones sencillas.
+
+## 2. Caso empresarial
+
+La empresa **Comercial Norte** vende productos en varias tiendas. Dispone de información sobre:
+
+- Las transacciones de venta.
+- Los productos comercializados.
+- Los clientes.
+- Las tiendas.
+- Las fechas de venta.
+
+La dirección quiere responder a preguntas como:
+
+- ¿Cuánto se ha vendido por categoría?
+- ¿Qué ciudad genera más ingresos?
+- ¿Qué clientes compran más?
+- ¿Qué productos tienen más unidades vendidas?
+- ¿Cómo evolucionan las ventas por mes?
+
+Para responderlas correctamente, no se utilizará una única tabla gigante. Se construirá un modelo compuesto por:
+
+```text
+                    dim_Clientes
+                         │
+                         │ 1:* 
+                         ▼
+dim_Productos ─────► fact_Ventas ◄───── dim_Tiendas
+                         ▲
+                         │ 1:*
+                         │
+                    dim_Calendario
+```
+
+El esquema en estrella coloca la tabla de hechos en el centro y conecta con ella las dimensiones descriptivas. 
+
+# 3. Archivos necesarios
+
+El libro Comercial_Norte.xlsx con estas hojas:
+
+## `fact_Ventas`
+
+| IdVenta | Fecha | IdCliente | IdProducto | IdTienda | Unidades | Importe |
+|---|---|---|---|---|---:|---:|
+| V001 | 05/01/2025 | C001 | P001 | T001 | 2 | 71,80 |
+| V002 | 06/01/2025 | C002 | P003 | T002 | 1 | 120,00 |
+| V003 | 07/01/2025 | C001 | P002 | T001 | 3 | 149,70 |
+
+Características:
+
+- Una fila representa una venta.
+- `IdVenta` identifica la transacción.
+- Los identificadores de cliente, producto y tienda se repiten.
+- `Unidades` e `Importe` son medidas de negocio.
+
+## `dim_Productos`
+
+| IdProducto | Producto | Categoría | Marca | Coste |
+|---|---|---|---|---:|
+| P001 | Camisa | Ropa | Norte | 18,00 |
+| P002 | Pantalón | Ropa | Norte | 31,00 |
+| P003 | Mochila | Accesorios | Urbano | 55,00 |
+
+## `dim_Clientes`
+
+| IdCliente | Cliente | Ciudad | Segmento |
+|---|---|---|---|
+| C001 | Ana García | Madrid | Particular |
+| C002 | Luis Pérez | Valencia | Empresa |
+| C003 | Marta López | Sevilla | Particular |
+
+## `dim_Tiendas`
+
+| IdTienda | Tienda | Ciudad | Región |
+|---|---|---|---|
+| T001 | Tienda Centro | Madrid | Centro |
+| T002 | Tienda Puerto | Valencia | Este |
+| T003 | Tienda Sur | Sevilla | Sur |
+
+## `dim_Calendario`
+
+Esta tabla se creará durante la práctica en Power BI mediante DAX.
+
+# 4. Fase 1: identificar hechos y dimensiones
+
+- ¿Qué tabla registra acontecimientos que ocurren continuamente?
+
+- ¿Qué tablas describen el contexto de esas transacciones?
+
+## Actividad 1: clasificar columnas
+
+Completar esta tabla:
+
+| Columna | Tabla | Tipo |
+|---|---|---|
+| `IdVenta` | `fact_Ventas` |  |
+| `IdProducto` | `fact_Ventas` |  |
+| `Importe` | `fact_Ventas` |  |
+| `Categoría` | `dim_Productos` |  |
+| `Ciudad` | `dim_Clientes` |  |
+| `Región` | `dim_Tiendas` |  |
+| `Fecha` | `dim_Calendario` |  |
+
+## Concepto clave
+
+La tabla de hechos suele contener:
+
+- Claves foráneas.
+- Cantidades.
+- Importes.
+- Fechas o claves de fecha.
+
+Las dimensiones suelen contener:
+
+- Una clave única.
+- Descripciones.
+- Categorías.
+- Atributos para filtrar y agrupar.
+
+# 5. Fase 2: revisar las tablas
+
+## Paso 1. Abrir Power Query
+
+Si las tablas todavía no están cargadas:
+
+1. Selecciona **Inicio → Obtener datos**.
+2. Elige Excel.
+3. Selecciona **Transformar datos**.
+4. Comprueba que las consultas están correctamente nombradas.
+
+Utiliza esta nomenclatura:
+
+- `fact_Ventas`
+- `dim_Productos`
+- `dim_Clientes`
+- `dim_Tiendas`
+
+## Paso 2. Revisar tipos de datos
+
+Comprueba los tipos:
+
+| Campo | Tipo recomendado |
+|---|---|
+| `IdVenta` | Texto |
+| `IdCliente` | Texto |
+| `IdProducto` | Texto |
+| `IdTienda` | Texto |
+| `Fecha` | Fecha |
+| `Unidades` | Número entero |
+| `Importe` | Número decimal |
+| `Coste` | Número decimal |
+
+> Advertencia:
+>
+>Los identificadores como `P001`, `C001` o `T001` deben ser texto, aunque contengan números. Si los conviertes a número, perderás letras o ceros iniciales.
+
+## Paso 3. Comprobar duplicados
+
+En cada dimensión, revisa que la clave sea única:
+
+- `dim_Productos[IdProducto]`.
+- `dim_Clientes[IdCliente]`.
+- `dim_Tiendas[IdTienda]`.
+
+Para comprobarlo en Power Query:
+
+1. Selecciona la consulta.
+2. Selecciona la columna clave.
+3. Usa **Quitar filas → Quitar duplicados** sólo como comprobación o sobre una copia.
+4. Compara el número de filas antes y después.
+
+No elimines duplicados automáticamente sin investigar su causa. Si existen dos productos con el mismo identificador, primero hay que decidir cuál es el registro correcto.
+
+## Actividad 2: diagnóstico
+
+Creamos una versión con un error intencionado, por ejemplo, duplica `P002` en `dim_Productos`.
+
+- ¿Qué problema puede producirse al intentar relacionar esta tabla con `fact_Ventas`?
+
+# 6. Fase 3: cargar el modelo
+
+Cuando las tablas estén revisadas:
+
+1. Pulsa **Cerrar y aplicar**.
+2. Espera a que finalice la carga.
+3. Accede a la **Vista de modelo**.
+4. Si las tablas están muy separadas, utiliza la opción de organizar el diseño.
+
+## Actividad 3: dibujar antes de relacionar
+
+Antes de crear relaciones, suele ser útil dibujar en papel:
+
+```text
+dim_Clientes  ─────── fact_Ventas
+dim_Productos ─────── fact_Ventas
+dim_Tiendas   ─────── fact_Ventas
+dim_Calendario ────── fact_Ventas
+```
+
+Para cada relación se debe indicar:
+
+- Tabla del lado 1.
+- Tabla del lado varios.
+- Columna utilizada.
+- Tipo de filtro.
+
+# 7. Fase 4: crear relaciones
+
+## Componentes clave de una relación
+
+Cada relación de filtro se define mediante tres propiedades principales:
+- **Cardinalidad**: Define la relación numérica entre las filas de las tablas. El tipo más común es Uno a varios (1:*), donde una fila de una tabla de dimensiones (como Clientes) se relaciona con muchas filas de una tabla de hechos (como Ventas). 
+- **Dirección del filtro cruzado**: Indica cómo viaja el filtro.
+  - *Única*: El filtro fluye desde la tabla principal (uno) hacia la tabla dependiente (varios). Es la opción más recomendada y estable.
+  - *Bidireccional*: El filtro viaja en ambos sentidos entre las dos tablas. 
+- **Estado de la relación**: Una relación puede estar **activa** (en uso para los cálculos habituales) o **inactiva** (deshabilitada para activarse de forma específica mediante funciones DAX).
+
+## Relación productos-ventas
+
+1. Ve a la **Vista de modelo**.
+2. Arrastra `dim_Productos[IdProducto]`.
+3. Suéltalo sobre `fact_Ventas[IdProducto]`.
+4. En la ventana de relación, configura:
+
+| Propiedad | Valor |
+|---|---|
+| Cardinalidad | Uno a varios (1:*) |
+| Tabla del lado 1 | `dim_Productos` |
+| Tabla del lado * | `fact_Ventas` |
+| Dirección del filtro | Única |
+| Relación activa | Sí |
+
+5. Pulsa **Aceptar**.
+
+Repite el procedimiento:
+
+- `dim_Clientes[IdCliente]` → `fact_Ventas[IdCliente]`.
+- `dim_Tiendas[IdTienda]` → `fact_Ventas[IdTienda]`.
+
+## Comprobación visual
+
+El modelo debe mostrar:
+
+- Un `1` junto a cada dimensión.
+- Un `*` junto a `fact_Ventas`.
+- Una línea activa entre cada dimensión y la tabla de hechos.
+
+> Preguntas:
+>
+>- ¿Por qué el `IdProducto` se repite en ventas?
+>- ¿Por qué no debe repetirse en la dimensión de productos?
+>- ¿Qué tabla debe filtrar a la otra?
+>- ¿Qué ocurriría si se configura el filtro en ambas direcciones?
+
+## Idea que se debe recordar:
+
+La dimensión proporciona el contexto y filtra la tabla de hechos. Por ejemplo:
+
+```text
+dim_Productos[Categoría]
+          ↓
+fact_Ventas[Importe]
+```
+
+Así, al seleccionar una categoría, Power BI puede calcular las ventas correspondientes.
+
+# 8. Fase 5: crear la tabla calendario
+
+Será necesaria una tabla de fechas dedicada  para los análisis temporales posteriores. Se recomienda no depender exclusivamente de las jerarquías automáticas de fecha de Power BI.
+
+## Paso 1. Crear la tabla
+
+En la cinta superior, selecciona:
+
+```text
+Modelado → Nueva tabla
+```
+
+Escribe:
+
+```DAX
+dim_Calendario =
+ADDCOLUMNS(
+    CALENDAR(
+        MIN(fact_Ventas[Fecha]),
+        MAX(fact_Ventas[Fecha])
+    ),
+    "Año", YEAR([Date]),
+    "MesNúmero", MONTH([Date]),
+    "Mes", FORMAT([Date], "MMMM"),
+    "AñoMes", FORMAT([Date], "YYYY-MM")
+)
+```
+
+Si el Power BI que se use utiliza separadores regionales distintos, puede ser necesario adaptar las comas a punto y coma.
+
+## Paso 2. Renombrar la columna de fecha
+
+En la tabla recién creada:
+
+- Renombra `Date` como `Fecha`.
+- Mantén el tipo de datos como fecha.
+
+## Paso 3. Ordenar el mes
+
+Para evitar que los meses aparezcan alfabéticamente:
+
+1. Selecciona la columna `Mes`.
+2. Ve a **Herramientas de columna → Ordenar por columna**.
+3. Selecciona `MesNúmero`.
+
+## Paso 4. Relacionar el calendario
+
+Relaciona:
+
+```text
+dim_Calendario[Fecha] → fact_Ventas[Fecha]
+```
+
+Configura:
+
+- Cardinalidad: 1:*.
+- Dirección: única.
+- Relación activa: sí.
+
+## Paso 5. Marcar como tabla de fechas
+
+1. Selecciona `dim_Calendario`.
+2. Ve a **Herramientas de tabla**.
+3. Selecciona **Marcar como tabla de fechas**.
+4. Elige `Fecha`.
+
+# 9. Fase 6: validar el modelo con medidas sencillas
+
+Aunque DAX se desarrolla formalmente en la siguiente sesión, es conveniente crear una medida mínima para comprobar que las relaciones funcionan.
+
+## Medida 1: ventas totales
+
+Selecciona `fact_Ventas` y crea:
+
+```DAX
+Ventas Totales =
+SUM(fact_Ventas[Importe])
+```
+
+## Medida 2: unidades vendidas
+
+```DAX
+Unidades Vendidas =
+SUM(fact_Ventas[Unidades])
+```
+
+## Medida 3: número de ventas
+
+```DAX
+Número de Ventas =
+DISTINCTCOUNT(fact_Ventas[IdVenta])
+```
+
+## Visualización de comprobación 1
+
+Crea una tabla o matriz con:
+
+- `dim_Productos[Categoría]`.
+- `Ventas Totales`.
+- `Unidades Vendidas`.
+
+> ¿Aparecen las ventas separadas por categoría?
+
+Si todas las categorías muestran el mismo total, la relación o el campo utilizado probablemente no es correcto.
+
+## Visualización de comprobación 2
+
+Crea una tabla con:
+
+- `dim_Clientes[Ciudad]`.
+- `Ventas Totales`.
+
+## Visualización de comprobación 3
+
+Crea un gráfico de columnas con:
+
+- Eje: `dim_Calendario[Mes]`.
+- Valores: `Ventas Totales`.
+
+No utilices `fact_Ventas[Fecha]` directamente para esta comprobación; utiliza la fecha de la dimensión calendario.
+
+# 10. Fase 7: provocar y resolver errores
+
+Esta parte es especialmente útil para comprender que un modelo no consiste sólo en dibujar líneas entre tablas.
+
+## Error 1: duplicado en una dimensión
+
+### Situación
+
+`dim_Productos` contiene dos filas con `P002`.
+
+> ¿Por qué Power BI no puede interpretar correctamente qué producto corresponde a cada venta?
+
+### Resolución
+
+1. Volver a Power Query.
+2. Localizar el duplicado.
+3. Determinar si es un duplicado real o un producto distinto con código incorrecto.
+4. Corregir o eliminar el registro.
+5. Aplicar cambios.
+6. Revisar la relación.
+
+## Error 2: tipos incompatibles
+
+### Situación
+
+- `dim_Productos[IdProducto]` es texto.
+- `fact_Ventas[IdProducto]` es número.
+
+> ¿Por qué dos columnas que contienen valores parecidos no se relacionan correctamente?
+
+### Resolución
+
+Asignar el mismo tipo de datos a ambos campos, preferiblemente texto si los códigos contienen letras o ceros iniciales.
+
+## Error 3: relacionar una dimensión con otra
+
+Plantea esta relación incorrecta:
+
+```text
+dim_Clientes → dim_Productos
+```
+
+> ¿Qué sentido de negocio tendría relacionar directamente clientes y productos?
+
+Respuesta: en este caso no existe una relación directa; ambos se conectan a través de las ventas. La tabla de hechos actúa como centro del modelo.
+
+# 11. Reto final
+
+## Enunciado
+
+La empresa incorpora una nueva dimensión: `dim_Canales`.
+
+| IdCanal | Canal |
+|---|---|
+| CH001 | Tienda física |
+| CH002 | Web |
+| CH003 | Teléfono |
+
+La tabla `fact_Ventas` incorpora una columna `IdCanal`.
+
+Debes:
+
+1. Importar o crear `dim_Canales`.
+2. Revisar que `IdCanal` sea único.
+3. Comprobar que el tipo de `IdCanal` coincida en ambas tablas.
+4. Crear la relación:
+
+```text
+dim_Canales[IdCanal] → fact_Ventas[IdCanal]
+```
+
+5. Crear una visualización de ventas por canal.
+6. Comprobar que los filtros de canal afectan a las ventas.
+
+## Ampliación
+
+Podemos incorporar una tabla de objetivos:
+
+```text
+dim_Tiendas[IdTienda] → fact_Objetivos[IdTienda]
+dim_Calendario[Fecha] → fact_Objetivos[Fecha]
+```
+
+Una tabla de objetivos no siempre tiene la misma granularidad que una tabla de ventas. 
+
+
+# 12. Autoevaluación final
+
+## Respuesta corta
+
+1. ¿Qué diferencia hay entre una tabla de hechos y una tabla de dimensiones?
+2. ¿Qué es una clave primaria?
+3. ¿Qué es una clave foránea?
+4. ¿Por qué una clave foránea puede repetirse?
+5. ¿Qué significa la cardinalidad 1:*?
+6. ¿Por qué se recomienda una dirección de filtro única?
+
+## Tipo test
+
+1. ¿Qué tabla debe situarse normalmente en el centro del esquema en estrella?
+
+   - A) `dim_Clientes`.
+   - B) `dim_Productos`.
+   - C) `fact_Ventas`.
+   - D) `dim_Calendario`.
+
+2. ¿Qué condición debe cumplir la clave de una dimensión?
+
+   - A) Puede contener duplicados.
+   - B) Debe ser única.
+   - C) Debe ser siempre decimal.
+   - D) Debe contener importes.
+
+3. ¿Qué relación se recomienda entre una dimensión y una tabla de hechos?
+
+   - A) Muchos a muchos.
+   - B) Uno a uno.
+   - C) Uno a varios.
+   - D) Sin relación.
+
+4. ¿Qué elemento debe utilizarse para filtrar las ventas por mes?
+
+   - A) La tabla calendario.
+   - B) La columna de importe.
+   - C) La tabla de productos.
+   - D) La consulta de clientes.
+
+### Soluciones
+
+1. C.  
+2. B.  
+3. C.  
+4. A.
+
+# 15. Producto final de la sesión
+
+Al finalizar, cada alumno debe disponer de un archivo `.pbix` con:
+
+```text
+dim_Clientes
+dim_Productos
+dim_Tiendas
+dim_Calendario
+fact_Ventas
+```
+
+Y con un modelo similar a:
+
+```text
+dim_Clientes  1 ───── * fact_Ventas
+dim_Productos 1 ───── * fact_Ventas
+dim_Tiendas   1 ───── * fact_Ventas
+dim_Calendario 1 ──── * fact_Ventas
+```
