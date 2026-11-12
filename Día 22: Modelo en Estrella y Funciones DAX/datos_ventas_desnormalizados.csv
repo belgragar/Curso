@@ -1,0 +1,13 @@
+ID_Venta,Fecha_Venta,ID_Cliente,Nombre_Cliente,Email_Cliente,Tipo_Cliente,Ciudad_Cliente,ID_Producto,Nombre_Producto,Categoria_Producto,Precio_Unitario,ID_Tienda,Nombre_Tienda,Ciudad_Tienda,ID_Empleado,Nombre_Empleado,Cantidad,Descuento_Aplicado,Importe_Total
+V-1001,2025-01-10,CLI-01,Juan Pérez,juan@email.com,Particular,Oviedo,PROD-10,Teclado Mecánico RGB,Periféricos,45.0,TND-01,Tienda Oviedo Central,Oviedo,EMP-05,Laura Martínez,2,0.0,90.0
+V-1002,2025-01-10,CLI-02,María Rodríguez,maria@empresa.es,Empresa,Gijón,PROD-20,Monitor 27 FHD,Pantallas,180.0,TND-02,Tienda Gijón Puerto,Gijón,EMP-08,Carlos Gómez,1,10.0,170.0
+V-1003,2025-01-11,CLI-03,Norte Tech SL,contacto@nortetech.es,Empresa,Avilés,PROD-30,Ratón Inalámbrico,Periféricos,25.0,TND-01,Tienda Oviedo Central,Oviedo,EMP-05,Laura Martínez,5,5.0,120.0
+V-1004,2025-01-12,CLI-01,Juan Pérez,juan@email.com,Particular,Oviedo,PROD-20,Monitor 27 FHD,Pantallas,180.0,TND-01,Tienda Oviedo Central,Oviedo,EMP-06,David Fernández,1,0.0,180.0
+V-1005,2025-01-12,CLI-04,Ana Belén Silva,ana@email.com,Particular,Gijón,PROD-40,Auriculares Bluetooth,Audio,60.0,TND-02,Tienda Gijón Puerto,Gijón,EMP-08,Carlos Gómez,2,0.0,120.0
+V-1006,2025-01-15,CLI-02,María Rodríguez,maria@empresa.es,Empresa,Gijón,PROD-10,Teclado Mecánico RGB,Periféricos,45.0,TND-02,Tienda Gijón Puerto,Gijón,EMP-09,Sonia Álvarez,3,5.0,130.0
+V-1007,2025-01-18,CLI-05,AsturData C.B.,info@asturdata.es,Empresa,Oviedo,PROD-50,Disco SSD 1TB,Almacenamiento,95.0,TND-01,Tienda Oviedo Central,Oviedo,EMP-05,Laura Martínez,4,20.0,360.0
+V-1008,2025-01-20,CLI-03,Norte Tech SL,contacto@nortetech.es,Empresa,Avilés,PROD-20,Monitor 27 FHD,Pantallas,180.0,TND-03,Tienda Avilés Centro,Avilés,EMP-12,Pablo Suárez,2,15.0,345.0
+V-1009,2025-01-22,CLI-04,Ana Belén Silva,ana@email.com,Particular,Gijón,PROD-30,Ratón Inalámbrico,Periféricos,25.0,TND-02,Tienda Gijón Puerto,Gijón,EMP-08,Carlos Gómez,1,0.0,25.0
+V-1010,2025-01-25,CLI-01,Juan Pérez,juan@email.com,Particular,Oviedo,PROD-50,Disco SSD 1TB,Almacenamiento,95.0,TND-01,Tienda Oviedo Central,Oviedo,EMP-06,David Fernández,1,5.0,90.0
+V-1011,2025-02-01,CLI-02,María Rodríguez,maria@empresa.es,Empresa,Gijón,PROD-40,Auriculares Bluetooth,Audio,60.0,TND-02,Tienda Gijón Puerto,Gijón,EMP-09,Sonia Álvarez,2,0.0,120.0
+V-1012,2025-02-03,CLI-05,AsturData C.B.,info@asturdata.es,Empresa,Oviedo,PROD-10,Teclado Mecánico RGB,Periféricos,45.0,TND-03,Tienda Avilés Centro,Avilés,EMP-12,Pablo Suárez,10,25.0,425.0
