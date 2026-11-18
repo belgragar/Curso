@@ -1,0 +1,22 @@
+{
+  "name": "Tema DC",
+  "dataColors": [
+    "#12355B",
+    "#1B998B",
+    "#F4A259",
+    "#D1495B",
+    "#5BA4CF",
+    "#6B7A8C",
+    "#8E6C8A",
+    "#A3C4BC"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#12355B",
+  "tableAccent": "#1B998B",
+  "good": "#1B998B",
+  "neutral": "#F4A259",
+  "bad": "#D1495B",
+  "maximum": "#12355B",
+  "center": "#F4A259",
+  "minimum": "#A3C4BC"
+}
